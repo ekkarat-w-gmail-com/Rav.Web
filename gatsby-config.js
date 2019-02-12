@@ -1,3 +1,5 @@
+const { BLOCKS, MARKS, INLINES } = require('@contentful/rich-text-types')
+
 let activeEnv = process.env.ACTIVE_ENV || process.env.NODE_ENV || 'development'
 
 console.log(`Using environment config: '${activeEnv}'`)
@@ -48,7 +50,15 @@ module.exports = {
       }
     },
     {
-      resolve: `@contentful/gatsby-transformer-contentful-richtext`
+      resolve: `@contentful/gatsby-transformer-contentful-richtext`,
+      options: {
+        renderOptions: {
+          renderMark: {
+            [MARKS.BOLD]: text => `<strong>${text}<strong>`,
+            [MARKS.ITALIC]: text => `<em>${text}<em>`,
+          },
+        }
+      }
     }
   ],
 }

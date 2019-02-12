@@ -2,7 +2,7 @@
 import React from 'react';
 import { HeaderWrapper, HeaderLink } from './styles';
 
-import { Menu } from './Menu';
+import Menu from './Menu';
 
 type Props = {
   siteTitle: string
