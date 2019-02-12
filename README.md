@@ -1,3 +1,35 @@
+## 🚀 Setup Räv.Web
+
+1.  **Create a Contentful site.**
+
+    Create a new space and add a new Content Delivery Token plus a Content Management token
+    if you want to use the contentful-cli
+
+
+2.  **Setup environment**
+
+    Add a `.env.development` file with the following content
+    ```.bash
+      CONTENTFUL_SPACE_ID={Your space id}
+      CONTENTFUL_ACCESS_TOKEN={Your access token}
+    ```
+
+    If you want to use the contentful-cli add a config file for easier use
+    ```.js
+    // contentful-config.json
+    {
+      "spaceId": "{Your space id}",
+      "managementToken": "{Your management token}"
+    }
+    ```
+
+2.  **Install packages and start developing**
+
+    ```
+      npm install
+      npm start
+    ```
+
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">
   <a href="https://www.gatsbyjs.org">
