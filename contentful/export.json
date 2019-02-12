@@ -1,0 +1,1454 @@
+{
+  "contentTypes": [
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "u3hwt3j2a0e9"
+          }
+        },
+        "id": "product",
+        "type": "ContentType",
+        "createdAt": "2019-02-11T09:16:24.205Z",
+        "updatedAt": "2019-02-11T16:02:33.708Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedCounter": 7,
+        "version": 14,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedVersion": 13,
+        "firstPublishedAt": "2019-02-11T09:16:25.817Z",
+        "publishedAt": "2019-02-11T16:02:33.708Z"
+      },
+      "displayField": "name",
+      "name": "Product",
+      "description": "",
+      "fields": [
+        {
+          "id": "name",
+          "name": "Name",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "unique": true
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "slug",
+          "name": "Slug",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "unique": true
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "featuredImage",
+          "name": "Featured Image",
+          "type": "Link",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "image"
+              ],
+              "message": "Only media that are images is allowed as Featured Image"
+            },
+            {
+              "assetImageDimensions": {
+                "width": {
+                  "min": 400,
+                  "max": 1600
+                },
+                "height": {
+                  "min": 400,
+                  "max": 1800
+                }
+              },
+              "message": "The image should be between 400 to 1600 pixels in either width or height"
+            },
+            {
+              "assetFileSize": {
+                "max": 1048576
+              },
+              "message": "The file size should not be more then 1 MB"
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "images",
+          "name": "Images",
+          "type": "Array",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+            ],
+            "linkType": "Asset"
+          }
+        },
+        {
+          "id": "description",
+          "name": "Description",
+          "type": "RichText",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "nodes": {
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "categories",
+          "name": "Categories",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkContentType": [
+                "productCategory"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Entry"
+        },
+        {
+          "id": "sku",
+          "name": "SKU",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "unique": true
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "regularPrice",
+          "name": "Regular Price",
+          "type": "Integer",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "salePrice",
+          "name": "Sale Price",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "manageStock",
+          "name": "Manage Stock?",
+          "type": "Boolean",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": true,
+          "omitted": true
+        },
+        {
+          "id": "stockQuantity",
+          "name": "Stock Quantity",
+          "type": "Integer",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "weight",
+          "name": "Weight",
+          "type": "Number",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "width",
+          "name": "Width",
+          "type": "Number",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "height",
+          "name": "Height",
+          "type": "Number",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "length",
+          "name": "Length",
+          "type": "Number",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "u3hwt3j2a0e9"
+          }
+        },
+        "id": "productCategory",
+        "type": "ContentType",
+        "createdAt": "2019-02-11T11:52:53.936Z",
+        "updatedAt": "2019-02-11T11:52:54.452Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedVersion": 1,
+        "firstPublishedAt": "2019-02-11T11:52:54.452Z",
+        "publishedAt": "2019-02-11T11:52:54.452Z"
+      },
+      "displayField": "name",
+      "name": "Product Category",
+      "description": "Main category applicable for products",
+      "fields": [
+        {
+          "id": "name",
+          "name": "Name",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "unique": true
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "slug",
+          "name": "Slug",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "unique": true
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
+    }
+  ],
+  "editorInterfaces": [
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "u3hwt3j2a0e9",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 14,
+        "createdAt": "2019-02-11T09:16:25.980Z",
+        "createdBy": {
+          "sys": {
+            "id": "5kyrAVCLjJnpF0crQZANRs",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2019-02-11T16:02:36.715Z",
+        "updatedBy": {
+          "sys": {
+            "id": "5kyrAVCLjJnpF0crQZANRs",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "product",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "name",
+          "settings": {
+            "helpText": "The product name"
+          },
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "slug",
+          "settings": {
+            "helpText": "The product slug"
+          },
+          "widgetId": "slugEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "featuredImage",
+          "settings": {
+            "helpText": "The product's featured image"
+          },
+          "widgetId": "assetLinkEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "images",
+          "settings": {
+            "helpText": "The product's image gallery"
+          },
+          "widgetId": "assetGalleryEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "description",
+          "settings": {
+            "helpText": "The product's overall description"
+          },
+          "widgetId": "richTextEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "categories",
+          "widgetId": "entryLinkEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "sku",
+          "settings": {
+            "helpText": "The stock keep unit"
+          },
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "regularPrice",
+          "settings": {
+            "helpText": "The products normal price"
+          },
+          "widgetId": "numberEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "salePrice",
+          "settings": {
+            "helpText": "Product's discounted price"
+          },
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "manageStock",
+          "settings": {
+            "helpText": "Enable stock management at product level",
+            "trueLabel": "Yes",
+            "falseLabel": "No"
+          },
+          "widgetId": "boolean",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "stockQuantity",
+          "widgetId": "numberEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "weight",
+          "settings": {
+            "helpText": "The product's weight specified in kg"
+          },
+          "widgetId": "numberEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "width",
+          "settings": {
+            "helpText": "The products width in cm"
+          },
+          "widgetId": "numberEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "height",
+          "settings": {
+            "helpText": "The products height in cm"
+          },
+          "widgetId": "numberEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "length",
+          "settings": {
+            "helpText": "The product's length in cm"
+          },
+          "widgetId": "numberEditor",
+          "widgetNamespace": "builtin"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "u3hwt3j2a0e9",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 2,
+        "createdAt": "2019-02-11T11:52:54.607Z",
+        "createdBy": {
+          "sys": {
+            "id": "5kyrAVCLjJnpF0crQZANRs",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2019-02-11T11:52:55.234Z",
+        "updatedBy": {
+          "sys": {
+            "id": "5kyrAVCLjJnpF0crQZANRs",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "productCategory",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "name",
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "slug",
+          "widgetId": "slugEditor",
+          "widgetNamespace": "builtin"
+        }
+      ]
+    }
+  ],
+  "entries": [
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "u3hwt3j2a0e9"
+          }
+        },
+        "id": "42CA9swrMU6iAjP0celTK7",
+        "type": "Entry",
+        "createdAt": "2019-02-11T10:01:19.704Z",
+        "updatedAt": "2019-02-11T16:02:50.558Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedCounter": 7,
+        "version": 68,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedVersion": 67,
+        "firstPublishedAt": "2019-02-11T10:04:04.564Z",
+        "publishedAt": "2019-02-11T16:02:50.558Z",
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "product"
+          }
+        }
+      },
+      "fields": {
+        "name": {
+          "sv": "The Cloudberry - Native"
+        },
+        "slug": {
+          "sv": "the-cloudberry-native"
+        },
+        "featuredImage": {
+          "sv": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "4OK3poh9Mg2J6X82ddGZAl"
+            }
+          }
+        },
+        "images": {
+          "sv": [
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Asset",
+                "id": "szlKWfwqQF6SwJOU7CszV"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Asset",
+                "id": "7qK7sXnRX7sUYohZZ3SLNh"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Asset",
+                "id": "1XNJtQtoVU4epmLUUVwrPR"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Asset",
+                "id": "5h2AmMgvW1iaMtPtby9Rc0"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Asset",
+                "id": "4YqSNlQEBgetlFcyh5kz2k"
+              }
+            }
+          ]
+        },
+        "description": {
+          "sv": {
+            "data": {
+            },
+            "content": [
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "The Cloudberry is our single hammock. Like the berry it is named after, it is at home in the mountains.\nIt is lightweight, easy to pack away into the stuff sack, and ready to hang.\nIf you're heading outdoors, there's always space for the Cloudberry.\n\nThe Native Cloudberry is khaki and dark green.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ],
+                    "value": "Specifications",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {
+                },
+                "content": [
+                  {
+                    "data": {
+                    },
+                    "marks": [
+                    ],
+                    "value": "Hook to hook length: 3 metres\nHammock length: 2.7 metres\nHammock width: 1.2 metres\nMax weight: 150 kg\nTwo sets of 150 cm rope is included with this model.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          }
+        },
+        "categories": {
+          "sv": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Entry",
+              "id": "5P1SklV5n4GdBP6G1ypFTX"
+            }
+          }
+        },
+        "sku": {
+          "sv": "TCN01"
+        },
+        "regularPrice": {
+          "sv": 450
+        },
+        "salePrice": {
+          "sv": "350"
+        },
+        "manageStock": {
+          "sv": true
+        },
+        "stockQuantity": {
+          "sv": 20
+        },
+        "weight": {
+          "sv": 0.43
+        },
+        "width": {
+          "sv": 12
+        },
+        "height": {
+          "sv": 20
+        },
+        "length": {
+          "sv": 5
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "u3hwt3j2a0e9"
+          }
+        },
+        "id": "5P1SklV5n4GdBP6G1ypFTX",
+        "type": "Entry",
+        "createdAt": "2019-02-11T11:58:05.267Z",
+        "updatedAt": "2019-02-11T11:58:23.717Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedVersion": 2,
+        "firstPublishedAt": "2019-02-11T11:58:23.717Z",
+        "publishedAt": "2019-02-11T11:58:23.717Z",
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "productCategory"
+          }
+        }
+      },
+      "fields": {
+        "name": {
+          "sv": "Hammocks"
+        },
+        "slug": {
+          "sv": "hammocks"
+        }
+      }
+    }
+  ],
+  "assets": [
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "u3hwt3j2a0e9"
+          }
+        },
+        "id": "7qK7sXnRX7sUYohZZ3SLNh",
+        "type": "Asset",
+        "createdAt": "2019-02-11T10:12:37.756Z",
+        "updatedAt": "2019-02-11T10:12:50.630Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedVersion": 2,
+        "firstPublishedAt": "2019-02-11T10:12:50.630Z",
+        "publishedAt": "2019-02-11T10:12:50.630Z"
+      },
+      "fields": {
+        "title": {
+          "sv": "The Cloudberry - Native (In use 1)"
+        },
+        "file": {
+          "sv": {
+            "url": "//images.ctfassets.net/u3hwt3j2a0e9/7qK7sXnRX7sUYohZZ3SLNh/a39e783e45c01d43a050c031cdb4e8e4/The_Cloudberry_-_Native__In_use_1_.webp",
+            "details": {
+              "size": 222628,
+              "image": {
+                "width": 1040,
+                "height": 585
+              }
+            },
+            "fileName": "The Cloudberry - Native (In use 1).webp",
+            "contentType": "image/webp"
+          }
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "u3hwt3j2a0e9"
+          }
+        },
+        "id": "5h2AmMgvW1iaMtPtby9Rc0",
+        "type": "Asset",
+        "createdAt": "2019-02-11T10:12:37.759Z",
+        "updatedAt": "2019-02-11T10:12:50.636Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedVersion": 2,
+        "firstPublishedAt": "2019-02-11T10:12:50.636Z",
+        "publishedAt": "2019-02-11T10:12:50.636Z"
+      },
+      "fields": {
+        "title": {
+          "sv": "The Cloudberry - Native (In use 3)"
+        },
+        "file": {
+          "sv": {
+            "url": "//images.ctfassets.net/u3hwt3j2a0e9/5h2AmMgvW1iaMtPtby9Rc0/745b1907d88dc44ae3b61b7ab00ff896/The_Cloudberry_-_Native__In_use_3_.webp",
+            "details": {
+              "size": 186038,
+              "image": {
+                "width": 1040,
+                "height": 585
+              }
+            },
+            "fileName": "The Cloudberry - Native (In use 3).webp",
+            "contentType": "image/webp"
+          }
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "u3hwt3j2a0e9"
+          }
+        },
+        "id": "szlKWfwqQF6SwJOU7CszV",
+        "type": "Asset",
+        "createdAt": "2019-02-11T10:12:37.767Z",
+        "updatedAt": "2019-02-11T10:12:50.630Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedVersion": 2,
+        "firstPublishedAt": "2019-02-11T10:12:50.630Z",
+        "publishedAt": "2019-02-11T10:12:50.630Z"
+      },
+      "fields": {
+        "title": {
+          "sv": "The Cloudberry - Native (Open)"
+        },
+        "file": {
+          "sv": {
+            "url": "//images.ctfassets.net/u3hwt3j2a0e9/szlKWfwqQF6SwJOU7CszV/1cf2862112253ba12822402e01381dea/The_Cloudberry_-_Native__Open_.webp",
+            "details": {
+              "size": 126006,
+              "image": {
+                "width": 840,
+                "height": 840
+              }
+            },
+            "fileName": "The Cloudberry - Native (Open).webp",
+            "contentType": "image/webp"
+          }
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "u3hwt3j2a0e9"
+          }
+        },
+        "id": "4OK3poh9Mg2J6X82ddGZAl",
+        "type": "Asset",
+        "createdAt": "2019-02-11T10:12:37.774Z",
+        "updatedAt": "2019-02-11T10:12:50.620Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedVersion": 2,
+        "firstPublishedAt": "2019-02-11T10:12:50.620Z",
+        "publishedAt": "2019-02-11T10:12:50.620Z"
+      },
+      "fields": {
+        "title": {
+          "sv": "The Cloudberry - Native"
+        },
+        "file": {
+          "sv": {
+            "url": "//images.ctfassets.net/u3hwt3j2a0e9/4OK3poh9Mg2J6X82ddGZAl/5ff9d0749fb2c784ba635eebc9716e6c/The_Cloudberry_-_Native.webp",
+            "details": {
+              "size": 91786,
+              "image": {
+                "width": 840,
+                "height": 840
+              }
+            },
+            "fileName": "The Cloudberry - Native.webp",
+            "contentType": "image/webp"
+          }
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "u3hwt3j2a0e9"
+          }
+        },
+        "id": "4YqSNlQEBgetlFcyh5kz2k",
+        "type": "Asset",
+        "createdAt": "2019-02-11T10:12:37.802Z",
+        "updatedAt": "2019-02-11T10:12:50.632Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedVersion": 2,
+        "firstPublishedAt": "2019-02-11T10:12:50.632Z",
+        "publishedAt": "2019-02-11T10:12:50.632Z"
+      },
+      "fields": {
+        "title": {
+          "sv": "The Cloudberry - Native (In use 4)"
+        },
+        "file": {
+          "sv": {
+            "url": "//images.ctfassets.net/u3hwt3j2a0e9/4YqSNlQEBgetlFcyh5kz2k/3a746a2fb2e11e21e17829b5982e55a1/The_Cloudberry_-_Native__In_use_4_.webp",
+            "details": {
+              "size": 202964,
+              "image": {
+                "width": 473,
+                "height": 840
+              }
+            },
+            "fileName": "The Cloudberry - Native (In use 4).webp",
+            "contentType": "image/webp"
+          }
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "u3hwt3j2a0e9"
+          }
+        },
+        "id": "1XNJtQtoVU4epmLUUVwrPR",
+        "type": "Asset",
+        "createdAt": "2019-02-11T10:12:37.996Z",
+        "updatedAt": "2019-02-11T10:12:50.628Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedVersion": 2,
+        "firstPublishedAt": "2019-02-11T10:12:50.628Z",
+        "publishedAt": "2019-02-11T10:12:50.628Z"
+      },
+      "fields": {
+        "title": {
+          "sv": "The Cloudberry - Native (In use 2)"
+        },
+        "file": {
+          "sv": {
+            "url": "//images.ctfassets.net/u3hwt3j2a0e9/1XNJtQtoVU4epmLUUVwrPR/6fb536b21705ed2647c45faa7ef48f94/The_Cloudberry_-_Native__In_use_2_.webp",
+            "details": {
+              "size": 349262,
+              "image": {
+                "width": 1040,
+                "height": 585
+              }
+            },
+            "fileName": "The Cloudberry - Native (In use 2).webp",
+            "contentType": "image/webp"
+          }
+        }
+      }
+    }
+  ],
+  "locales": [
+    {
+      "name": "Swedish",
+      "code": "sv",
+      "fallbackCode": null,
+      "default": true,
+      "contentManagementApi": true,
+      "contentDeliveryApi": true,
+      "optional": false,
+      "sys": {
+        "type": "Locale",
+        "id": "5PuZOBPHIxF3TzVQJMd9OD",
+        "version": 1,
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "u3hwt3j2a0e9"
+          }
+        },
+        "environment": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Environment",
+            "id": "master"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "createdAt": "2019-02-11T08:48:38Z",
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "updatedAt": "2019-02-11T08:48:38Z"
+      }
+    }
+  ],
+  "webhooks": [
+  ],
+  "roles": [
+    {
+      "name": "Developer",
+      "description": "Allows reading entries and managing API keys",
+      "policies": [
+        {
+          "effect": "allow",
+          "actions": [
+            "read"
+          ],
+          "constraint": {
+            "and": [
+              {
+                "equals": [
+                  {
+                    "doc": "sys.type"
+                  },
+                  "Entry"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "effect": "allow",
+          "actions": [
+            "read"
+          ],
+          "constraint": {
+            "and": [
+              {
+                "equals": [
+                  {
+                    "doc": "sys.type"
+                  },
+                  "Asset"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "permissions": {
+        "ContentModel": [
+          "read"
+        ],
+        "Settings": [
+        ],
+        "ContentDelivery": "all",
+        "Environments": [
+        ]
+      },
+      "sys": {
+        "type": "Role",
+        "id": "5Pvtbe4A0UCzuaCrKvjjlB",
+        "version": 0,
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "u3hwt3j2a0e9"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "createdAt": "2019-02-11T08:48:38Z",
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "updatedAt": "2019-02-11T08:48:38Z"
+      }
+    },
+    {
+      "name": "Editor",
+      "description": "Allows editing, publishing and archiving of content",
+      "policies": [
+        {
+          "effect": "allow",
+          "actions": "all",
+          "constraint": {
+            "and": [
+              {
+                "equals": [
+                  {
+                    "doc": "sys.type"
+                  },
+                  "Entry"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "effect": "allow",
+          "actions": "all",
+          "constraint": {
+            "and": [
+              {
+                "equals": [
+                  {
+                    "doc": "sys.type"
+                  },
+                  "Asset"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "permissions": {
+        "ContentModel": [
+          "read"
+        ],
+        "Settings": [
+        ],
+        "ContentDelivery": [
+        ],
+        "Environments": [
+        ]
+      },
+      "sys": {
+        "type": "Role",
+        "id": "5PvP5vm7rdPaLGtq1h0web",
+        "version": 0,
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "u3hwt3j2a0e9"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "createdAt": "2019-02-11T08:48:38Z",
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "updatedAt": "2019-02-11T08:48:38Z"
+      }
+    }
+  ]
+}
