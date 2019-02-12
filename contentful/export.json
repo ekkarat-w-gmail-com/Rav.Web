@@ -12,7 +12,7 @@
         "id": "product",
         "type": "ContentType",
         "createdAt": "2019-02-11T09:16:24.205Z",
-        "updatedAt": "2019-02-11T16:02:33.708Z",
+        "updatedAt": "2019-02-12T09:09:11.154Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -34,8 +34,8 @@
             "id": "5kyrAVCLjJnpF0crQZANRs"
           }
         },
-        "publishedCounter": 7,
-        "version": 14,
+        "publishedCounter": 9,
+        "version": 18,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -43,13 +43,13 @@
             "id": "5kyrAVCLjJnpF0crQZANRs"
           }
         },
-        "publishedVersion": 13,
+        "publishedVersion": 17,
         "firstPublishedAt": "2019-02-11T09:16:25.817Z",
-        "publishedAt": "2019-02-11T16:02:33.708Z"
+        "publishedAt": "2019-02-12T09:09:11.154Z"
       },
       "displayField": "name",
       "name": "Product",
-      "description": "",
+      "description": "A simple product",
       "fields": [
         {
           "id": "name",
@@ -161,8 +161,8 @@
               ]
             }
           ],
-          "disabled": false,
-          "omitted": false,
+          "disabled": true,
+          "omitted": true,
           "linkType": "Entry"
         },
         {
@@ -363,7 +363,7 @@
             "linkType": "Space"
           }
         },
-        "version": 14,
+        "version": 18,
         "createdAt": "2019-02-11T09:16:25.980Z",
         "createdBy": {
           "sys": {
@@ -372,7 +372,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2019-02-11T16:02:36.715Z",
+        "updatedAt": "2019-02-12T09:09:11.941Z",
         "updatedBy": {
           "sys": {
             "id": "5kyrAVCLjJnpF0crQZANRs",
@@ -584,7 +584,7 @@
         "id": "42CA9swrMU6iAjP0celTK7",
         "type": "Entry",
         "createdAt": "2019-02-11T10:01:19.704Z",
-        "updatedAt": "2019-02-11T16:02:50.558Z",
+        "updatedAt": "2019-02-12T09:14:28.509Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -606,8 +606,8 @@
             "id": "5kyrAVCLjJnpF0crQZANRs"
           }
         },
-        "publishedCounter": 7,
-        "version": 68,
+        "publishedCounter": 8,
+        "version": 77,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -615,9 +615,9 @@
             "id": "5kyrAVCLjJnpF0crQZANRs"
           }
         },
-        "publishedVersion": 67,
+        "publishedVersion": 76,
         "firstPublishedAt": "2019-02-11T10:04:04.564Z",
-        "publishedAt": "2019-02-11T16:02:50.558Z",
+        "publishedAt": "2019-02-12T09:14:28.509Z",
         "contentType": {
           "sys": {
             "type": "Link",
@@ -638,7 +638,7 @@
             "sys": {
               "type": "Link",
               "linkType": "Asset",
-              "id": "4OK3poh9Mg2J6X82ddGZAl"
+              "id": "5LADpvnYQLraB9oAQjNvnT"
             }
           }
         },
@@ -648,35 +648,35 @@
               "sys": {
                 "type": "Link",
                 "linkType": "Asset",
-                "id": "szlKWfwqQF6SwJOU7CszV"
+                "id": "3tK9RuEvBpVSmvowhM4ovV"
               }
             },
             {
               "sys": {
                 "type": "Link",
                 "linkType": "Asset",
-                "id": "7qK7sXnRX7sUYohZZ3SLNh"
+                "id": "ISiEdh7M8Ut25fvcOQhfK"
               }
             },
             {
               "sys": {
                 "type": "Link",
                 "linkType": "Asset",
-                "id": "1XNJtQtoVU4epmLUUVwrPR"
+                "id": "3vsQE39d2v13QnHYDefzQc"
               }
             },
             {
               "sys": {
                 "type": "Link",
                 "linkType": "Asset",
-                "id": "5h2AmMgvW1iaMtPtby9Rc0"
+                "id": "FqibS8UjWldDd0VnbawZv"
               }
             },
             {
               "sys": {
                 "type": "Link",
                 "linkType": "Asset",
-                "id": "4YqSNlQEBgetlFcyh5kz2k"
+                "id": "7E2V9qa2gPmonqKc5IcLFP"
               }
             }
           ]
@@ -850,10 +850,10 @@
             "id": "u3hwt3j2a0e9"
           }
         },
-        "id": "7qK7sXnRX7sUYohZZ3SLNh",
+        "id": "ISiEdh7M8Ut25fvcOQhfK",
         "type": "Asset",
-        "createdAt": "2019-02-11T10:12:37.756Z",
-        "updatedAt": "2019-02-11T10:12:50.630Z",
+        "createdAt": "2019-02-12T09:13:41.665Z",
+        "updatedAt": "2019-02-12T09:14:33.724Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -885,8 +885,8 @@
           }
         },
         "publishedVersion": 2,
-        "firstPublishedAt": "2019-02-11T10:12:50.630Z",
-        "publishedAt": "2019-02-11T10:12:50.630Z"
+        "firstPublishedAt": "2019-02-12T09:14:33.724Z",
+        "publishedAt": "2019-02-12T09:14:33.724Z"
       },
       "fields": {
         "title": {
@@ -894,16 +894,16 @@
         },
         "file": {
           "sv": {
-            "url": "//images.ctfassets.net/u3hwt3j2a0e9/7qK7sXnRX7sUYohZZ3SLNh/a39e783e45c01d43a050c031cdb4e8e4/The_Cloudberry_-_Native__In_use_1_.webp",
+            "url": "//images.ctfassets.net/u3hwt3j2a0e9/ISiEdh7M8Ut25fvcOQhfK/b8e5dac9ce51fbf086e46ff6bc281be9/The_Cloudberry_-_Native__In_use_1_.jpg",
             "details": {
-              "size": 222628,
+              "size": 1319982,
               "image": {
                 "width": 1040,
                 "height": 585
               }
             },
-            "fileName": "The Cloudberry - Native (In use 1).webp",
-            "contentType": "image/webp"
+            "fileName": "The Cloudberry - Native (In use 1).jpg",
+            "contentType": "image/png"
           }
         }
       }
@@ -917,10 +917,10 @@
             "id": "u3hwt3j2a0e9"
           }
         },
-        "id": "5h2AmMgvW1iaMtPtby9Rc0",
+        "id": "3tK9RuEvBpVSmvowhM4ovV",
         "type": "Asset",
-        "createdAt": "2019-02-11T10:12:37.759Z",
-        "updatedAt": "2019-02-11T10:12:50.636Z",
+        "createdAt": "2019-02-12T09:13:41.672Z",
+        "updatedAt": "2019-02-12T09:14:35.220Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -952,75 +952,8 @@
           }
         },
         "publishedVersion": 2,
-        "firstPublishedAt": "2019-02-11T10:12:50.636Z",
-        "publishedAt": "2019-02-11T10:12:50.636Z"
-      },
-      "fields": {
-        "title": {
-          "sv": "The Cloudberry - Native (In use 3)"
-        },
-        "file": {
-          "sv": {
-            "url": "//images.ctfassets.net/u3hwt3j2a0e9/5h2AmMgvW1iaMtPtby9Rc0/745b1907d88dc44ae3b61b7ab00ff896/The_Cloudberry_-_Native__In_use_3_.webp",
-            "details": {
-              "size": 186038,
-              "image": {
-                "width": 1040,
-                "height": 585
-              }
-            },
-            "fileName": "The Cloudberry - Native (In use 3).webp",
-            "contentType": "image/webp"
-          }
-        }
-      }
-    },
-    {
-      "sys": {
-        "space": {
-          "sys": {
-            "type": "Link",
-            "linkType": "Space",
-            "id": "u3hwt3j2a0e9"
-          }
-        },
-        "id": "szlKWfwqQF6SwJOU7CszV",
-        "type": "Asset",
-        "createdAt": "2019-02-11T10:12:37.767Z",
-        "updatedAt": "2019-02-11T10:12:50.630Z",
-        "environment": {
-          "sys": {
-            "id": "master",
-            "type": "Link",
-            "linkType": "Environment"
-          }
-        },
-        "createdBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "5kyrAVCLjJnpF0crQZANRs"
-          }
-        },
-        "updatedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "5kyrAVCLjJnpF0crQZANRs"
-          }
-        },
-        "publishedCounter": 1,
-        "version": 3,
-        "publishedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "5kyrAVCLjJnpF0crQZANRs"
-          }
-        },
-        "publishedVersion": 2,
-        "firstPublishedAt": "2019-02-11T10:12:50.630Z",
-        "publishedAt": "2019-02-11T10:12:50.630Z"
+        "firstPublishedAt": "2019-02-12T09:14:35.220Z",
+        "publishedAt": "2019-02-12T09:14:35.220Z"
       },
       "fields": {
         "title": {
@@ -1028,16 +961,16 @@
         },
         "file": {
           "sv": {
-            "url": "//images.ctfassets.net/u3hwt3j2a0e9/szlKWfwqQF6SwJOU7CszV/1cf2862112253ba12822402e01381dea/The_Cloudberry_-_Native__Open_.webp",
+            "url": "//images.ctfassets.net/u3hwt3j2a0e9/3tK9RuEvBpVSmvowhM4ovV/75a613135432a1ff3de02723872d47a7/The_Cloudberry_-_Native__Open_.jpg",
             "details": {
-              "size": 126006,
+              "size": 832810,
               "image": {
                 "width": 840,
                 "height": 840
               }
             },
-            "fileName": "The Cloudberry - Native (Open).webp",
-            "contentType": "image/webp"
+            "fileName": "The Cloudberry - Native (Open).jpg",
+            "contentType": "image/png"
           }
         }
       }
@@ -1051,10 +984,10 @@
             "id": "u3hwt3j2a0e9"
           }
         },
-        "id": "4OK3poh9Mg2J6X82ddGZAl",
+        "id": "3vsQE39d2v13QnHYDefzQc",
         "type": "Asset",
-        "createdAt": "2019-02-11T10:12:37.774Z",
-        "updatedAt": "2019-02-11T10:12:50.620Z",
+        "createdAt": "2019-02-12T09:13:41.674Z",
+        "updatedAt": "2019-02-12T09:14:33.514Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -1086,142 +1019,8 @@
           }
         },
         "publishedVersion": 2,
-        "firstPublishedAt": "2019-02-11T10:12:50.620Z",
-        "publishedAt": "2019-02-11T10:12:50.620Z"
-      },
-      "fields": {
-        "title": {
-          "sv": "The Cloudberry - Native"
-        },
-        "file": {
-          "sv": {
-            "url": "//images.ctfassets.net/u3hwt3j2a0e9/4OK3poh9Mg2J6X82ddGZAl/5ff9d0749fb2c784ba635eebc9716e6c/The_Cloudberry_-_Native.webp",
-            "details": {
-              "size": 91786,
-              "image": {
-                "width": 840,
-                "height": 840
-              }
-            },
-            "fileName": "The Cloudberry - Native.webp",
-            "contentType": "image/webp"
-          }
-        }
-      }
-    },
-    {
-      "sys": {
-        "space": {
-          "sys": {
-            "type": "Link",
-            "linkType": "Space",
-            "id": "u3hwt3j2a0e9"
-          }
-        },
-        "id": "4YqSNlQEBgetlFcyh5kz2k",
-        "type": "Asset",
-        "createdAt": "2019-02-11T10:12:37.802Z",
-        "updatedAt": "2019-02-11T10:12:50.632Z",
-        "environment": {
-          "sys": {
-            "id": "master",
-            "type": "Link",
-            "linkType": "Environment"
-          }
-        },
-        "createdBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "5kyrAVCLjJnpF0crQZANRs"
-          }
-        },
-        "updatedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "5kyrAVCLjJnpF0crQZANRs"
-          }
-        },
-        "publishedCounter": 1,
-        "version": 3,
-        "publishedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "5kyrAVCLjJnpF0crQZANRs"
-          }
-        },
-        "publishedVersion": 2,
-        "firstPublishedAt": "2019-02-11T10:12:50.632Z",
-        "publishedAt": "2019-02-11T10:12:50.632Z"
-      },
-      "fields": {
-        "title": {
-          "sv": "The Cloudberry - Native (In use 4)"
-        },
-        "file": {
-          "sv": {
-            "url": "//images.ctfassets.net/u3hwt3j2a0e9/4YqSNlQEBgetlFcyh5kz2k/3a746a2fb2e11e21e17829b5982e55a1/The_Cloudberry_-_Native__In_use_4_.webp",
-            "details": {
-              "size": 202964,
-              "image": {
-                "width": 473,
-                "height": 840
-              }
-            },
-            "fileName": "The Cloudberry - Native (In use 4).webp",
-            "contentType": "image/webp"
-          }
-        }
-      }
-    },
-    {
-      "sys": {
-        "space": {
-          "sys": {
-            "type": "Link",
-            "linkType": "Space",
-            "id": "u3hwt3j2a0e9"
-          }
-        },
-        "id": "1XNJtQtoVU4epmLUUVwrPR",
-        "type": "Asset",
-        "createdAt": "2019-02-11T10:12:37.996Z",
-        "updatedAt": "2019-02-11T10:12:50.628Z",
-        "environment": {
-          "sys": {
-            "id": "master",
-            "type": "Link",
-            "linkType": "Environment"
-          }
-        },
-        "createdBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "5kyrAVCLjJnpF0crQZANRs"
-          }
-        },
-        "updatedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "5kyrAVCLjJnpF0crQZANRs"
-          }
-        },
-        "publishedCounter": 1,
-        "version": 3,
-        "publishedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "5kyrAVCLjJnpF0crQZANRs"
-          }
-        },
-        "publishedVersion": 2,
-        "firstPublishedAt": "2019-02-11T10:12:50.628Z",
-        "publishedAt": "2019-02-11T10:12:50.628Z"
+        "firstPublishedAt": "2019-02-12T09:14:33.514Z",
+        "publishedAt": "2019-02-12T09:14:33.514Z"
       },
       "fields": {
         "title": {
@@ -1229,16 +1028,217 @@
         },
         "file": {
           "sv": {
-            "url": "//images.ctfassets.net/u3hwt3j2a0e9/1XNJtQtoVU4epmLUUVwrPR/6fb536b21705ed2647c45faa7ef48f94/The_Cloudberry_-_Native__In_use_2_.webp",
+            "url": "//images.ctfassets.net/u3hwt3j2a0e9/3vsQE39d2v13QnHYDefzQc/6d75b623061998d8efb8c94d1c5281d5/The_Cloudberry_-_Native__In_use_2_.jpg",
             "details": {
-              "size": 349262,
+              "size": 1587295,
               "image": {
                 "width": 1040,
                 "height": 585
               }
             },
-            "fileName": "The Cloudberry - Native (In use 2).webp",
-            "contentType": "image/webp"
+            "fileName": "The Cloudberry - Native (In use 2).jpg",
+            "contentType": "image/png"
+          }
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "u3hwt3j2a0e9"
+          }
+        },
+        "id": "5LADpvnYQLraB9oAQjNvnT",
+        "type": "Asset",
+        "createdAt": "2019-02-12T09:13:41.676Z",
+        "updatedAt": "2019-02-12T09:14:33.528Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedVersion": 2,
+        "firstPublishedAt": "2019-02-12T09:14:33.528Z",
+        "publishedAt": "2019-02-12T09:14:33.528Z"
+      },
+      "fields": {
+        "title": {
+          "sv": "The Cloudberry - Native"
+        },
+        "file": {
+          "sv": {
+            "url": "//images.ctfassets.net/u3hwt3j2a0e9/5LADpvnYQLraB9oAQjNvnT/0605947872fa9ddfe6d4867302c68b2c/The_Cloudberry_-_Native.jpg",
+            "details": {
+              "size": 575083,
+              "image": {
+                "width": 840,
+                "height": 840
+              }
+            },
+            "fileName": "The Cloudberry - Native.jpg",
+            "contentType": "image/png"
+          }
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "u3hwt3j2a0e9"
+          }
+        },
+        "id": "FqibS8UjWldDd0VnbawZv",
+        "type": "Asset",
+        "createdAt": "2019-02-12T09:13:41.926Z",
+        "updatedAt": "2019-02-12T09:14:33.525Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedVersion": 2,
+        "firstPublishedAt": "2019-02-12T09:14:33.525Z",
+        "publishedAt": "2019-02-12T09:14:33.525Z"
+      },
+      "fields": {
+        "title": {
+          "sv": "The Cloudberry - Native (In use 3)"
+        },
+        "file": {
+          "sv": {
+            "url": "//images.ctfassets.net/u3hwt3j2a0e9/FqibS8UjWldDd0VnbawZv/d89fe4de62e22812a11d3ef29ddfce69/The_Cloudberry_-_Native__In_use_3_.jpg",
+            "details": {
+              "size": 1177241,
+              "image": {
+                "width": 1040,
+                "height": 585
+              }
+            },
+            "fileName": "The Cloudberry - Native (In use 3).jpg",
+            "contentType": "image/png"
+          }
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "u3hwt3j2a0e9"
+          }
+        },
+        "id": "7E2V9qa2gPmonqKc5IcLFP",
+        "type": "Asset",
+        "createdAt": "2019-02-12T09:13:43.275Z",
+        "updatedAt": "2019-02-12T09:14:35.145Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5kyrAVCLjJnpF0crQZANRs"
+          }
+        },
+        "publishedVersion": 2,
+        "firstPublishedAt": "2019-02-12T09:14:35.145Z",
+        "publishedAt": "2019-02-12T09:14:35.145Z"
+      },
+      "fields": {
+        "title": {
+          "sv": "The Cloudberry - Native (In use 4)"
+        },
+        "file": {
+          "sv": {
+            "url": "//images.ctfassets.net/u3hwt3j2a0e9/7E2V9qa2gPmonqKc5IcLFP/395d72e03ebd996ecbac2c300029f33c/The_Cloudberry_-_Native__In_use_4_.jpg",
+            "details": {
+              "size": 1002310,
+              "image": {
+                "width": 473,
+                "height": 840
+              }
+            },
+            "fileName": "The Cloudberry - Native (In use 4).jpg",
+            "contentType": "image/png"
           }
         }
       }
