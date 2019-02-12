@@ -3,6 +3,8 @@ import React from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 
+import { Badge } from '../Badge';
+
 type Props = {
   title: string,
   to: string,
@@ -11,7 +13,7 @@ type Props = {
 
 export const ProductCategoryCard = ({ title, backgroundImage, to }: Props) => (
   <ProductCategoryWrapper to={to}>
-    <Title>{title}</Title>
+    <BadgeTitle title={title} />
     {backgroundImage && <Image src={backgroundImage} />}
   </ProductCategoryWrapper>
 );
@@ -30,19 +32,14 @@ const ProductCategoryWrapper = styled(Link)`
   height: 80px;
   padding-right: 1.5rem;
   position: relative;
+  text-decoration: none;
 `;
 
-const Title = styled.span`
-  font-size: 14px;
-  font-style: italic;
-  background: var(--color-wine);
+const BadgeTitle = styled(Badge)`
   position: absolute;
   z-index: 2;
-  color: rgba(255, 255, 255, 1);
-  padding: 4px 1rem;
   top: -0.5rem;
   right: 0.5rem;
-  -webkit-font-smoothing: antialiased;
 `;
 
 const Image = styled.img`
