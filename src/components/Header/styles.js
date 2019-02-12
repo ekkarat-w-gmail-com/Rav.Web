@@ -1,16 +1,38 @@
 import styled from 'styled-components';
 import { Link } from 'gatsby'
 
-export const HeaderWrapper = styled.header`
+export const TopBarWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-style: italic;
   background: var(--color-ivory);
+  height: 2.5rem;
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
+
+  p:not(:last-child) {
+    margin-right: 2rem;
+  }
+
+`;
+
+export const HeaderWrapper = styled.header`
+  background: #fff;
   width: 100%;
-  height: 80px;
+  height: 100px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   padding: 0 2rem;
   position: relative;
+  border-bottom: 1px solid var(--color-ivory);
 `;
 
 export const HeaderLink = styled(Link)`
@@ -31,8 +53,25 @@ export const HeaderLink = styled(Link)`
 
 `;
 
+export const MenuGroup = styled.div`
+  display: flex;
+  flex-direction: column;
 
-export const MenuWrapper = styled.nav`
+  &:not(:last-child) {
+    margin-right: 4rem;
+  }
+
+`;
+
+export const MenuGroupTitle = styled.span`
+  font-size: 12px;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.42);
+  margin-bottom: 5px;
+  font-family: 'Open Sans', Georgia, 'sans-serif'
+`;
+
+export const MenuWrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: row;
@@ -42,12 +81,25 @@ export const MenuWrapper = styled.nav`
   padding: 0px;
 `;
 
+export const MenuNavigation = styled.nav`
+  display: flex;
+  flex-direction: row;
+  transform: translateX(-1rem);
+`;
+
 export const MenuLink = styled(Link)`
   font-weight: 500;
   font-style: normal;
-  font-size: 14px;
+  font-size: 13px;
   display: block;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
   text-decoration: none;
   color: var(--color-black);
+  transition: color 300ms ease-in;
+
+  &:hover,
+  &:focus {
+    color: var(--color-wine);
+  }
+
 `;

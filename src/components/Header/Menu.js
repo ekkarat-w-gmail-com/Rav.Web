@@ -4,7 +4,7 @@ import { map } from 'lodash/fp';
 import { graphql, StaticQuery } from 'gatsby';
 
 // Styles
-import { MenuWrapper, MenuLink } from './styles';
+import { MenuWrapper, MenuGroup, MenuGroupTitle, MenuNavigation, MenuLink } from './styles';
 
 // Types
 type Props = {
@@ -17,8 +17,19 @@ export const MenuComponent = ({ categories }: Props) => {
   ), categories);
   return (
     <MenuWrapper>
-      {categoryLinks}
-      <MenuLink to={'/about'}>About</MenuLink>
+      <MenuGroup>
+        <MenuGroupTitle>Look at our</MenuGroupTitle>
+        <MenuNavigation>{categoryLinks}</MenuNavigation>
+      </MenuGroup>
+      <MenuGroup>
+        <MenuGroupTitle>Read about</MenuGroupTitle>
+        <MenuNavigation>
+          <MenuLink to={'/about'}>The Company</MenuLink>
+          <MenuLink to={'/about'}>Our policy</MenuLink>
+          <MenuLink to={'/about'}>Our Blog</MenuLink>
+        </MenuNavigation>
+      </MenuGroup>
+
     </MenuWrapper>
   );
 };
