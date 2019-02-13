@@ -22,6 +22,11 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+      <Video>
+        <video className="video" loop muted autoPlay playsInline>
+          <source src="https://www.fjallraven.se/assets/download/81/press_room_classic_t04-12881.mp4" type="video/mp4" />
+        </video>
+      </Video>
       <CategoriesList>{categoryCards}</CategoriesList>
     </Layout>
   )
@@ -36,6 +41,14 @@ const CategoriesList = styled.div`
   margin-right: auto;
   margin-top: 4rem;
 `;
+
+const Video = styled.div`
+  .video {
+    width: 100%;
+    height: auto;
+  }
+`;
+
 
 export const query = graphql`
 {
