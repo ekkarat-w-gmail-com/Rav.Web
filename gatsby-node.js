@@ -35,7 +35,7 @@ exports.createPages = ({ graphql, actions }) => {
 
   return graphql(query).then((result) => {
 
-    console.log('\n ==== Starting building pages ==== \n')
+    console.log('\x1b[33m%s\x1b[0m', '\n ==== Starting building pages ==== \n')
 
     map(({ node }) => {
       const slug = `/product/${node.slug}`;
@@ -43,8 +43,9 @@ exports.createPages = ({ graphql, actions }) => {
       createPage({
         path: slug,
         component: path.resolve(`./src/templates/single-product.js`),
-        context: {
-          slug: node.slug, // // Data passed to context is available in page queries as GraphQL variables.
+        context: { // Data passed to context is available in page queries as GraphQL variables.
+          slug: node.slug,
+          id: node.id
         }
       })
     }, result.data.allContentfulProduct.edges);
@@ -55,13 +56,14 @@ exports.createPages = ({ graphql, actions }) => {
       createPage({
         path: slug,
         component: path.resolve(`./src/templates/taxonomy-productCategory.js`),
-        context: {
-          slug: node.slug, // // Data passed to context is available in page queries as GraphQL variables.
+        context: { // Data passed to context is available in page queries as GraphQL variables.
+          slug: node.slug,
+          id: node.id
         }
       })
     }, result.data.allContentfulProductCategory.edges);
 
-    console.log('\n ==== Finished building pages ==== \n')
+    console.log('\x1b[33m%s\x1b[0m', '\n ==== Finished building pages ==== \n')
 
   });
 
