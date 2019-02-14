@@ -17,6 +17,8 @@ exports.createPages = ({ graphql, actions }) => {
         edges {
           node {
             slug
+            id
+            node_locale
           }
         }
       }
@@ -25,6 +27,8 @@ exports.createPages = ({ graphql, actions }) => {
         edges {
           node {
             slug
+            id
+            node_locale
           }
         }
       }
@@ -45,7 +49,8 @@ exports.createPages = ({ graphql, actions }) => {
         component: path.resolve(`./src/templates/single-product.js`),
         context: { // Data passed to context is available in page queries as GraphQL variables.
           slug: node.slug,
-          id: node.id
+          id: node.id,
+          locale: node.node_locale
         }
       })
     }, result.data.allContentfulProduct.edges);
@@ -58,7 +63,8 @@ exports.createPages = ({ graphql, actions }) => {
         component: path.resolve(`./src/templates/taxonomy-productCategory.js`),
         context: { // Data passed to context is available in page queries as GraphQL variables.
           slug: node.slug,
-          id: node.id
+          id: node.id,
+          locale: node.node_locale
         }
       })
     }, result.data.allContentfulProductCategory.edges);
