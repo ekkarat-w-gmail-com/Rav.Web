@@ -1,4 +1,5 @@
 {
   "CartButton.ChooseSize": "Välj en storlek",
-  "CartButton.Buy": "Lägg i varukorg"
+  "CartButton.Buy": "Lägg i varukorg",
+  "ProductMeta.SKU": "Artikelnummer"
 }

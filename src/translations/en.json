@@ -1,4 +1,5 @@
 {
   "CartButton.ChooseSize": "Select a size",
-  "CartButton.Buy": "Buy"
+  "CartButton.Buy": "Buy",
+  "ProductMeta.SKU": "SKU"
 }

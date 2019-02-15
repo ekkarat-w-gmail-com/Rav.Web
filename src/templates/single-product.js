@@ -40,7 +40,7 @@ const SingleProduct = ({ data }: Props) => {
             <Price regularPrice={get('regularPrice', product)} salePrice={getOr(null, 'salePrice', product)} />
           </TitleAndPrice>
           <Excerpt as={'p'}>{get('shortDescription.shortDescription', product)}</Excerpt>
-          <small>Artikelnummer: {product.sku}</small>
+          <small><FormattedMessage id="ProductMeta.SKU" />: {product.sku}</small>
 
           <CartButton disabled={true}>
             <FormattedMessage id="CartButton.ChooseSize" />
