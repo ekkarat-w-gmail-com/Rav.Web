@@ -5,7 +5,7 @@ import { IntlProvider, addLocaleData } from 'react-intl';
 import en from 'react-intl/locale-data/en';
 import sv from 'react-intl/locale-data/sv';
 
-import enTranslations from '../translations/sv.json';
+import enTranslations from '../translations/en.json';
 import svTranslations from '../translations/sv.json';
 
 import { Header } from './Header';
