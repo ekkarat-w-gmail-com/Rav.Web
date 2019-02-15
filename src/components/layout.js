@@ -10,6 +10,7 @@ import svTranslations from '../translations/sv.json';
 
 import { Header } from './Header';
 import { Footer } from './Footer';
+import { Cart } from './Cart';
 
 // Styling
 import '../styling/reset.css';
@@ -40,6 +41,7 @@ const Layout = ({ children, locale }: Props) => {
         <Header />
         <main>{children}</main>
         <Footer />
+        <Cart />
       </Fragment>
     </IntlProvider>
   )

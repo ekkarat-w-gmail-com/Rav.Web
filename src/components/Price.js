@@ -10,7 +10,7 @@ import { getCurrencyCode } from '../utils/currencies';
 type Props = {
   regularPrice: number,
   salePrice?: number,
-  className: string,
+  className?: string,
   intl: intlShape
 }
 
@@ -48,20 +48,20 @@ export const Price = injectIntl(PriceComponent);
 
 const PriceWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: baseline;
 `;
 
-const CurrentPrice = styled.span`
-  font-size: 24px;
+export const CurrentPrice = styled.span`
+  font-size: 18px;
   line-height: 28px;
   color: ${props => props.isSale ? 'var(--color-wine)' : 'var(--color-black)'};
 `;
 
-const OldPrice = styled.span`
+export const OldPrice = styled.span`
   font-size: 14px;
   line-height: 20px;
   font-style: italic;
   text-decoration: line-through;
-  margin-right: 4px;
+  margin-right: 8px;
 `;

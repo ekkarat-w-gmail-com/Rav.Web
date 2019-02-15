@@ -35,10 +35,8 @@ const SingleProduct = ({ data }: Props) => {
         </ImageColumn>
 
         <InfoColumn>
-          <TitleAndPrice>
-            <Title as={'h2'}>{product.name}</Title>
-            <Price regularPrice={get('regularPrice', product)} salePrice={getOr(null, 'salePrice', product)} />
-          </TitleAndPrice>
+          <Title as={'h2'}>{product.name}</Title>
+          <Price regularPrice={get('regularPrice', product)} salePrice={getOr(null, 'salePrice', product)} />
           <Excerpt as={'p'}>{get('shortDescription.shortDescription', product)}</Excerpt>
           <small><FormattedMessage id="ProductMeta.SKU" />: {product.sku}</small>
 
@@ -98,21 +96,15 @@ const InfoColumn = styled.div`
   padding-bottom: 3rem;
 `;
 
-const TitleAndPrice = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 1.5rem;
-`;
 
 const Title = styled(Canon)`
-  margin-bottom: 0;
-  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
 `;
 
 const Excerpt = styled(BodyCopy)`
   font-family: var(--font-serif);
   padding-bottom: 1.5rem;
+  margin-top: 2rem;
   margin-bottom: 2rem;
   border-bottom: 1px solid var(--color-sand);
 `;
