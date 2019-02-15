@@ -5,6 +5,9 @@ import { IntlProvider, addLocaleData } from 'react-intl';
 import en from 'react-intl/locale-data/en';
 import sv from 'react-intl/locale-data/sv';
 
+import enTranslations from '../translations/sv.json';
+import svTranslations from '../translations/sv.json';
+
 import { Header } from './Header';
 import { Footer } from './Footer';
 
@@ -14,7 +17,7 @@ import '../styling/global.css';
 
 type Props = {
   children: any,
-  locale?: string
+  locale: string
 }
 
 addLocaleData([
@@ -22,15 +25,25 @@ addLocaleData([
   ...sv
 ]);
 
-const Layout = ({ children, locale }: Props) => (
-  <IntlProvider locale={locale}>
-    <Fragment>
-      <Header />
-      <main>{children}</main>
-      <Footer />
-    </Fragment>
-  </IntlProvider>
-)
+const Layout = ({ children, locale }: Props) => {
+
+  const translations = {
+    'en': enTranslations,
+    'sv': svTranslations
+  }
+
+  const messages = translations[locale];
+
+  return (
+    <IntlProvider locale={locale} messages={messages}>
+      <Fragment>
+        <Header />
+        <main>{children}</main>
+        <Footer />
+      </Fragment>
+    </IntlProvider>
+  )
+}
 
 Layout.defaultProps = {
   locale: 'en'

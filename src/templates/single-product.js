@@ -4,6 +4,7 @@ import { graphql } from 'gatsby'
 import styled, { css } from 'styled-components';
 import Image from 'gatsby-image';
 import { get, getOr } from 'lodash/fp';
+import { FormattedMessage } from 'react-intl';
 
 // Components
 import Layout from '../components/layout'
@@ -22,7 +23,7 @@ type Props = {
   }
 }
 
-export default ({ data }: Props) => {
+const SingleProduct = ({ data }: Props) => {
   const { product } = data;
 
   return (
@@ -42,12 +43,8 @@ export default ({ data }: Props) => {
           <small>Artikelnummer: {product.sku}</small>
 
           <CartButton disabled={true}>
-            <span>
-                {'Välj storlek'}
-            </span>
-            <span>
-                {'Köp'}
-            </span>
+            <FormattedMessage id="CartButton.ChooseSize" />
+            <FormattedMessage id="CartButton.Buy" />
           </CartButton>
 
         </InfoColumn>
@@ -56,6 +53,8 @@ export default ({ data }: Props) => {
     </Layout>
   )
 }
+
+export default SingleProduct;
 
 const GridWrapper = styled.div`
   display: grid;
@@ -118,16 +117,31 @@ const Excerpt = styled(BodyCopy)`
   border-bottom: 1px solid var(--color-sand);
 `;
 
-export const CartButton = styled.button`
+const disabledMixin = css`
+  &:hover > span {
+
+    &:first-child {
+      transform: translateY(0);
+    }
+
+    &:last-child {
+      transform: translateY(0);
+    }
+
+  }
+`;
+
+const CartButton = styled.button`
   position: relative;
   background-color: #000;
   color: #fff;
-  border: none;
   width: 100%;
-  height: 51px;
+  height: 3rem;
   cursor: pointer;
   overflow: hidden;
   margin: 40px 0 20px;
+  border-radius: 3px;
+  border: 0 none;
 
   &:focus {
     outline: 0;
@@ -136,36 +150,30 @@ export const CartButton = styled.button`
   &:disabled {
     color: #000;
     cursor: auto;
-    background-color: #f4f4ef;
+    background-color: var(--color-ivory);
   }
 
-  ${props => props.disabled && css`
-      &:hover {
-        > span {
-          top: 0;
-          &:last-child {
-            top: 100%;
-          }
-        }
-      }
-    `};
-    
+  ${props => props.disabled ? disabledMixin : ''}
+
   > span {
     display: flex;
     align-items: center;
     justify-content: center;
-    left: 0;
-    top: -100%;
-    position: absolute;
     height: 100%;
     width: 100%;
-    line-height: 2.5;
     font-size: 14px;
     transition: all 0.25s ease-in-out;
-    &:last-child {
-      top: 0;
+
+    &:first-child {
+      transform: translateY(-100%);
     }
+
+    &:last-child {
+      transform: translateY(-100%);
+    }
+
   }
+
 `;
 
 export const query = graphql`
