@@ -34,7 +34,7 @@ export const MenuComponent = ({ categories }: Props) => {
   );
 };
 
-const Menu = (props) => (
+const Menu = (props: any) => (
   <StaticQuery
     query={graphql`
       query {

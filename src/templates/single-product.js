@@ -41,7 +41,7 @@ export default ({ data }: Props) => {
           <Excerpt as={'p'}>{get('shortDescription.shortDescription', product)}</Excerpt>
           <small>Artikelnummer: {product.sku}</small>
 
-          <CartButton>
+          <CartButton disabled={true}>
             <span>
                 {'Välj storlek'}
             </span>
@@ -132,12 +132,13 @@ export const CartButton = styled.button`
   &:focus {
     outline: 0;
   }
-  
+
   &:disabled {
     color: #000;
     cursor: auto;
     background-color: #f4f4ef;
   }
+
   ${props => props.disabled && css`
       &:hover {
         > span {
@@ -148,6 +149,7 @@ export const CartButton = styled.button`
         }
       }
     `};
+    
   > span {
     display: flex;
     align-items: center;

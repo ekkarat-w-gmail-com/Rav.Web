@@ -59,6 +59,7 @@ module.exports = {
           },
         }
       }
-    }
+    },
+    `gatsby-plugin-portal`
   ],
 }
