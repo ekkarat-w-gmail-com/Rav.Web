@@ -1,13 +1,14 @@
 import React from "react"
 import { graphql } from "gatsby"
 import styled from 'styled-components';
+import { get } from 'lodash/fp';
 
 // components
 import Layout from "../components/layout"
 import { ProductList } from '../components/ProductList';
 
 const ProductCategoryPage = ({ data }) => {
-  const { category, products } = data;
+  const { category, products, shopifyProducts } = data;
 
   return (
     <Layout>
@@ -17,9 +18,23 @@ const ProductCategoryPage = ({ data }) => {
       </HeaderContainer>
       <ProductList
         columns={3}
-        products={products && products.edges}
+        keySource={'slug'}
+        titleSource={'name'}
+        hrefPrefix={'/product/'}
+        hrefSource={'slug'}
         excerptSource={'shortDescription.shortDescription'}
         thumbnailSource={'featuredImage.fixed.src'}
+        products={get('edges', products)}
+      />
+      <ProductList
+        columns={3}
+        keySource={'handle'}
+        titleSource={'title'}
+        hrefPrefix={'/product/s/'}
+        hrefSource={'handle'}
+        excerptSource={'description'}
+        thumbnailSource={'images[0].localFile.childImageSharp.fixed.src'}
+        products={get('edges', shopifyProducts)}
       />
     </Layout>
   )
@@ -47,6 +62,26 @@ export const query = graphql`
             id
             fixed(width: 1000, height: 1500, quality: 100) {
               src
+            }
+          }
+        }
+      }
+    }
+
+    shopifyProducts: allShopifyProduct {
+      edges {
+        node {
+          title
+          id
+          handle
+          description
+          images {
+            localFile {
+              childImageSharp {
+                fixed(width: 1000, height: 1500, quality: 100, cropFocus: CENTER) {
+                  src
+                }
+              }
             }
           }
         }

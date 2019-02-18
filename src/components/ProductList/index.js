@@ -8,12 +8,16 @@ import { ProductListWrapper } from './styles';
 
 type Props = {
   products: Array<any>,
+  keySource: string,
+  titleSource: string,
+  hrefPrefix: string,
+  hrefSource: string,
   thumbnailSource: string,
   excerptSource: string,
   columns?: number
 }
 
-export const ProductList = ({ products, columns, thumbnailSource, excerptSource }: Props) => {
+export const ProductList = ({ products, columns, keySource, titleSource, hrefPrefix, hrefSource, thumbnailSource, excerptSource }: Props) => {
 
   if ( !products || isEmpty(products) ) {
     return null;
@@ -21,9 +25,9 @@ export const ProductList = ({ products, columns, thumbnailSource, excerptSource 
 
   const productList = map(({ node }) => (
     <ProductCard
-      key={node.slug}
-      title={node.name}
-      to={`/product/${node.slug}`}
+      key={get(keySource, node)}
+      title={get(titleSource, node)}
+      to={`${hrefPrefix}${get(hrefSource, node)}`}
       excerpt={get(excerptSource, node)}
       thumbnail={get(thumbnailSource, node)} />
   ), products);
