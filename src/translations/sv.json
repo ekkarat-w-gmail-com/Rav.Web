@@ -1,5 +1,6 @@
 {
   "CartButton.ChooseSize": "Välj en storlek",
+  "CartButton.OutOfStock": "Ej i lager",
   "CartButton.Buy": "Lägg i varukorg",
   "ProductMeta.SKU": "Artikelnummer"
 }

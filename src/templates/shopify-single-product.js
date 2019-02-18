@@ -1,9 +1,9 @@
 // @flow
-import React from 'react'
+import React, { useState } from 'react'
 import { graphql } from 'gatsby'
 import styled, { css } from 'styled-components';
 import Image from 'gatsby-image';
-import { get, getOr } from 'lodash/fp';
+import { get, getOr, find, map, filter, includes } from 'lodash/fp';
 import { FormattedMessage } from 'react-intl';
 
 // Components
@@ -11,7 +11,8 @@ import Layout from '../components/layout'
 import { Price } from '../components/Price'
 
 // Styling
-import { Canon, BodyCopy } from '../styling/typography';
+import { Canon, BodyCopy, Brevier } from '../styling/typography';
+import { SizeButton, ColorButton } from '../styling/buttons';
 
 // Types
 type Props = {
@@ -23,9 +24,77 @@ type Props = {
   }
 }
 
+const getOptionFromVariant = (type: 'Color' | 'Size', variant: Array<any>) => {
+  return find(option => option.name === type, get('selectedOptions', variant));
+}
+
 const SingleProduct = ({ data }: Props) => {
   const { product } = data;
-  console.log(product);
+
+  const variants = get('variants', product);
+  const defaultVariant = find((variant) => variant.availableForSale === true, variants);
+
+  const [ currentVariant, setVariant ] = useState(defaultVariant);
+
+  const options = get('options', product)
+  const colors = find(option => option.name === 'Color', options);
+  const sizes = find(option => option.name === 'Size', options);
+
+  const variantColor = getOptionFromVariant('Color', currentVariant);
+  const variantSize = getOptionFromVariant('Size', currentVariant);
+
+  const availableSizes = filter((variant) => {
+
+    const variantsWithColor = filter((v) => {
+      const options = getOptionFromVariant('Color', v);
+      return options.value === variantColor.value;
+    }, variants);
+
+    const availableForSale = filter(v => v.availableForSale === true, variantsWithColor);
+
+    return includes(variant, availableForSale);
+
+  }, variants);
+
+  console.log('availableSizes', availableSizes);
+
+  const handleOnVariantChange = (type: 'Color' | 'Size', selectedValue: string) => {
+    const otherType = type === 'Color' ? 'Size' : 'Color';
+    const currentVariantOtherOption = find(option => option.name === otherType, currentVariant.selectedOptions);
+    const relevantVariant = find((relVariant) => {
+      const option = find(option => option.name === type, relVariant.selectedOptions);
+      const otherOption = find(option => option.name === otherType, relVariant.selectedOptions);
+      const isSameType = option.value === selectedValue;
+      const isSameOtherType = otherOption.value === currentVariantOtherOption.value;
+      return isSameType && isSameOtherType;
+    }, variants);
+    setVariant(relevantVariant);
+  }
+
+  const ColorButtons = map(val => (
+    <ColorButton
+      key={val}
+      color={val.toLowerCase()}
+      onClick={() => handleOnVariantChange('Color', val)}
+      selected={variantColor.value === val} />
+  ), colors.values);
+
+  const SizeButtons = map(val => {
+    const isDisabled = filter((v) => {
+      const { value } = getOptionFromVariant('Size', v);
+      return value === val;
+    }, availableSizes);
+
+    return (
+      <SizeButton
+        key={val}
+        onClick={() => handleOnVariantChange('Size', val)}
+        disabled={isDisabled.length === 0}
+        selected={variantSize.value === val}>
+          {val}
+      </SizeButton>
+    );
+  }, sizes.values);
 
   return (
     <Layout locale={getOr('en', 'node_locale', product)}>
@@ -37,16 +106,27 @@ const SingleProduct = ({ data }: Props) => {
 
         <InfoColumn>
           <Title as={'h2'}>{get('title', product)}</Title>
-          <Price regularPrice={get('variants[0].price', product)} />
-          <Excerpt as={'p'}>{get('shortDescription.shortDescription', product)}</Excerpt>
-          <small>
-            <FormattedMessage id="ProductMeta.SKU" />: {get('variants[0].sku', product)}
-          </small>
+          <Price regularPrice={get('price', currentVariant)} />
+          <Excerpt as={'p'}>{get('description', product)}</Excerpt>
 
-          <CartButton disabled={true}>
-            <FormattedMessage id="CartButton.ChooseSize" />
+          <OptionTitle>{colors.name}</OptionTitle>
+          <SizeList>
+            {ColorButtons}
+          </SizeList>
+
+          <OptionTitle>{sizes.name}</OptionTitle>
+          <SizeList>
+            {SizeButtons}
+          </SizeList>
+
+          <CartButton disabled={!get('availableForSale', currentVariant)}>
+            <FormattedMessage id="CartButton.OutOfStock" />
             <FormattedMessage id="CartButton.Buy" />
           </CartButton>
+
+          <small>
+            <FormattedMessage id="ProductMeta.SKU" />: {get('sku', currentVariant)}
+          </small>
 
         </InfoColumn>
 
@@ -171,6 +251,24 @@ const CartButton = styled.button`
 
 `;
 
+const OptionTitle = styled(Brevier)`
+  font-weight: 600;
+  display: block;
+`;
+
+const SizeList = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 4px;
+  margin-bottom: 1rem;
+
+  ${SizeButton}:not(:last-child),
+  ${ColorButton}:not(:last-child) {
+    margin-right: 0.5rem;
+  }
+
+`;
+
 export const query = graphql`
   query productShopifyQuery($id: String!) {
     product: shopifyProduct(id: { eq: $id }) {
@@ -202,6 +300,7 @@ export const query = graphql`
         sku
         title
         price
+        availableForSale
         selectedOptions {
           name
           value
