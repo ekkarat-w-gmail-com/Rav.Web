@@ -12,6 +12,8 @@
     ```.bash
       CONTENTFUL_SPACE_ID={Your space id}
       CONTENTFUL_ACCESS_TOKEN={Your access token}
+      SHOPIFY_STORE_NAME={Your shopify name}
+      SHOPIFY_ACCESS_TOKEN={Your shopify access token}
     ```
 
     If you want to use the contentful-cli add a config file for easier use

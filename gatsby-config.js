@@ -10,12 +10,17 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Räv`,
+    description: `Learning project for e-commerce and gatsby`,
+    author: `@patrickedqvist`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-portal`,
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+    `gatsby-plugin-styled-components`, // Add support of styled-components
+    `gatsby-plugin-flow`, // Add support of flow
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -23,8 +28,6 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -37,11 +40,6 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.app/offline
-    // 'gatsby-plugin-offline',
-    `gatsby-plugin-styled-components`, // Add support of styled-components
-    `gatsby-plugin-flow`, // Add support of flow
     {
       resolve: `gatsby-source-contentful`, // Add support for contentful
       options: {
@@ -60,6 +58,13 @@ module.exports = {
         }
       }
     },
-    `gatsby-plugin-portal`
+    {
+      resolve: `gatsby-source-shopify`,
+      options: {
+        shopName: `${process.env.SHOPIFY_STORE_NAME}`,
+        accessToken: `${process.env.SHOPIFY_ACCESS_TOKEN}`,
+        verbose: true
+      }
+    },
   ],
 }
