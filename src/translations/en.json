@@ -3,5 +3,6 @@
   "CartButton.OutOfStock": "Out of stock",
   "CartButton.ProductOutOfStock": "{title} is out of stock",
   "CartButton.Buy": "Buy",
-  "ProductMeta.SKU": "SKU"
+  "ProductMeta.SKU": "SKU",
+  "Checkout.GoToCheckout": "Checkout"
 }

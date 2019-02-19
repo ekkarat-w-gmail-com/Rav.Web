@@ -5,6 +5,11 @@ import styled, { css } from 'styled-components';
 import Image from 'gatsby-image';
 import { get, find } from 'lodash/fp';
 import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+
+// Actions
+import { client } from '../services/shopify';
+import { addVariationToCart } from '../store/actions/cartActions';
 
 // Components
 import Layout from '../components/layout'
@@ -20,10 +25,12 @@ type Props = {
   },
   pageContext: {
     id: string
-  }
+  },
+  checkoutId: string,
+  addVariationToCart: (item: { variantId: string, quantity: number }) => void
 }
 
-const ProductVariation = ({ data }: Props) => {
+const SingleProduct = ({ data, checkoutId, addVariationToCart }: Props) => {
   const { product } = data;
 
   const variants = get('variants', product);
@@ -33,6 +40,17 @@ const ProductVariation = ({ data }: Props) => {
 
   const descriptionHtml = get('descriptionHtml', product);
   const html = { __html: descriptionHtml };
+
+  const handleOnBuy = () => {
+    const lineItemsToAdd = {
+      variantId: currentVariant.shopifyId,
+      quantity: 1
+    };
+    client.checkout.addLineItems(checkoutId, lineItemsToAdd).then((checkout) => {
+      addVariationToCart(checkout.lineItems);
+    });
+
+  }
 
   return (
     <Layout>
@@ -47,7 +65,7 @@ const ProductVariation = ({ data }: Props) => {
           <Price regularPrice={get('price', currentVariant)} />
           <Excerpt as={'div'} dangerouslySetInnerHTML={html} />
 
-          <CartButton disabled={!get('availableForSale', currentVariant)}>
+          <CartButton disabled={!get('availableForSale', currentVariant)} onClick={handleOnBuy}>
             <FormattedMessage
               id="CartButton.ProductOutOfStock"
               defaultMessage={'{title} is out of stock'}
@@ -67,7 +85,11 @@ const ProductVariation = ({ data }: Props) => {
   )
 }
 
-export default ProductVariation;
+const mapStateToProps = (store) => ({
+  checkoutId: get('cart.checkout.id', store)
+});
+
+export default connect(mapStateToProps, { addVariationToCart })(SingleProduct)
 
 const GridWrapper = styled.div`
   display: grid;
@@ -214,6 +236,7 @@ export const query = graphql`
         values
       }
       variants {
+        shopifyId
         sku
         title
         price

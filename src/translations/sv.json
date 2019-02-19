@@ -3,5 +3,6 @@
   "CartButton.OutOfStock": "Ej i lager",
   "CartButton.ProductOutOfStock": "{title} finns ej i lager",
   "CartButton.Buy": "Lägg i varukorg",
-  "ProductMeta.SKU": "Artikelnummer"
+  "ProductMeta.SKU": "Artikelnummer",
+  "Checkout.GoToCheckout": "Till kassan"
 }

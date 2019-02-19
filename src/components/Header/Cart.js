@@ -2,6 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux'
+import { get, size } from 'lodash/fp';
 
 // Actions
 import { setCartVisibility } from '../../store/actions';
@@ -24,12 +25,13 @@ export const CartComponent = ({ count, setCartVisibility, isVisible }: Props) =>
 )
 
 CartComponent.defaultProps = {
-  count: 0
+  count: 0,
+  isVisible: false
 }
 
 const mapStateToProps = ({ cart }) => ({
-  count: cart.items && cart.items.length ? cart.items.length : 0,
-  isVisible: cart.visible
+  count: size( get('checkout.lineItems', cart) ),
+  isVisible: get('visibility', cart)
 })
 
 export const Cart = connect(mapStateToProps, { setCartVisibility })(CartComponent)
