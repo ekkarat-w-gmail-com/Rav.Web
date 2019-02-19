@@ -1,6 +1,7 @@
 {
   "CartButton.ChooseSize": "Select a size",
   "CartButton.OutOfStock": "Out of stock",
+  "CartButton.ProductOutOfStock": "{title} is out of stock",
   "CartButton.Buy": "Buy",
   "ProductMeta.SKU": "SKU"
 }

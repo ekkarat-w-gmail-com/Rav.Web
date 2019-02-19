@@ -36,38 +36,63 @@ const SingleProduct = ({ data }: Props) => {
 
   const [ currentVariant, setVariant ] = useState(defaultVariant);
 
+  // The options that we can build choices from
   const options = get('options', product)
-  const colors = find(option => option.name === 'Color', options);
-  const sizes = find(option => option.name === 'Size', options);
+  const colors = find(option => option.name === 'Color', options); // The values
+  const sizes = find(option => option.name === 'Size', options); // The values
 
+  // Get the selectedOptions from the currentVariant
   const variantColor = getOptionFromVariant('Color', currentVariant);
   const variantSize = getOptionFromVariant('Size', currentVariant);
 
+  // Get variations with the same color that has available sizes
+  // This is so that we can check if a certain size is available or not
   const availableSizes = filter((variant) => {
 
+    // Get only variants with the current color
     const variantsWithColor = filter((v) => {
       const options = getOptionFromVariant('Color', v);
       return options.value === variantColor.value;
     }, variants);
 
+    // Filter out those are not available for sale
     const availableForSale = filter(v => v.availableForSale === true, variantsWithColor);
 
     return includes(variant, availableForSale);
 
   }, variants);
 
-  console.log('availableSizes', availableSizes);
-
+  // Change variant when either clicking a color or size variant
   const handleOnVariantChange = (type: 'Color' | 'Size', selectedValue: string) => {
+
+    // Since we also need to keep track of the other variant type when changing let's pick up the other one
     const otherType = type === 'Color' ? 'Size' : 'Color';
+
+    // Get the current variant option based on the "other type"
     const currentVariantOtherOption = find(option => option.name === otherType, currentVariant.selectedOptions);
+
+    // Lets find a relevant variant based on both color and size
+    // E.g if a pick a red color and change from small to medium, then i want to keep track of
+    // the color selection as well, otherwise it will just reset to the first choice
     const relevantVariant = find((relVariant) => {
+
+      // Get the selected type
       const option = find(option => option.name === type, relVariant.selectedOptions);
+
+      // Get the other type
       const otherOption = find(option => option.name === otherType, relVariant.selectedOptions);
+
+      // Must have the same type as then value we clicked
       const isSameType = option.value === selectedValue;
+
+      // Must have the same other type as the current variant
       const isSameOtherType = otherOption.value === currentVariantOtherOption.value;
+
+      // Return only a variant which has the two properties
       return isSameType && isSameOtherType;
     }, variants);
+
+    // Update state
     setVariant(relevantVariant);
   }
 
@@ -120,7 +145,11 @@ const SingleProduct = ({ data }: Props) => {
           </SizeList>
 
           <CartButton disabled={!get('availableForSale', currentVariant)}>
-            <FormattedMessage id="CartButton.OutOfStock" />
+            <FormattedMessage
+              id="CartButton.ProductOutOfStock"
+              defaultMessage={'{title} is out of stock'}
+              values={{ title: get('title', currentVariant) }}
+            />
             <FormattedMessage id="CartButton.Buy" />
           </CartButton>
 
