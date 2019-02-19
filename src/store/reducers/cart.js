@@ -1,4 +1,4 @@
-import { set, merge } from 'lodash/fp';
+import { set } from 'lodash/fp';
 import { CART_SET_VISIBILITY, CHECKOUT_FOUND, CHECKOUT_CREATED, CART_ADD_VARIANT} from '../actions/definitions';
 
 const initialState = {
@@ -17,7 +17,7 @@ export const cart = (state = initialState, { type, payload }) => {
       return set('checkout', payload.checkout, state);
 
     case CART_ADD_VARIANT:
-      return set('checkout.lineItems', payload.item, state);
+      return set('checkout', payload.checkout, state);
 
     case CART_SET_VISIBILITY:
       return set('visibility', payload.visible, state);

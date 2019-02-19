@@ -1,7 +1,8 @@
+/* eslint react/style-prop-object: "off" */
 // @flow
 import React from 'react';
 import styled from 'styled-components';
-import { get } from 'lodash/fp';
+import { get, has } from 'lodash/fp';
 import { FormattedNumber } from 'react-intl';
 
 // Components
@@ -38,9 +39,9 @@ export const CartItem = ({ lineItem }: Props) => {
     <VariantTitle>{get('variant.title', lineItem)}</VariantTitle> : null;
 
   return (
-    <LineItemWrap className="Line-item">
+    <LineItemWrap>
       <ImageWrap>
-        {lineItem.variant.image ? <img src={lineItem.variant.image.src} alt={`${lineItem.title}`}/> : null}
+        {has('variant.image', lineItem) ? <img src={lineItem.variant.image.src} alt={`${lineItem.title}`}/> : null}
       </ImageWrap>
       <TextContainer>
         <ProductTitle>{get('title', lineItem)}</ProductTitle>
@@ -49,7 +50,7 @@ export const CartItem = ({ lineItem }: Props) => {
           <FormattedNumber style={'currency'} currency={'SEK'} value={get('variant.price', lineItem)} />
         </VariantPrice>
       </TextContainer>
-      <ActionsContainer class="Wrapper-z3kgpm-0 eCIGub">
+      <ActionsContainer>
         <QuantityButton aria-label="Decrease by 1">
           <UpArrow />
         </QuantityButton>

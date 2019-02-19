@@ -7,10 +7,11 @@ import { Portal } from './Portal';
 type Props = {
   isOpen: boolean,
   children: any,
+  className?: string,
   onBackDropClick?: () => void
 }
 
-export const Drawer = ({ isOpen, children, onBackDropClick }: Props) => {
+export const Drawer = ({ isOpen, children, className, onBackDropClick }: Props) => {
 
   if ( !isOpen ) {
     return null;
@@ -20,7 +21,7 @@ export const Drawer = ({ isOpen, children, onBackDropClick }: Props) => {
     <Portal>
       <Fragment>
         <Backdrop onClick={onBackDropClick} />
-        <DrawerWrapper>{children}</DrawerWrapper>
+        <DrawerWrapper className={className}>{children}</DrawerWrapper>
       </Fragment>
     </Portal>
   );
@@ -53,7 +54,7 @@ const Backdrop = styled.div`
   z-index: 99;
   width: 100%;
   height: 100%;
-  background: var(--color-wine);
+  background: var(--color-black);
   opacity: 0.8;
   cursor: pointer;
 `;

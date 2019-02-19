@@ -47,7 +47,7 @@ const SingleProduct = ({ data, checkoutId, addVariationToCart }: Props) => {
       quantity: 1
     };
     client.checkout.addLineItems(checkoutId, lineItemsToAdd).then((checkout) => {
-      addVariationToCart(checkout.lineItems);
+      addVariationToCart(checkout);
     });
 
   }

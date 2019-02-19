@@ -12,9 +12,9 @@ export const foundCheckout = (checkout: any) => ({
   payload: { checkout }
 })
 
-export const addVariationToCart = (item: { variantId: string, quantity: number }) => ({
+export const addVariationToCart = (checkout: any) => ({
   type: CART_ADD_VARIANT,
-  payload: { item }
+  payload: { checkout }
 })
 
 export const setCartVisibility = (visible: boolean) => ({

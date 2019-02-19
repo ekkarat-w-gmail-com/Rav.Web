@@ -4,5 +4,12 @@
   "CartButton.ProductOutOfStock": "{title} finns ej i lager",
   "CartButton.Buy": "Lägg i varukorg",
   "ProductMeta.SKU": "Artikelnummer",
-  "Checkout.GoToCheckout": "Till kassan"
+  "Checkout.CartTitle": "Varukorgen",
+  "Checkout.FreeShipping": "Du har gratis frakt!",
+  "Checkout.Subtotal": "Subtotalt",
+  "Checkout.Tax": "Moms",
+  "Checkout.Shipping": "Frakt",
+  "Checkout.Total": "Totalt",
+  "Checkout.GoToCheckout": "Till kassan",
+  "Checkout.KeepShopping": "Fortsätt handla"
 }

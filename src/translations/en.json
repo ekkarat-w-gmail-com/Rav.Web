@@ -4,5 +4,12 @@
   "CartButton.ProductOutOfStock": "{title} is out of stock",
   "CartButton.Buy": "Buy",
   "ProductMeta.SKU": "SKU",
-  "Checkout.GoToCheckout": "Checkout"
+  "Checkout.CartTitle": "Cart",
+  "Checkout.FreeShipping": "You have free shipping",
+  "Checkout.Subtotal": "Subtotal",
+  "Checkout.Tax": "Tax",
+  "Checkout.Shipping": "Shipping",
+  "Checkout.Total": "Total",
+  "Checkout.GoToCheckout": "Checkout",
+  "Checkout.KeepShopping": "Keep shopping"
 }

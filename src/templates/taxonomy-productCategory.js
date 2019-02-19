@@ -18,7 +18,6 @@ type Props = {
 
 const ProductCategoryPage = ({ data }: Props) => {
   const category = get('category.edges[0].node', data);
-  console.log('category -->', category)
 
   return (
     <Layout>

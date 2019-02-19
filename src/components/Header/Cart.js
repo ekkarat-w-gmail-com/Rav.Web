@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { get, size } from 'lodash/fp';
 
 // Actions
+import { getCountInCart } from '../../store/selectors/cart';
 import { setCartVisibility } from '../../store/actions';
 
 type Props = {
@@ -29,9 +30,9 @@ CartComponent.defaultProps = {
   isVisible: false
 }
 
-const mapStateToProps = ({ cart }) => ({
-  count: size( get('checkout.lineItems', cart) ),
-  isVisible: get('visibility', cart)
+const mapStateToProps = (store) => ({
+  count: getCountInCart(store),
+  isVisible: get('visibility', store.cart)
 })
 
 export const Cart = connect(mapStateToProps, { setCartVisibility })(CartComponent)

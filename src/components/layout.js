@@ -52,11 +52,10 @@ const Layout = ({ children, locale, checkoutId, foundCheckout, createCheckout }:
 
     } else {
 
-      client.checkout.create().then((checkout) => {
-        console.log('Checkout created');
+      client.checkout.create().then((checkout) => {        
         createCheckout(checkout)
       });
-      
+
     }
 
     return () => {}

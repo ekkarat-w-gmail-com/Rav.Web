@@ -1,8 +1,9 @@
+/* eslint react/style-prop-object: "off" */
 // @flow
 import React from 'react';
-import { getOr, map } from 'lodash/fp';
+import { get, getOr, map } from 'lodash/fp';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import styled from 'styled-components';
 
 // Actions
@@ -18,10 +19,21 @@ type Props = {
   isOpen: boolean,
   items: Array<any>,
   checkoutUrl: string,
+  subTotal: string,
+  totalTax: string,
+  totalPrice: string,
   setCartVisibility: (bool: boolean) => void
 }
 
-export const CartDrawer = ({ isOpen, items, setCartVisibility, checkoutUrl }: Props) => {
+export const CartDrawer = ({
+  isOpen,
+  items,
+  setCartVisibility,
+  checkoutUrl,
+  subTotal,
+  totalTax,
+  totalPrice,
+  }: Props) => {
 
   const lineItems = map((lineItem) => {
     return (
@@ -32,25 +44,79 @@ export const CartDrawer = ({ isOpen, items, setCartVisibility, checkoutUrl }: Pr
     );
   }, items);
 
+  const subTotalPrice = Number(subTotal) > 0 ?
+    <FormattedNumber style={'currency'} currency={'SEK'} value={Number(subTotal)} /> : '—';
+
+  const totalTaxPrice = Number(totalTax) > 0 ?
+    <FormattedNumber style={'currency'} currency={'SEK'} value={Number(totalTax)} /> : '—';
+
+  const total = Number(totalPrice) > 0 ?
+    <FormattedNumber style={'currency'} currency={'SEK'} value={Number(totalPrice)} /> : '—';
+
+
   return (
-    <Drawer isOpen={isOpen} onBackDropClick={() => setCartVisibility(false)}>
+    <CustomDrawer isOpen={isOpen} onBackDropClick={() => setCartVisibility(false)}>
 
       <CartHeader>
-        <CartTitle>Cart</CartTitle>
-        <CartSubtitle>You have free shipping on this order</CartSubtitle>
+        <CartTitle>
+          <FormattedMessage id={'Checkout.CartTitle'} />
+        </CartTitle>
+        <CartSubtitle>
+          <FormattedMessage id={'Checkout.FreeShipping'} />
+        </CartSubtitle>
       </CartHeader>
 
       <CartItems>
         {lineItems}
       </CartItems>
 
-      <FormattedMessage id={'Checkout.GoToCheckout'} defaultMessage={'Checkout'}>
-        {(checkoutString) => (
-          <CheckoutButton as={'a'} href={checkoutUrl} title={checkoutString} target={'_blank'}>{checkoutString}</CheckoutButton>
-        )}
-      </FormattedMessage>
+      <CheckoutSummary>
 
-    </Drawer>
+        <SummaryItems>
+
+          <SummaryItem>
+            <FormattedMessage id={'Checkout.Subtotal'} />
+            <SummaryValue>{subTotalPrice}</SummaryValue>
+          </SummaryItem>
+
+          <SummaryItem>
+            <FormattedMessage id={'Checkout.Tax'} />
+            <SummaryValue>{totalTaxPrice}</SummaryValue>
+          </SummaryItem>
+
+          {
+            /*
+             * Shipping cost not showing in cart information atm
+             *
+
+              <SummaryItem>
+                <FormattedMessage id={'Checkout.Shipping'} />
+                <SummaryValue>{}</SummaryValue>
+              </SummaryItem>
+            */
+          }
+
+
+        </SummaryItems>
+
+        <TotalItem>
+          <FormattedMessage id={'Checkout.Total'} />
+          <SummaryValue>{total}</SummaryValue>
+        </TotalItem>
+
+        <FormattedMessage id={'Checkout.GoToCheckout'} defaultMessage={'Checkout'}>
+          {(checkoutString) => (
+            <CheckoutButton as={'a'} href={checkoutUrl} title={checkoutString} target={'_blank'}>{checkoutString}</CheckoutButton>
+          )}
+        </FormattedMessage>
+
+        <KeepShoppingButton onClick={() => setCartVisibility(false)}>
+          <FormattedMessage id={'Checkout.KeepShopping'} />
+        </KeepShoppingButton>
+
+      </CheckoutSummary>
+
+    </CustomDrawer>
   );
 };
 
@@ -58,16 +124,27 @@ export const CartDrawer = ({ isOpen, items, setCartVisibility, checkoutUrl }: Pr
 CartDrawer.defaultProps = {
   count: 0,
   items: [],
-  checkoutUrl: ''
+  checkoutUrl: '',
+  subTotal: '0',
+  totalTax: '0',
+  totalPrice: '0'
 }
 
 const mapStateToProps = ({ cart }) => ({
   isOpen: getOr(false, 'visibility', cart),
   items: getOr([], 'checkout.lineItems', cart),
+  subTotal: get('checkout.subtotalPrice', cart),
+  totalTax: get('checkout.totalTax', cart),
+  totalPrice: get('checkout.totalPrice', cart),
   checkoutUrl: getOr('', 'checkout.webUrl', cart),
 })
 
 export const Cart = connect(mapStateToProps, { setCartVisibility })(CartDrawer)
+
+const CustomDrawer = styled(Drawer)`
+  display: flex;
+  flex-direction: column;
+`;
 
 const CartHeader = styled.header`
   text-align: center;
@@ -88,12 +165,44 @@ const CartItems = styled.div`
 `;
 
 const CheckoutSummary = styled.div`
-  background-color: rgb(250, 245, 243);
   bottom: 0px;
   position: sticky;
   top: 0px;
   left: 30px;
   right: 30px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.92;
+
+  @media (min-width: 1350px) {
+    position: relative;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: 0px;
+  }
+
+`;
+
+const SummaryItems = styled.div`
+  margin-bottom: 4px;
+`;
+
+const SummaryItem = styled.div`
+  display: flex;
+  margin-bottom: 2px;
+`;
+
+const SummaryValue = styled.span`
+  margin-left: auto;
+`;
+
+const TotalItem = styled.div`
+  display: flex;
+  padding-top: 4px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  margin-bottom: 10px;
 `;
 
 const CheckoutButton = styled(Minion)`
@@ -115,4 +224,13 @@ const CheckoutButton = styled(Minion)`
   transition: all 300ms ease 0s;
   margin: 0px;
   text-decoration: none;
+`;
+
+const KeepShoppingButton = styled(Minion)`
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  color: var(--color-wine);
+  text-decoration: underline;
+  cursor: pointer;
 `;

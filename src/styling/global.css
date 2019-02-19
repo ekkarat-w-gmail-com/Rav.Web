@@ -4,7 +4,7 @@
   --color-ivory: rgb(244, 244, 239);
   --color-sand: rgb(236, 232, 222);
   --color-black: rgb(33, 33, 33);
-  --color-wine: rgb(95, 45, 58);
+  --color-wine: rgb(118, 54, 121);
   --color-mustard: rgb(245, 190, 88);
   --color-grey: rgb(249, 249, 249);
   --font-serif: 'EB Garamond', 'serif';
@@ -34,4 +34,8 @@ h6 {
 p {
   margin-top: 0;
   margin-bottom: 1rem;
+}
+
+body.locked {
+  overflow-y: hidden;
 }
