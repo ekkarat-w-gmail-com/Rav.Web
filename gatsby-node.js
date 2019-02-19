@@ -3,40 +3,40 @@
  *
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
-const path = require(`path`)
+const path = require('path');
 const map = require('lodash/fp/map');
+const get = require('lodash/fp/get');
+const has = require('lodash/fp/has');
+const size = require('lodash/fp/size');
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
   const query = `
   {
-    allContentfulProduct {
-      edges {
-        node {
-          slug
-          id
-          node_locale
-        }
-      }
-    }
-    allContentfulProductCategory {
-      edges {
-        node {
-          slug
-          id
-          node_locale
-        }
-      }
-    }
     allShopifyProduct {
       edges {
         node {
           id
           handle
+          options {
+            name
+            values
+          }
         }
       }
     }
+
+    allShopifyCollection {
+      edges {
+        node {
+          title
+          id
+          handle
+        }
+      }
+    }
+
   }
   `;
 
@@ -44,56 +44,60 @@ exports.createPages = async ({ graphql, actions }) => {
 
     const pages = await graphql(query);
 
-    console.log('\x1b[33m%s\x1b[0m', '\n ==== Starting building pages ==== \n')
+    if ( has('errors', pages) ) {
+      throw pages.errors;
+    }
 
-    // Create products based on contentful
-    map(({ node }) => {
-      const slug = `/product/${node.slug}`;
-      console.log('Creating single product page -->', slug);
-      createPage({
-        path: slug,
-        component: path.resolve(`./src/templates/single-product.js`),
-        context: { // Data passed to context is available in page queries as GraphQL variables.
-          slug: node.slug,
-          id: node.id,
-          locale: node.node_locale
-        }
-      })
-    }, pages.data.allContentfulProduct.edges);
-
-    // Create categories based on contentful
-    map(({ node }) => {
-      const slug = `/category/${node.slug}`;
-      console.log('Creating taxonomy productCategory page -->', slug);
-      createPage({
-        path: slug,
-        component: path.resolve(`./src/templates/taxonomy-productCategory.js`),
-        context: { // Data passed to context is available in page queries as GraphQL variables.
-          slug: node.slug,
-          id: node.id,
-          locale: node.node_locale
-        }
-      })
-    }, pages.data.allContentfulProductCategory.edges);
+    console.log('\x1b[33m%s\x1b[0m', '\n ==== Starting building pages ==== \n');
 
     // Create products based on shopify
     map(({ node }) => {
-      const slug = `/product/s/${node.handle}`
-      console.log('Creating single product page (Shopify) -->', slug);
+
+      const slug = `/product/${node.handle}`;
+
+      // Use a different template if the product has variations
+      if ( has('options', node) && size(get('options', node)) > 1 ) {
+        console.log('\u001b[34m', 'Creating single product page with variants (Shopify) -->', slug);
+        createPage({
+          path: slug,
+          component: path.resolve('./src/templates/shopify-variation-product.js'),
+          context: {
+            id: node.id,
+          }
+        })
+      } else {
+        console.log('\u001b[34m', 'Creating single product page (Shopify) -->', slug);
+        createPage({
+          path: slug,
+          component: path.resolve('./src/templates/shopify-single-product.js'),
+          context: {
+            id: node.id,
+          }
+        })
+      }
+
+    }, pages.data.allShopifyProduct.edges);
+
+    map(({ node }) => {
+      const slug = `/category/${node.handle}`;
+      console.log('\u001b[34m', 'Creating product category page (Shopify) -->', slug);
       createPage({
         path: slug,
-        component: path.resolve('./src/templates/shopify-single-product.js'),
+        component: path.resolve('./src/templates/taxonomy-productCategory.js'),
         context: {
           id: node.id,
+          slug: node.handle
         }
       })
-    }, pages.data.allShopifyProduct.edges);
+
+    }, pages.data.allShopifyCollection.edges)
 
     console.log('\x1b[33m%s\x1b[0m', '\n ==== Finished building pages ==== \n')
 
   } catch(error) {
-    console.log('\x1b[33m%s\x1b[0m', '\n ==== Error: Could not build pages ==== \n')
+    console.log('\x1b[33m%s\x1b[0m', '\n ==== Error: Could not build pages - See log ==== \n')
     console.log(error);
+    console.log('\x1b[33m%s\x1b[0m', '\n ==== Error: End log ==== \n')
   }
 
 }

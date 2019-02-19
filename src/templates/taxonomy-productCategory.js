@@ -1,3 +1,4 @@
+// @flow
 import React from "react"
 import { graphql } from "gatsby"
 import styled from 'styled-components';
@@ -7,82 +8,55 @@ import { get } from 'lodash/fp';
 import Layout from "../components/layout"
 import { ProductList } from '../components/ProductList';
 
-const ProductCategoryPage = ({ data }) => {
-  const { category, products, shopifyProducts } = data;
+type Props = {
+  data: {
+    category: {
+      edges: Array<any>
+    }
+  }
+}
+
+const ProductCategoryPage = ({ data }: Props) => {
+  const category = get('category.edges[0].node', data);
+  console.log('category -->', category)
 
   return (
     <Layout>
       <HeaderContainer>
-        <CategoryTitle>{category.name}</CategoryTitle>
-        <CategoryDescription>Short text about women’s pants lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</CategoryDescription>
+        <CategoryTitle>{get('title', category)}</CategoryTitle>
+        <CategoryDescription>{get('description', category)}</CategoryDescription>
+        <ProductList
+          keySource={'id'}
+          titleSource={'title'}
+          hrefPrefix={'/product/'}
+          hrefSource={'handle'}
+          thumbnailSource={'images[0].originalSrc'}
+          excerptSource={'description'}
+          products={get('products', category)}
+         />
       </HeaderContainer>
-      <ProductList
-        columns={3}
-        keySource={'slug'}
-        titleSource={'name'}
-        hrefPrefix={'/product/'}
-        hrefSource={'slug'}
-        excerptSource={'shortDescription.shortDescription'}
-        thumbnailSource={'featuredImage.fixed.src'}
-        products={get('edges', products)}
-      />
-      <ProductList
-        columns={3}
-        keySource={'handle'}
-        titleSource={'title'}
-        hrefPrefix={'/product/s/'}
-        hrefSource={'handle'}
-        excerptSource={'description'}
-        thumbnailSource={'images[0].localFile.childImageSharp.fixed.src'}
-        products={get('edges', shopifyProducts)}
-      />
+
     </Layout>
   )
 }
 
 export const query = graphql`
-  query productCategoryQuery($slug: String!) {
+  query($id: String!) {
 
-    category: contentfulProductCategory(slug: { eq: $slug }) {
-      name
-      id
-      slug
-    }
-
-    products: allContentfulProduct(filter: { categories: { slug: { in: [$slug] } } }) {
-      edges {
-        node {
-          name
-          id
-          slug
-          shortDescription {
-            shortDescription
-          }
-          featuredImage {
-            id
-            fixed(width: 1000, height: 1500, quality: 100) {
-              src
-            }
-          }
-        }
-      }
-    }
-
-    shopifyProducts: allShopifyProduct {
+    category: allShopifyCollection(filter: { id: { eq: $id }}) {
       edges {
         node {
           title
-          id
           handle
           description
-          images {
-            localFile {
-              childImageSharp {
-                fixed(width: 1000, height: 1500, quality: 100, cropFocus: CENTER) {
-                  src
-                }
-              }
+          products {
+            id
+            title
+            description
+            images {
+              originalSrc
             }
+            handle
           }
         }
       }

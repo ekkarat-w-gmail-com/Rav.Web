@@ -3,6 +3,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 
+import { trimWords } from '../../utils/formatting';
+
 type Props = {
   title: string,
   excerpt: string,
@@ -16,7 +18,7 @@ export const ProductCard = ({ title, excerpt, thumbnail, to }: Props) => (
       <img src={thumbnail} alt={title} />
     </ImageWrapper>
     <Title>{title}</Title>
-    <Excerpt>{excerpt}</Excerpt>
+    <Excerpt>{trimWords(excerpt, 15)}</Excerpt>
   </ProductCardWrapper>
 )
 
@@ -30,7 +32,7 @@ const ProductCardWrapper = styled(Link)`
 const ImageWrapper = styled.div`
   width: 100%;
   height: 0px;
-  padding-top: 150%;
+  padding-top: 100%;
   position: relative;
   cursor: pointer;
   background-color: rgb(245, 244, 240);

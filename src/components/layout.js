@@ -48,7 +48,7 @@ const Layout = ({ children, locale }: Props) => {
 }
 
 Layout.defaultProps = {
-  locale: 'en'
+  locale: 'sv'
 }
 
 export default Layout

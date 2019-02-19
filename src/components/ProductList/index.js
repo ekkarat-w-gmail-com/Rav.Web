@@ -23,7 +23,7 @@ export const ProductList = ({ products, columns, keySource, titleSource, hrefPre
     return null;
   }
 
-  const productList = map(({ node }) => (
+  const productList = map((node) => (
     <ProductCard
       key={get(keySource, node)}
       title={get(titleSource, node)}
