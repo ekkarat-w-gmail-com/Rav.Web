@@ -3,7 +3,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { get, has } from 'lodash/fp';
-import { FormattedNumber } from 'react-intl';
+import { FormattedNumber, FormattedMessage } from 'react-intl';
+import { AnimateOnChange } from '@nearform/react-animation';
 
 // Components
 import { UpArrow, DownArrow } from '../Icons/Arrows';
@@ -26,17 +27,25 @@ type LineItem = {
   }
 }
 
-type Props = {
-  lineItem: LineItem,
-  decrementQuantity?: (id: string) => void,
-  incrementQuantity?: (id: string) => void,
-  removeLineItemInCart?: (id: string) => void
+type QuantityObject =  {
+  id: string,
+  quantity: number
 }
 
-export const CartItem = ({ lineItem }: Props) => {
+type Props = {
+  lineItem: LineItem,
+  onDecrement: (QuantityObject) => void,
+  onIncrement: (QuantityObject) => void,
+  onRemove: (id: string) => void
+}
+
+export const CartItem = ({ lineItem, onRemove, onDecrement, onIncrement }: Props) => {
 
   const variantTitle = get('variant.title', lineItem) !== 'Default Title' ?
     <VariantTitle>{get('variant.title', lineItem)}</VariantTitle> : null;
+
+  const id = get('variant.id', lineItem);
+  const quantity = get('quantity', lineItem);
 
   return (
     <LineItemWrap>
@@ -49,22 +58,27 @@ export const CartItem = ({ lineItem }: Props) => {
         <VariantPrice>
           <FormattedNumber style={'currency'} currency={'SEK'} value={get('variant.price', lineItem)} />
         </VariantPrice>
+        <RemoveButton onClick={() => onRemove( get('id', lineItem) )}>
+          <FormattedMessage id={'CartItem.Remove'} />
+        </RemoveButton>
       </TextContainer>
       <ActionsContainer>
-        <QuantityButton aria-label="Decrease by 1">
+        <QuantityButton onClick={() => onIncrement({ id, quantity: quantity + 1 })}>
           <UpArrow />
         </QuantityButton>
         <QuantityWrapper>
-          <QuantityText>{lineItem.quantity}</QuantityText>
+          <AnimateOnChange animationOut={'bounceOut'} animationIn={'bounceIn'}>
+            <QuantityText>{lineItem.quantity}</QuantityText>
+          </AnimateOnChange>
         </QuantityWrapper>
-        <QuantityButton disabled={lineItem.quantity === 1} aria-label="Decrease by 1">
+        <QuantityButton onClick={() => onDecrement({ id, quantity: quantity - 1 })} disabled={lineItem.quantity === 1}>
           <DownArrow />
         </QuantityButton>
       </ActionsContainer>
     </LineItemWrap>
   );
 
-}
+};
 
 const LineItemWrap = styled.div`
   display: flex;
@@ -104,6 +118,11 @@ const VariantPrice = styled(Brevier)`
   margin-top: 2px;
 `;
 
+const RemoveButton = styled(Brevier)`
+  color: var(--color-wine);
+  margin-top: auto;
+`;
+
 const ActionsContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -122,6 +141,11 @@ const QuantityButton = styled.button`
   &:disabled {
     cursor: auto;
     opacity: 0.2;
+  }
+
+  &:focus,
+  &:active {
+    outline: none;
   }
 
 `;

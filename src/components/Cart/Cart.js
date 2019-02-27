@@ -7,7 +7,8 @@ import { FormattedMessage, FormattedNumber } from 'react-intl';
 import styled from 'styled-components';
 
 // Actions
-import { setCartVisibility } from '../../store/actions';
+import { client } from '../../services/shopify';
+import { setCartVisibility, updateItemQuantity, removeItemFromCart } from '../../store/actions';
 
 // Components
 import { CartItem } from './CartItem'
@@ -18,28 +19,52 @@ import { DoublePica, Minion } from '../../styling/typography';
 type Props = {
   isOpen: boolean,
   items: Array<any>,
-  checkoutUrl: string,
+  checkout: Object,
   subTotal: string,
   totalTax: string,
   totalPrice: string,
-  setCartVisibility: (bool: boolean) => void
+  setCartVisibility: (bool: boolean) => void,
+  updateItemQuantity: (checkout: any) => void,
+  removeItemFromCart: (checkout: any) => void
 }
 
 export const CartDrawer = ({
   isOpen,
   items,
-  setCartVisibility,
-  checkoutUrl,
+  checkout,
   subTotal,
   totalTax,
   totalPrice,
+  setCartVisibility,
+  updateItemQuantity,
+  removeItemFromCart
   }: Props) => {
+
+  const checkoutId = get('id', checkout);
+
+  const handleOnQuantityChange = ({ id, quantity }) => {
+    console.log('handleOnQuantityChange -->', id, quantity)
+    client.checkout.updateLineItems(checkoutId, { id, quantity }).then((checkout) => {
+      updateItemQuantity(checkout)
+    });
+  }
+
+  const handleOnRemove = (id) => {
+    console.log('handleOnRemove -->', id)
+    client.checkout.removeLineItems(checkoutId, id).then((checkout) => {
+      console.log('handleOnRemove checkout -->', checkout)
+      removeItemFromCart(checkout)
+    });
+  }
 
   const lineItems = map((lineItem) => {
     return (
       <CartItem
         key={lineItem.id}
         lineItem={lineItem}
+        onIncrement={handleOnQuantityChange}
+        onDecrement={handleOnQuantityChange}
+        onRemove={handleOnRemove}
       />
     );
   }, items);
@@ -71,49 +96,28 @@ export const CartDrawer = ({
       </CartItems>
 
       <CheckoutSummary>
-
         <SummaryItems>
-
           <SummaryItem>
             <FormattedMessage id={'Checkout.Subtotal'} />
             <SummaryValue>{subTotalPrice}</SummaryValue>
           </SummaryItem>
-
           <SummaryItem>
             <FormattedMessage id={'Checkout.Tax'} />
             <SummaryValue>{totalTaxPrice}</SummaryValue>
           </SummaryItem>
-
-          {
-            /*
-             * Shipping cost not showing in cart information atm
-             *
-
-              <SummaryItem>
-                <FormattedMessage id={'Checkout.Shipping'} />
-                <SummaryValue>{}</SummaryValue>
-              </SummaryItem>
-            */
-          }
-
-
         </SummaryItems>
-
         <TotalItem>
           <FormattedMessage id={'Checkout.Total'} />
           <SummaryValue>{total}</SummaryValue>
         </TotalItem>
-
         <FormattedMessage id={'Checkout.GoToCheckout'} defaultMessage={'Checkout'}>
           {(checkoutString) => (
-            <CheckoutButton as={'a'} href={checkoutUrl} title={checkoutString} target={'_blank'}>{checkoutString}</CheckoutButton>
+            <CheckoutButton as={'a'} href={get('webUrl', checkout)} title={checkoutString} target={'_blank'}>{checkoutString}</CheckoutButton>
           )}
         </FormattedMessage>
-
         <KeepShoppingButton onClick={() => setCartVisibility(false)}>
           <FormattedMessage id={'Checkout.KeepShopping'} />
         </KeepShoppingButton>
-
       </CheckoutSummary>
 
     </CustomDrawer>
@@ -136,10 +140,10 @@ const mapStateToProps = ({ cart }) => ({
   subTotal: get('checkout.subtotalPrice', cart),
   totalTax: get('checkout.totalTax', cart),
   totalPrice: get('checkout.totalPrice', cart),
-  checkoutUrl: getOr('', 'checkout.webUrl', cart),
+  checkout: get('checkout', cart)
 })
 
-export const Cart = connect(mapStateToProps, { setCartVisibility })(CartDrawer)
+export const Cart = connect(mapStateToProps, { setCartVisibility, updateItemQuantity, removeItemFromCart })(CartDrawer)
 
 const CustomDrawer = styled(Drawer)`
   display: flex;

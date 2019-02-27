@@ -5,11 +5,12 @@
   "CartButton.Buy": "Lägg i varukorg",
   "ProductMeta.SKU": "Artikelnummer",
   "Checkout.CartTitle": "Varukorgen",
-  "Checkout.FreeShipping": "Du har gratis frakt!",
+  "Checkout.FreeShipping": "Grattis! du har gratis frakt",
   "Checkout.Subtotal": "Subtotalt",
   "Checkout.Tax": "Moms",
   "Checkout.Shipping": "Frakt",
   "Checkout.Total": "Totalt",
   "Checkout.GoToCheckout": "Till kassan",
-  "Checkout.KeepShopping": "Fortsätt handla"
+  "Checkout.KeepShopping": "Fortsätt handla",
+  "CartItem.Remove": "Ta bort"
 }

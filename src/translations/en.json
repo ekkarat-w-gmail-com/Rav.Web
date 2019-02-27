@@ -11,5 +11,6 @@
   "Checkout.Shipping": "Shipping",
   "Checkout.Total": "Total",
   "Checkout.GoToCheckout": "Checkout",
-  "Checkout.KeepShopping": "Keep shopping"
+  "Checkout.KeepShopping": "Keep shopping",
+  "CartItem.Remove": "Remove"
 }

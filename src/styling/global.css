@@ -9,6 +9,7 @@
   --color-grey: rgb(249, 249, 249);
   --font-serif: 'EB Garamond', 'serif';
   --font-sans: 'Open Sans', 'sans-serif';
+  --global-radius: 2px;
 }
 
 html {
@@ -38,4 +39,12 @@ p {
 
 body.locked {
   overflow-y: hidden;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset, 0 0 8px rgba(64, 197, 220, 0.8);
+}
+
+input:-webkit-autofill:not(:focus) {
+  border-color: #fff !important;
 }

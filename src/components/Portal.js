@@ -22,18 +22,12 @@ export class Portal extends Component<Props> {
   componentDidMount() {
     if ( portalRoot && this.mountNode ) {
       portalRoot.appendChild(this.mountNode)
-      if ( document.body ) {
-        document.body.classList.add('locked');
-      }
     }
   }
 
   componentWillUnmount() {
     if ( portalRoot && this.mountNode ) {
-      portalRoot.removeChild(this.mountNode)
-      if ( document.body ) {
-        document.body.classList.remove('locked')
-      }
+      portalRoot.removeChild(this.mountNode)      
     }
   }
 

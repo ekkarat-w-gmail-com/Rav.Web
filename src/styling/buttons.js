@@ -1,5 +1,29 @@
 import styled, { css } from 'styled-components';
 
+export const StyledButton = styled.button`
+  background-color: var(--color-wine);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  line-height: 1.3;
+  letter-spacing: 1.2px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--color-wine);
+  border-image: initial;
+  border-radius: 2px;
+  padding: 0px 20px;
+  transition: all 300ms ease 0s;
+  margin: 0px;
+`;
+
 const SizeButtonDisabled = css`
   color: #c6c6c6;
   cursor: auto;
