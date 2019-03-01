@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'gatsby'
 
 export const TopBarWrapper = styled.div`
@@ -22,6 +22,11 @@ export const TopBarWrapper = styled.div`
 
 `;
 
+export const CheckoutHeaderMixin = css`
+  height: 60px;
+  border-bottom: 0 none;
+`;
+
 export const HeaderWrapper = styled.header`
   background: #fff;
   width: 100%;
@@ -33,6 +38,9 @@ export const HeaderWrapper = styled.header`
   padding: 0 2rem;
   position: relative;
   border-bottom: 1px solid var(--color-ivory);
+
+  ${props => props.slim ? CheckoutHeaderMixin : ''}
+
 `;
 
 export const HeaderLink = styled(Link)`

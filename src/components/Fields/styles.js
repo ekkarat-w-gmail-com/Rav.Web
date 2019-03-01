@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Field = styled.div`
   position: relative;
@@ -47,5 +47,43 @@ export const FieldInput = styled.input`
   &:active {
     border-color: var(--color-mustard);
   }
+
+`;
+
+export const CustomRadioIconSelectedMixin = css`
+  &::after {
+    visibility: visible;
+    opacity: 1;
+  }
+`;
+
+export const CustomRadioIcon = styled.span`
+  display: inline-block;
+  height: 1rem;
+  width: 1rem;
+  background-color: var(--color-white);
+  border: 1px solid rgb(210, 210, 210);
+  border-radius: 50%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+
+  &::after {
+    content: '';
+    position: absolute;
+    display: block;
+    visibility: hidden;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: var(--color-black);
+    transition: opacity 300ms ease-in-out;
+    opacity: 0;
+  }
+
+  ${props => props.isSelected ? CustomRadioIconSelectedMixin : ''}
 
 `;

@@ -1,27 +1,28 @@
 import styled, { css } from 'styled-components';
 
 export const StyledButton = styled.button`
-  background-color: var(--color-wine);
-  color: white;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+  background-color: var(--color-black);
+  color: #fff;
   width: 100%;
-  height: 60px;
-  font-size: 11px;
-  font-weight: 500;
-  text-transform: uppercase;
-  line-height: 1.3;
-  letter-spacing: 1.2px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: var(--color-wine);
-  border-image: initial;
-  border-radius: 2px;
-  padding: 0px 20px;
-  transition: all 300ms ease 0s;
-  margin: 0px;
+  height: 3rem;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: var(--global-radius);
+  border: 0 none;
+  font-size: 14px;
+  transition: all 0.25s ease-in-out;
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:disabled {
+    color: #000;
+    cursor: auto;
+    background-color: var(--color-ivory);
+  }
+
 `;
 
 const SizeButtonDisabled = css`

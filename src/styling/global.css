@@ -4,6 +4,7 @@
   --color-ivory: rgb(244, 244, 239);
   --color-sand: rgb(236, 232, 222);
   --color-black: rgb(33, 33, 33);
+  --color-white: rgba(255, 255, 255);
   --color-wine: rgb(118, 54, 121);
   --color-mustard: rgb(245, 190, 88);
   --color-grey: rgb(249, 249, 249);
@@ -14,6 +15,12 @@
 
 html {
   box-sizing: border-box;
+}
+
+html,
+body,
+.main {
+  height: 100%;
 }
 
 *,

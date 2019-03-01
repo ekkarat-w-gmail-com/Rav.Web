@@ -16,7 +16,7 @@ import enTranslations from '../translations/en.json';
 import svTranslations from '../translations/sv.json';
 
 // Components
-import { Header } from './Header';
+import { Header, CheckoutHeader } from './Header';
 import { Footer } from './Footer';
 import { Cart } from './Cart/Cart';
 
@@ -29,6 +29,7 @@ type Props = {
   children: any,
   locale: string,
   checkoutId: any,
+  useCheckoutLayout?: boolean,
   createCheckout: (checkout: any) => void,
   foundCheckout: (checkout: any) => void
 }
@@ -40,7 +41,7 @@ addLocaleData([
 ]);
 
 
-const Layout = ({ children, locale, checkoutId, foundCheckout, createCheckout }: Props) => {
+const Layout = ({ children, locale, checkoutId, useCheckoutLayout, foundCheckout, createCheckout }: Props) => {
 
   useEffect(() => {
 
@@ -52,7 +53,7 @@ const Layout = ({ children, locale, checkoutId, foundCheckout, createCheckout }:
 
     } else {
 
-      client.checkout.create().then((checkout) => {        
+      client.checkout.create().then((checkout) => {
         createCheckout(checkout)
       });
 
@@ -71,9 +72,10 @@ const Layout = ({ children, locale, checkoutId, foundCheckout, createCheckout }:
   return (
     <IntlProvider locale={locale} messages={messages}>
       <Fragment>
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        {!useCheckoutLayout && <Header />}
+        {useCheckoutLayout && <CheckoutHeader />}
+        <main className={'main'}>{children}</main>
+        {!useCheckoutLayout && <Footer />}
         <Cart />
       </Fragment>
     </IntlProvider>
@@ -81,7 +83,8 @@ const Layout = ({ children, locale, checkoutId, foundCheckout, createCheckout }:
 }
 
 Layout.defaultProps = {
-  locale: 'sv'
+  locale: 'sv',
+  useCheckoutLayout: false
 }
 
 const mapStateToProps = (state) => ({
