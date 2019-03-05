@@ -24,7 +24,6 @@ export const TopBarWrapper = styled.div`
 
 export const CheckoutHeaderMixin = css`
   height: 60px;
-  border-bottom: 0 none;
 `;
 
 export const HeaderWrapper = styled.header`
@@ -37,7 +36,6 @@ export const HeaderWrapper = styled.header`
   justify-content: center;
   padding: 0 2rem;
   position: relative;
-  border-bottom: 1px solid var(--color-ivory);
 
   ${props => props.slim ? CheckoutHeaderMixin : ''}
 

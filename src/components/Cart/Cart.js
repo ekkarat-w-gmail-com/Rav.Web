@@ -1,6 +1,7 @@
 /* eslint react/style-prop-object: "off" */
 // @flow
 import React from 'react';
+import { Link } from 'gatsby';
 import { get, getOr, map } from 'lodash/fp';
 import { connect } from 'react-redux';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
@@ -102,7 +103,11 @@ export const CartDrawer = ({
         </TotalItem>
         <FormattedMessage id={'Checkout.GoToCheckout'} defaultMessage={'Checkout'}>
           {(checkoutString) => (
-            <CheckoutButton as={'a'} href={get('webUrl', checkout)} title={checkoutString} target={'_blank'}>{checkoutString}</CheckoutButton>
+            <Link to={'/checkout'} onClick={() => setCartVisibility(false)}>
+              <CheckoutButton>
+                {checkoutString}
+              </CheckoutButton>
+            </Link>
           )}
         </FormattedMessage>
         <KeepShoppingButton onClick={() => setCartVisibility(false)}>

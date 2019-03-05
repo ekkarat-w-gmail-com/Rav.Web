@@ -75,30 +75,43 @@ const Backdrop = styled.div`
   z-index: 99;
   width: 100%;
   height: 100%;
+  opacity: 0.8;
   background: var(--color-black);
   cursor: pointer;
   transition: opacity 400ms ease-in-out;
 `;
 
 const DrawerContainer = styled.div`
-  &.drawer-enter ${DrawerWrapper}, &.drawer-exit-active ${DrawerWrapper} {
+
+  ${DrawerWrapper} {
+    transform: translateX(0);
+  }
+
+  &.drawer-enter ${DrawerWrapper},
+  &.drawer-exit-active ${DrawerWrapper} {
     transform: ${props => {
       if (props.fromSide === 'left') return `translateX(-100%)`;
       if (props.fromSide === 'right') return `translateX(100%)`;
       return 'none';
     }};
   }
-  &.drawer-enter-active ${DrawerWrapper}, &.drawer-enter-done ${DrawerWrapper} {
+
+  &.drawer-enter-active ${DrawerWrapper},
+  &.drawer-enter-done ${DrawerWrapper} {
     transform: ${props => {
       if (props.fromSide === 'left') return `translateX(0)`;
       if (props.fromSide === 'right') return `translateX(0)`;
       return 'none';
     }};
   }
-  &.drawer-enter ${Backdrop}, &.drawer-exit-active ${Backdrop} {
+
+  &.drawer-enter ${Backdrop},
+  &.drawer-exit-active ${Backdrop} {
     opacity: 0;
   }
-  &.drawer-enter-active ${Backdrop}, &.drawer-enter-done ${Backdrop} {
+
+  &.drawer-enter-active ${Backdrop},
+  &.drawer-enter-done ${Backdrop} {
     opacity: 0.8;
   }
 `;

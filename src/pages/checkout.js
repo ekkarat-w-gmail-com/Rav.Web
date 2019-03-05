@@ -26,13 +26,12 @@ const CheckoutComponent = (props: Props) => {
   const [ activePanel, setActivePanel ] = useState('first');
   const [ form, setValues ] = useState({
     emailAddress: '',
-    name: '',
+    firstName: '',
+    lastName: '',
     streetAddress: '',
-    shippingAddress2: '',
     city: '',
     zip: '',
     phone: '',
-    state: '',
     deliveryOption: 'postNord'
   });
 
@@ -55,14 +54,15 @@ const CheckoutComponent = (props: Props) => {
             </PanelHeader>
             <Text label={'Email Address'} id={'emailAddress'} name={'emailAddress'} autocomplete={'email'} value={form.emailAddress} onChange={handleOnInputChange} />
             <LegendTitle>{'Shipping Address'}</LegendTitle>
-            <Text label={'Name'} id={'name'} name={'name'} autocomplete={'fullname'} value={form.name} onChange={handleOnInputChange} />
+            <FieldGroup>
+              <Text label={'First Name'} id={'firstName'} name={'firstName'} autocomplete={'first-name given-name'} value={form.firstName} onChange={handleOnInputChange} />
+              <Text label={'Last Name'} id={'lastName'} name={'lastName'} autocomplete={'last-name family-name'} value={form.lastName} onChange={handleOnInputChange} />
+            </FieldGroup>
             <Text label={'Street Address'} id={'streetAddress'} name={'streetAddress'} autocomplete={'shipping address-line1'} value={form.streetAddress} onChange={handleOnInputChange} />
-            <Text label={'Apt., Floor, Unit, etc.'} id={'shippingAddress2'} name={'shippingAddress2'} autocomplete={'shipping address-line2'} value={form.shippingAddress2} onChange={handleOnInputChange} />
+            <Text label={'Phone'} id={'phone'} name={'phone'} autocomplete={'shipping phone'} value={form.phone} onChange={handleOnInputChange} />
             <FieldGroup>
               <Text label={'City'} id={'city'} name={'city'} autocomplete={'shipping city'} value={form.city} onChange={handleOnInputChange} />
               <Text label={'Zip'} id={'zip'} name={'zip'} autocomplete={'shipping zip'} value={form.zip} onChange={handleOnInputChange} />
-              <Text label={'Phone'} id={'phone'} name={'phone'} autocomplete={'shipping phone'} value={form.phone} onChange={handleOnInputChange} />
-              <Text label={'State'} id={'state'} name={'state'} autocomplete={'shipping state'} value={form.state} onChange={handleOnInputChange} />
             </FieldGroup>
             <ButtonWrap>
               <StyledButton onClick={() => setActivePanel('second')}>{'Next'}</StyledButton>
@@ -93,20 +93,7 @@ const CheckoutComponent = (props: Props) => {
           <PanelHeader>
             <PanelTitle>{'Review order'}</PanelTitle>
           </PanelHeader>
-          <Text label={'Email Address'} id={'emailAddress'} name={'emailAddress'} autocomplete={'email'} value={form.emailAddress} onChange={handleOnInputChange} />
-          <LegendTitle>{'Shipping Address'}</LegendTitle>
-          <Text label={'Name'} id={'name'} name={'name'} autocomplete={'fullname'} value={form.name} onChange={handleOnInputChange} />
-          <Text label={'Street Address'} id={'streetAddress'} name={'streetAddress'} autocomplete={'shipping address-line1'} value={form.streetAddress} onChange={handleOnInputChange} />
-          <Text label={'Apt., Floor, Unit, etc.'} id={'shippingAddress2'} name={'shippingAddress2'} autocomplete={'shipping address-line2'} value={form.shippingAddress2} onChange={handleOnInputChange} />
-          <FieldGroup>
-            <Text label={'City'} id={'city'} name={'city'} autocomplete={'shipping city'} value={form.city} onChange={handleOnInputChange} />
-            <Text label={'Zip'} id={'zip'} name={'zip'} autocomplete={'shipping zip'} value={form.zip} onChange={handleOnInputChange} />
-            <Text label={'Phone'} id={'phone'} name={'phone'} autocomplete={'shipping phone'} value={form.phone} onChange={handleOnInputChange} />
-            <Text label={'State'} id={'state'} name={'state'} autocomplete={'shipping state'} value={form.state} onChange={handleOnInputChange} />
-          </FieldGroup>
-          <ButtonWrap>
-            <StyledButton>{'Next'}</StyledButton>
-          </ButtonWrap>
+          
         </PanelInner>
         </Panel>
       </Grid>

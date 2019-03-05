@@ -14,7 +14,7 @@ type Props = {
   intl: intlShape
 }
 
-const PriceComponent = ({ regularPrice, salePrice, className, locale, intl }: Props) => {
+const PriceComponent = ({ regularPrice, salePrice, className, intl }: Props) => {
 
   const currencyCode = getCurrencyCode(intl.locale);
 
