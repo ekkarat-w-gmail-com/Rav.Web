@@ -1,11 +1,10 @@
 // @flow
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment } from 'react'
 import { IntlProvider, addLocaleData } from 'react-intl';
 import { connect } from 'react-redux';
 import { get } from 'lodash/fp';
 
 // Store
-import { client } from '../services/shopify';
 import { foundCheckout, createCheckout } from '../store/actions/cartActions';
 
 // i18n
@@ -43,25 +42,6 @@ addLocaleData([
 
 const Layout = ({ children, locale, checkoutId, useCheckoutLayout, foundCheckout, createCheckout }: Props) => {
 
-  useEffect(() => {
-
-    if ( checkoutId ) {
-
-      client.checkout.fetch(checkoutId).then((checkout) => {
-        foundCheckout(checkout)
-      });
-
-    } else {
-
-      client.checkout.create().then((checkout) => {
-        createCheckout(checkout)
-      });
-
-    }
-
-    return () => {}
-  });
-
   const translations = {
     'en': enTranslations,
     'sv': svTranslations
@@ -83,7 +63,7 @@ const Layout = ({ children, locale, checkoutId, useCheckoutLayout, foundCheckout
 }
 
 Layout.defaultProps = {
-  locale: 'sv',
+  locale: 'en',
   useCheckoutLayout: false
 }
 

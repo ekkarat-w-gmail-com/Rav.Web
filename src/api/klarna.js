@@ -2,13 +2,10 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:3000/v1'
+  baseURL: process.env.RAV_SERVER_BASE_URL || ''
 });
 
 const order =  {
-	"purchase_country": "se",
-	"purchase_currency": "sek",
-	"locale": "en-GB",
 	"billing_address": {
 		"given_name": "Testperson-se",
 		"family_name": "Approved",
@@ -33,13 +30,7 @@ const order =  {
 		"total_discount_amount": 100000,
 		"total_tax_amount": 100668,
 		"image_url": "http://merchant.com/logo.png"
-	}],
-	"merchant_urls": {
-		"terms": "http://merchant.com/tac.php",
-		"checkout": "http://merchant.com/checkout.php?sid={checkout.order.id}",
-		"confirmation": "http://merchant.com/thankyou.php?sid={checkout.order.id}",
-		"push": "http://localhost/kco/push.php?checkout_uri={checkout.order.id}"
-	},
+	}],	
 	"shipping_options": [{
 			"id": "free_shipping",
 			"name": "Free Shipping",

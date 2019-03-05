@@ -1,19 +1,18 @@
 ## 🚀 Setup Räv.Web
 
-1.  **Create a Contentful site.**
+1.  **Register & create a Contentful site.**
 
     Create a new space and add a new Content Delivery Token plus a Content Management token
     if you want to use the contentful-cli
+    [https://www.contentful.com/](https://www.contentful.com/)
 
 
 2.  **Setup environment**
 
     Add a `.env.development` file with the following content
     ```.bash
-      CONTENTFUL_SPACE_ID={Your space id}
-      CONTENTFUL_ACCESS_TOKEN={Your access token}
-      SHOPIFY_STORE_NAME={Your shopify name}
-      SHOPIFY_ACCESS_TOKEN={Your shopify access token}
+      CONTENTFUL_SPACE_ID=X
+      CONTENTFUL_ACCESS_TOKEN=X      
     ```
 
     If you want to use the contentful-cli add a config file for easier use
@@ -25,7 +24,7 @@
     }
     ```
 
-2.  **Install packages and start developing**
+4.  **Install packages and start developing**
 
     ```
       npm install

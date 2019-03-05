@@ -7,7 +7,6 @@ import { FormattedMessage, FormattedNumber } from 'react-intl';
 import styled from 'styled-components';
 
 // Actions
-import { client } from '../../services/shopify';
 import { setCartVisibility, updateItemQuantity, removeItemFromCart } from '../../store/actions';
 
 // Components
@@ -40,21 +39,12 @@ export const CartDrawer = ({
   removeItemFromCart
   }: Props) => {
 
-  const checkoutId = get('id', checkout);
-
   const handleOnQuantityChange = ({ id, quantity }) => {
     console.log('handleOnQuantityChange -->', id, quantity)
-    client.checkout.updateLineItems(checkoutId, { id, quantity }).then((checkout) => {
-      updateItemQuantity(checkout)
-    });
   }
 
   const handleOnRemove = (id) => {
     console.log('handleOnRemove -->', id)
-    client.checkout.removeLineItems(checkoutId, id).then((checkout) => {
-      console.log('handleOnRemove checkout -->', checkout)
-      removeItemFromCart(checkout)
-    });
   }
 
   const lineItems = map((lineItem) => {

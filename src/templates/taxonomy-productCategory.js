@@ -1,66 +1,55 @@
-// @flow
 import React from "react"
 import { graphql } from "gatsby"
 import styled from 'styled-components';
-import { get } from 'lodash/fp';
 
 // components
 import Layout from "../components/layout"
 import { ProductList } from '../components/ProductList';
 
-type Props = {
-  data: {
-    category: {
-      edges: Array<any>
-    }
-  }
-}
-
-const ProductCategoryPage = ({ data }: Props) => {
-  const category = get('category.edges[0].node', data);
+const ProductCategoryPage = ({ data }) => {
+  const { category, products } = data;
 
   return (
     <Layout>
       <HeaderContainer>
-        <CategoryTitle>{get('title', category)}</CategoryTitle>
-        <CategoryDescription>{get('description', category)}</CategoryDescription>
-        <ProductList
-          keySource={'id'}
-          titleSource={'title'}
-          hrefPrefix={'/product/'}
-          hrefSource={'handle'}
-          thumbnailSource={'images[0].originalSrc'}
-          excerptSource={'description'}
-          products={get('products', category)}
-         />
+        <CategoryTitle>{category.name}</CategoryTitle>
+        <CategoryDescription>Short text about women’s pants lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</CategoryDescription>
       </HeaderContainer>
-
+      <ProductList
+        columns={3}
+        products={products && products.edges}
+        excerptSource={'shortDescription.shortDescription'}
+        thumbnailSource={'featuredImage.fixed.src'}
+      />
     </Layout>
   )
 }
 
 export const query = graphql`
-  query($id: String!) {
-
-    category: allShopifyCollection(filter: { id: { eq: $id }}) {
+  query productCategoryQuery($slug: String!) {
+    category: contentfulProductCategory(slug: { eq: $slug }) {
+      name
+      id
+      slug
+    }
+    products: allContentfulProduct(filter: { categories: { slug: { in: [$slug] } } }) {
       edges {
         node {
-          title
-          handle
-          description
-          products {
+          name
+          id
+          slug
+          shortDescription {
+            shortDescription
+          }
+          featuredImage {
             id
-            title
-            description
-            images {
-              originalSrc
+            fixed(width: 1000, height: 1500, quality: 100) {
+              src
             }
-            handle
           }
         }
       }
     }
-
   }
 `;
 
@@ -73,7 +62,6 @@ const HeaderContainer = styled.div`
 const CategoryTitle = styled.div`
   font-size: 3rem;
   margin-bottom: 30px;
-
   &::after {
     content: "";
     display: block;
