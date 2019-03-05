@@ -12,8 +12,11 @@
     Add a `.env.development` file with the following content
     ```.bash
       CONTENTFUL_SPACE_ID=X
-      CONTENTFUL_ACCESS_TOKEN=X      
+      CONTENTFUL_ACCESS_TOKEN=X     
+      RAV_SERVER_BASE_URL=X
     ```
+
+    The `RAV_SERVER_BASE_URL` is the url to the Rav.Server project which handles the Klarna integration among other things.
 
     If you want to use the contentful-cli add a config file for easier use
     ```.js
