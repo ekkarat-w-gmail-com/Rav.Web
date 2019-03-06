@@ -103,11 +103,11 @@ export const CartDrawer = ({
         </TotalItem>
         <FormattedMessage id={'Checkout.GoToCheckout'} defaultMessage={'Checkout'}>
           {(checkoutString) => (
+            <CheckoutButton>
             <Link to={'/checkout'} onClick={() => setCartVisibility(false)}>
-              <CheckoutButton>
                 {checkoutString}
-              </CheckoutButton>
             </Link>
+            </CheckoutButton>
           )}
         </FormattedMessage>
         <KeepShoppingButton onClick={() => setCartVisibility(false)}>
@@ -222,7 +222,11 @@ const CheckoutButton = styled(Minion)`
   padding: 0px 20px;
   transition: all 300ms ease 0s;
   margin: 0px;
-  text-decoration: none;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 `;
 
 const KeepShoppingButton = styled(Minion)`

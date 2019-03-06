@@ -1,11 +1,6 @@
 // @flow
 import React, { Fragment } from 'react'
 import { IntlProvider, addLocaleData } from 'react-intl';
-import { connect } from 'react-redux';
-import { get } from 'lodash/fp';
-
-// Store
-import { foundCheckout, createCheckout } from '../store/actions/cartActions';
 
 // i18n
 import en from 'react-intl/locale-data/en';
@@ -67,8 +62,4 @@ Layout.defaultProps = {
   useCheckoutLayout: false
 }
 
-const mapStateToProps = (state) => ({
-  checkoutId: get('cart.checkout.id', state)
-});
-
-export default connect(mapStateToProps, { foundCheckout, createCheckout })(Layout);
+export default Layout;

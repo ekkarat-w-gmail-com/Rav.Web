@@ -13,7 +13,7 @@ type Props = {
 
 export const MenuComponent = ({ categories }: Props) => {
   const categoryLinks = map(({node}) => (
-    <MenuLink key={node.slug} to={`/category/${node.slug}`}>{node.name}</MenuLink>
+    <MenuLink key={node.slug} activeClassName={'active'} to={`/category/${node.slug}`}>{node.name}</MenuLink>
   ), categories);
   return (
     <MenuWrapper>
@@ -24,9 +24,9 @@ export const MenuComponent = ({ categories }: Props) => {
       <MenuGroup>
         <MenuGroupTitle>Read about</MenuGroupTitle>
         <MenuNavigation>
-          <MenuLink to={'/about'}>The Company</MenuLink>
-          <MenuLink to={'/about'}>Our policy</MenuLink>
-          <MenuLink to={'/about'}>Our Blog</MenuLink>
+          <MenuLink to={'/about'} activeClassName={'active'}>The Company</MenuLink>
+          <MenuLink to={'/about'} activeClassName={'active'}>Our policy</MenuLink>
+          <MenuLink to={'/about'} activeClassName={'active'}>Our Blog</MenuLink>
         </MenuNavigation>
       </MenuGroup>
 

@@ -51,8 +51,13 @@ module.exports = {
       resolve: `@contentful/gatsby-transformer-contentful-richtext`,
       options: {
         renderOptions: {
+          renderNode: {
+            [BLOCKS.LIST_ITEM]: (node) => {
+              return `<li>${node.content[0].content[0].value}</li>`
+            }
+          },
           renderMark: {
-            [MARKS.BOLD]: text => `<strong>${text}<strong>`,
+            [MARKS.BOLD]: text => `<strong>${text}</strong>`,
             [MARKS.ITALIC]: text => `<em>${text}<em>`,
           },
         }

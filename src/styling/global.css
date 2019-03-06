@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i|EB+Garamond:400,400i');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i|EB+Garamond:400,400i,500');
 
 :root {
   --color-ivory: rgb(244, 244, 239);
@@ -8,6 +8,7 @@
   --color-wine: rgb(118, 54, 121);
   --color-mustard: rgb(245, 190, 88);
   --color-grey: rgb(249, 249, 249);
+  --color-darkGrey: rgb(239, 239, 239);
   --font-serif: 'EB Garamond', 'serif';
   --font-sans: 'Open Sans', 'sans-serif';
   --global-radius: 2px;

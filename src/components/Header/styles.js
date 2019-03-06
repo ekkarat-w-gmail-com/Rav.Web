@@ -94,7 +94,6 @@ export const MenuNavigation = styled.nav`
 `;
 
 export const MenuLink = styled(Link)`
-  font-weight: 500;
   font-style: normal;
   font-size: 13px;
   display: block;
@@ -103,9 +102,20 @@ export const MenuLink = styled(Link)`
   color: var(--color-black);
   transition: color 300ms ease-in;
 
-  &:hover,
-  &:focus {
-    color: var(--color-wine);
+  &::after {
+    display: block;
+    content: '';
+    width: 0;
+    height: 1px;
+    background: var(--color-black);
+    margin-top: 4px;
+    transition: width 300ms ease-in;
+  }
+
+  &.active::after,
+  &:hover::after,
+  &:focus::after {
+    width: 100%;
   }
 
 `;
