@@ -53,9 +53,9 @@ const PriceWrapper = styled.div`
 `;
 
 export const CurrentPrice = styled.span`
-  font-size: 18px;
+  font-size: 20px;
   line-height: 28px;
-  color: ${props => props.isSale ? 'var(--color-wine)' : 'var(--color-black)'};
+  color: var(--color-dark);
 `;
 
 export const OldPrice = styled.span`
@@ -64,4 +64,5 @@ export const OldPrice = styled.span`
   font-style: italic;
   text-decoration: line-through;
   margin-right: 8px;
+  color: rgba(0, 0, 0, 0.54);
 `;
