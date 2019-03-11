@@ -1,20 +1,30 @@
 // @flow
+import type { OrderLine } from '../../types/checkout';
+import { CART_SET_VISIBILITY, CART_ADD_VARIANT, CART_UPDATE_QUANTITY, CART_REMOVE_ITEM, CART_FETCH, CART_RECEIVE } from './definitions';
 
-import { CART_SET_VISIBILITY, CART_ADD_VARIANT, CART_UPDATE_QUANTITY, CART_REMOVE_ITEM } from './definitions';
+export const getCart = () => ({
+  type: CART_FETCH
+});
 
-export const addProductToCart = (product: any) => ({
+export const receiveCart = (cart: Object, error: boolean = false) => ({
+  type: CART_RECEIVE,
+  payload: { cart },
+  error
+});
+
+export const addProductToCart = (product: OrderLine) => ({
   type: CART_ADD_VARIANT,
   payload: { product }
 })
 
-export const updateItemQuantity = (checkout: any) => ({
+export const updateItemQuantity = (id: string, quantity: number) => ({
   type: CART_UPDATE_QUANTITY,
-  payload: { checkout }
+  payload: { id, quantity }
 })
 
-export const removeItemFromCart = (checkout: any) => ({
+export const removeItemFromCart = (id: string) => ({
   type: CART_REMOVE_ITEM,
-  payload: { checkout }
+  payload: { id }
 })
 
 export const setCartVisibility = (visible: boolean) => ({

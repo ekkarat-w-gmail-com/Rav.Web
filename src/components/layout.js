@@ -1,6 +1,7 @@
 // @flow
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { IntlProvider, addLocaleData } from 'react-intl';
+import { connect } from 'react-redux';
 
 // i18n
 import en from 'react-intl/locale-data/en';
@@ -8,6 +9,8 @@ import sv from 'react-intl/locale-data/sv';
 
 import enTranslations from '../translations/en.json';
 import svTranslations from '../translations/sv.json';
+
+import { getCart } from '../store/actions/cartActions';
 
 // Components
 import { Header, CheckoutHeader } from './Header';
@@ -22,10 +25,8 @@ import '../styling/global.css';
 type Props = {
   children: any,
   locale: string,
-  checkoutId: any,
   useCheckoutLayout?: boolean,
-  createCheckout: (checkout: any) => void,
-  foundCheckout: (checkout: any) => void
+  getCart: () => void
 }
 
 // Add locale data
@@ -35,7 +36,11 @@ addLocaleData([
 ]);
 
 
-const Layout = ({ children, locale, checkoutId, useCheckoutLayout, foundCheckout, createCheckout }: Props) => {
+const Layout = ({ children, locale, checkoutId, useCheckoutLayout, getCart }: Props) => {
+
+  useEffect(() => {
+    getCart();
+  }, [ children ]);
 
   const translations = {
     'en': enTranslations,
@@ -62,4 +67,6 @@ Layout.defaultProps = {
   useCheckoutLayout: false
 }
 
-export default Layout;
+const mapStoreToProps = (store) => ({});
+
+export default connect(mapStoreToProps, { getCart })(Layout);

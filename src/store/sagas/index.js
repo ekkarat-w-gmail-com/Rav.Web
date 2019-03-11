@@ -1,8 +1,7 @@
 import { fork } from 'redux-saga/effects';
 
-import { checkoutSaga } from './checkout';
+import { cartSaga } from './cart';
 
 export function* rootSaga() {
-  yield fork(checkoutSaga)
-  // code after fork-effect
+  yield fork(cartSaga)
 }

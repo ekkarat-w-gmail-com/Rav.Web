@@ -1,13 +1,9 @@
 
 
 // Cart actions
+export const CART_FETCH = 'CART_FETCH';
+export const CART_RECEIVE = 'CART_RECEIVE';
 export const CART_ADD_VARIANT = 'CART_ADD_VARIANT';
 export const CART_UPDATE_QUANTITY = 'CART_UPDATE_QUANTITY';
 export const CART_REMOVE_ITEM = 'CART_REMOVE_ITEM';
 export const CART_SET_VISIBILITY = 'CART_SET_VISIBILITY';
-
-// Checkout Actions
-export const CREATE_ORDER = 'CREATE_ORDER';
-export const RECEIVE_ORDER = 'RECEIVE_ORDER';
-export const RETRIEVE_ORDER = 'RETRIEVE_ORDER';
-export const UPDATE_ORDER = 'UPDATE_ORDER';

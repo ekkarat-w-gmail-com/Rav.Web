@@ -1,6 +1,6 @@
 // @flow
 
-type OrderLine = {
+export type OrderLine = {
   type: 'physical' | 'discount' | 'shipping_fee' | 'sales_tax' | 'digital' | 'gift_card' | 'store_credit' | 'surcharge',
   reference: string, // Article number, SKU or similar.
   name: string, // Descriptive item name.

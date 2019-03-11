@@ -4,9 +4,6 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { has, get } from 'lodash/fp';
 
-// redux
-import { createOrder } from '../store/actions/checkoutActions';
-
 // Components
 import Layout from '../components/layout';
 import { Text, RadioBox } from '../components/Fields';
@@ -18,7 +15,6 @@ import { KlarnaCheckout } from '../components/KlarnaCheckout';
 // Type
 type Props = {
   checkout: { [key: string]: any },
-  createOrder: () => void
 }
 
 const CheckoutComponent = (props: Props) => {
@@ -80,7 +76,7 @@ const CheckoutComponent = (props: Props) => {
           <RadioBox label={'PostNord - Hemleverans'} description={'4-7 weekdays'} icon={<PostNord />} id={'postNordHomeDelivery'} name={'deliveryOption'} value={'postNordHomeDelivery'} checked={form.deliveryOption === 'postNordHomeDelivery'} onChange={handleOnInputChange} note={'100kr'}/>
 
           <LegendTitle>{'Payment Options'}</LegendTitle>
-          <StyledButton onClick={() => props.createOrder()}>{'Klarna'}</StyledButton>
+          <StyledButton>{'Klarna'}</StyledButton>
           {has('html_snippet', props.checkout) && <KlarnaCheckout html={get('html_snippet', props.checkout)} />}
 
           <ButtonWrap>
@@ -93,7 +89,7 @@ const CheckoutComponent = (props: Props) => {
           <PanelHeader>
             <PanelTitle>{'Review order'}</PanelTitle>
           </PanelHeader>
-          
+
         </PanelInner>
         </Panel>
       </Grid>
@@ -105,7 +101,7 @@ const mapStateToProps = ({ checkout }) => ({
   checkout: checkout
 });
 
-export default connect(mapStateToProps, { createOrder })(CheckoutComponent)
+export default connect(mapStateToProps, { })(CheckoutComponent)
 
 const Grid = styled.div`
   display: grid;

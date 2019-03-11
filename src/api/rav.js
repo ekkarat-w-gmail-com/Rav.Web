@@ -1,8 +1,8 @@
-// @flow
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: process.env.RAV_SERVER_BASE_URL || ''
+  baseURL: process.env.RAV_SERVER_BASE_URL || '',
+  withCredentials: true
 });
 
 const order =  {
@@ -30,7 +30,7 @@ const order =  {
 		"total_discount_amount": 100000,
 		"total_tax_amount": 100668,
 		"image_url": "http://merchant.com/logo.png"
-	}],	
+	}],
 	"shipping_options": [{
 			"id": "free_shipping",
 			"name": "Free Shipping",
@@ -53,9 +53,13 @@ const order =  {
 	]
 };
 
-export const createOrder = (orderData: Object = order) => {
-  return instance
-    .post('/orders', order)
-    .then((response) => response)
-    .catch(error => { throw error });
-}
+
+export const fetchCart = () =>
+  instance.get('/cart')
+    .then((res) => res)
+    .catch(err => { throw err });
+
+export const addToCart = (orderLine) =>
+  instance.post('/cart', orderLine)
+    .then((res) => res)
+    .catch(err => { throw err });

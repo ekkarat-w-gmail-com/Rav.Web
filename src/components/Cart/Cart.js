@@ -10,22 +10,27 @@ import styled from 'styled-components';
 // Actions
 import { setCartVisibility, updateItemQuantity, removeItemFromCart } from '../../store/actions';
 
+// Selectors
+import { getCartTotalAmount, getCartTotalTaxAmount, getDiscountTotalAmount } from '../../store/selectors/cart';
+
 // Components
 import { CartItem } from './CartItem'
 import { Drawer } from '../Drawer';
 import { DoublePica, Minion } from '../../styling/typography';
 
 // Types
+import type { OrderLine } from '../../types/checkout';
 type Props = {
   isOpen: boolean,
-  items: Array<any>,
+  items: Array<OrderLine>,
   checkout: Object,
+  totalDiscount: string,
   subTotal: string,
   totalTax: string,
   totalPrice: string,
   setCartVisibility: (bool: boolean) => void,
-  updateItemQuantity: (checkout: any) => void,
-  removeItemFromCart: (checkout: any) => void
+  updateItemQuantity: (id: string, quantity: number) => void,
+  removeItemFromCart: (id: string) => void
 }
 
 export const CartDrawer = ({
@@ -33,6 +38,7 @@ export const CartDrawer = ({
   items,
   checkout,
   subTotal,
+  totalDiscount,
   totalTax,
   totalPrice,
   setCartVisibility,
@@ -41,17 +47,17 @@ export const CartDrawer = ({
   }: Props) => {
 
   const handleOnQuantityChange = ({ id, quantity }) => {
-    console.log('handleOnQuantityChange -->', id, quantity)
+    updateItemQuantity(id, quantity);
   }
 
   const handleOnRemove = (id) => {
-    console.log('handleOnRemove -->', id)
+    removeItemFromCart(id);
   }
 
   const lineItems = map((lineItem) => {
     return (
       <CartItem
-        key={lineItem.id}
+        key={get('reference', lineItem)}
         lineItem={lineItem}
         onIncrement={handleOnQuantityChange}
         onDecrement={handleOnQuantityChange}
@@ -68,6 +74,15 @@ export const CartDrawer = ({
 
   const total = Number(totalPrice) > 0 ?
     <FormattedNumber style={'currency'} currency={'SEK'} value={Number(totalPrice)} /> : '—';
+
+  const discountNumber= <FormattedNumber style={'currency'} currency={'SEK'} value={Number(totalDiscount)} />
+
+  const discount = Number(totalDiscount) > 0 ? (
+    <SummaryItem>
+      <FormattedMessage id={'Checkout.Discount'} />
+      <SummaryValue>{discountNumber}</SummaryValue>
+    </SummaryItem>
+  ) : null;
 
 
   return (
@@ -88,6 +103,9 @@ export const CartDrawer = ({
 
       <CheckoutSummary>
         <SummaryItems>
+
+          {discount}
+
           <SummaryItem>
             <FormattedMessage id={'Checkout.Subtotal'} />
             <SummaryValue>{subTotalPrice}</SummaryValue>
@@ -124,18 +142,18 @@ CartDrawer.defaultProps = {
   count: 0,
   items: [],
   checkoutUrl: '',
-  subTotal: '0',
-  totalTax: '0',
-  totalPrice: '0'
+  totalDiscount: 0,
+  subTotal: 0,
+  totalTax: 0,
+  totalPrice: 0
 }
 
-const mapStateToProps = ({ cart }) => ({
-  isOpen: getOr(false, 'visibility', cart),
-  items: getOr([], 'checkout.lineItems', cart),
-  subTotal: get('checkout.subtotalPrice', cart),
-  totalTax: get('checkout.totalTax', cart),
-  totalPrice: get('checkout.totalPrice', cart),
-  checkout: get('checkout', cart)
+const mapStateToProps = (store) => ({
+  isOpen: getOr(false, 'cart.visibility', store),
+  items: getOr([], 'cart.data.items', store),
+  totalDiscount: getDiscountTotalAmount(store),
+  totalPrice: getCartTotalAmount(store),
+  totalTax: getCartTotalTaxAmount(store)
 })
 
 export const Cart = connect(mapStateToProps, { setCartVisibility, updateItemQuantity, removeItemFromCart })(CartDrawer)
@@ -199,9 +217,12 @@ const SummaryValue = styled.span`
 
 const TotalItem = styled.div`
   display: flex;
-  padding-top: 4px;
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  padding-top: 8px;
+  border-top: 1px solid var(--color-darkGrey);
+  margin-top: 10px;
   margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 1rem;
 `;
 
 const CheckoutButton = styled(Minion)`

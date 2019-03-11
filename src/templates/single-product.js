@@ -10,6 +10,9 @@ import { connect } from 'react-redux';
 // Actions
 import { addProductToCart } from '../store/actions';
 
+// Utils
+import { createOrderLine } from '../utils/product';
+
 // Components
 import Layout from '../components/layout'
 import { Price } from '../components/Price'
@@ -43,7 +46,8 @@ const SingleProductTemplate = ({ data, addProductToCart }: Props) => {
 
   const handleOnBuy = (event: HTMLButtonElement) => {
     if ( !event.disabled ) {
-      addProductToCart(product);
+      const orderLine = createOrderLine(product)
+      addProductToCart(orderLine);
     }
   }
 
@@ -237,6 +241,9 @@ export const query = graphql`
         id
       }
       featuredImage {
+        file {
+          url
+        }
         fluid(quality: 100, maxWidth: 1000) {
           ...GatsbyContentfulFluid_withWebp
         }

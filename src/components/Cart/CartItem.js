@@ -2,30 +2,18 @@
 // @flow
 import React from 'react';
 import styled from 'styled-components';
-import { get, has } from 'lodash/fp';
-import { FormattedNumber, FormattedMessage } from 'react-intl';
-import { AnimateOnChange } from '@nearform/react-animation';
+import { get } from 'lodash/fp';
+import { FormattedNumber, FormattedMessage, injectIntl, intlShape } from 'react-intl';
 
 // Components
 import { UpArrow, DownArrow } from '../Icons/Arrows';
 import { LongPrimer, Brevier } from '../../styling/typography';
 
+// Utils
+import { getCurrencyCode } from '../../utils/currencies';
+
 // Types
-type LineItem = {
-  id: string,
-  title: string,
-  quantity: string,
-  variant: {
-    id: string,
-    title: string,
-    price: string,
-    image: {
-      id: string,
-      src: string,
-      altText: string,
-    }
-  }
-}
+import type { OrderLine } from '../../types/checkout';
 
 type QuantityObject =  {
   id: string,
@@ -33,32 +21,31 @@ type QuantityObject =  {
 }
 
 type Props = {
-  lineItem: LineItem,
+  lineItem: OrderLine,
+  intl: intlShape,
   onDecrement: (QuantityObject) => void,
   onIncrement: (QuantityObject) => void,
   onRemove: (id: string) => void
 }
 
-export const CartItem = ({ lineItem, onRemove, onDecrement, onIncrement }: Props) => {
+const _CartItem = ({ lineItem, intl, onRemove, onDecrement, onIncrement }: Props) => {
 
-  const variantTitle = get('variant.title', lineItem) !== 'Default Title' ?
-    <VariantTitle>{get('variant.title', lineItem)}</VariantTitle> : null;
-
-  const id = get('variant.id', lineItem);
+  const id = get('reference', lineItem);
   const quantity = get('quantity', lineItem);
+
+  const currencyCode = getCurrencyCode(intl.locale);
 
   return (
     <LineItemWrap>
       <ImageWrap>
-        {has('variant.image', lineItem) ? <img src={lineItem.variant.image.src} alt={`${lineItem.title}`}/> : null}
+        <img src={get('image_url', lineItem)} alt={get('name', lineItem)}/>
       </ImageWrap>
       <TextContainer>
-        <ProductTitle>{get('title', lineItem)}</ProductTitle>
-        {variantTitle}
+        <ProductTitle>{get('name', lineItem)}</ProductTitle>
         <VariantPrice>
-          <FormattedNumber style={'currency'} currency={'SEK'} value={get('variant.price', lineItem)} />
+          <FormattedNumber style={'currency'} currency={currencyCode} value={get('unit_price', lineItem)} />
         </VariantPrice>
-        <RemoveButton onClick={() => onRemove( get('id', lineItem) )}>
+        <RemoveButton onClick={() => onRemove( id )}>
           <FormattedMessage id={'CartItem.Remove'} />
         </RemoveButton>
       </TextContainer>
@@ -67,9 +54,7 @@ export const CartItem = ({ lineItem, onRemove, onDecrement, onIncrement }: Props
           <UpArrow />
         </QuantityButton>
         <QuantityWrapper>
-          <AnimateOnChange animationOut={'bounceOut'} animationIn={'bounceIn'}>
-            <QuantityText>{lineItem.quantity}</QuantityText>
-          </AnimateOnChange>
+          <QuantityText>{lineItem.quantity}</QuantityText>
         </QuantityWrapper>
         <QuantityButton onClick={() => onDecrement({ id, quantity: quantity - 1 })} disabled={lineItem.quantity === 1}>
           <DownArrow />
@@ -79,6 +64,8 @@ export const CartItem = ({ lineItem, onRemove, onDecrement, onIncrement }: Props
   );
 
 };
+
+export const CartItem = injectIntl(_CartItem);
 
 const LineItemWrap = styled.div`
   display: flex;
@@ -109,10 +96,6 @@ const ProductTitle = styled(LongPrimer)`
   font-weight: 600;
 `;
 
-const VariantTitle = styled(Brevier)`
-  color: var(--color-wine);
-`;
-
 const VariantPrice = styled(Brevier)`
   color: var(--color-black);
   margin-top: 2px;
@@ -121,6 +104,7 @@ const VariantPrice = styled(Brevier)`
 const RemoveButton = styled(Brevier)`
   color: var(--color-wine);
   margin-top: auto;
+  cursor: pointer;
 `;
 
 const ActionsContainer = styled.div`

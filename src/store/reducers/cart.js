@@ -1,8 +1,13 @@
-import { set, concat } from 'lodash/fp';
-import { CART_SET_VISIBILITY, CART_ADD_VARIANT, CART_UPDATE_QUANTITY, CART_REMOVE_ITEM } from '../actions/definitions';
+import { set } from 'lodash/fp';
+import { CART_SET_VISIBILITY, CART_RECEIVE } from '../actions/definitions';
 
 const initialState = {
-  items: [],
+  data: {
+    items: [],
+    total_amount: 0,
+    total_tax_amount: 0,
+    total_discount_amount: 0,
+  },
   visibility: false
 }
 
@@ -10,14 +15,8 @@ export const cart = (state = initialState, { type, payload }) => {
 
   switch (type) {
 
-    case CART_ADD_VARIANT:
-      return {
-        ...state,
-        items: concat(payload.product, state.items)
-      }
-    case CART_UPDATE_QUANTITY:
-    case CART_REMOVE_ITEM:
-      return set('checkout', payload.checkout, state);
+    case CART_RECEIVE:
+      return set('data', payload.cart, state);
 
     case CART_SET_VISIBILITY:
       return set('visibility', payload.visible, state);
