@@ -63,3 +63,8 @@ export const addToCart = (orderLine) =>
   instance.post('/cart', orderLine)
     .then((res) => res)
     .catch(err => { throw err });
+
+export const deleteFromCart = (id) =>
+  instance.delete(`/cart/${id}`)
+    .then((res) => res)
+    .catch((err) => { throw err });

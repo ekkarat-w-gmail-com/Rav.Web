@@ -2,11 +2,11 @@ import { call, put, takeLatest, all } from 'redux-saga/effects';
 import { has } from 'lodash/fp';
 
 // Definitions
-import { CART_FETCH, CART_ADD_VARIANT } from '../actions/definitions';
+import { CART_FETCH, CART_ADD_VARIANT, CART_REMOVE_ITEM } from '../actions/definitions';
 import { receiveCart } from '../actions/cartActions';
 
 // API
-import { addToCart, fetchCart } from '../../api/rav';
+import { addToCart, fetchCart, deleteFromCart } from '../../api/rav';
 
 function* handleFetchOfCart(action) {
   try {
@@ -27,9 +27,19 @@ function* handleAddToCart(action) {
   }
 }
 
+function* handleRemoveFromCart(action) {
+  try {
+    const { data } = yield call(deleteFromCart, action.payload.id);
+    yield put(receiveCart(data));
+  } catch (error) {
+    yield put(receiveCart(error, true))
+  }
+}
+
 export function* cartSaga() {
   yield all([
     yield takeLatest(CART_FETCH, handleFetchOfCart),
     yield takeLatest(CART_ADD_VARIANT, handleAddToCart),
+    yield takeLatest(CART_REMOVE_ITEM, handleRemoveFromCart)
   ]);
 };
