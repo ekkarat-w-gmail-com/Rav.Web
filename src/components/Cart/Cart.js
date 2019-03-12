@@ -151,9 +151,9 @@ CartDrawer.defaultProps = {
 const mapStateToProps = (store) => ({
   isOpen: getOr(false, 'cart.visibility', store),
   items: getOr([], 'cart.data.items', store),
-  totalDiscount: getDiscountTotalAmount(store),
-  totalPrice: getCartTotalAmount(store),
-  totalTax: getCartTotalTaxAmount(store)
+  totalDiscount: getOr(0, 'cart.data.total_discount_amount', store),
+  totalPrice: getOr(0, 'cart.data.total_amount', store),
+  totalTax: getOr(0, 'cart.data.total_tax_amount', store),
 })
 
 export const Cart = connect(mapStateToProps, { setCartVisibility, updateItemQuantity, removeItemFromCart })(CartDrawer)
