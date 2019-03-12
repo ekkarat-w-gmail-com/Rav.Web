@@ -10,9 +10,6 @@ import styled from 'styled-components';
 // Actions
 import { setCartVisibility, updateItemQuantity, removeItemFromCart } from '../../store/actions';
 
-// Selectors
-import { getCartTotalAmount, getCartTotalTaxAmount, getDiscountTotalAmount } from '../../store/selectors/cart';
-
 // Components
 import { CartItem } from './CartItem'
 import { Drawer } from '../Drawer';
@@ -92,9 +89,6 @@ export const CartDrawer = ({
         <CartTitle>
           <FormattedMessage id={'Checkout.CartTitle'} />
         </CartTitle>
-        <CartSubtitle>
-          <FormattedMessage id={'Checkout.FreeShipping'} />
-        </CartSubtitle>
       </CartHeader>
 
       <CartItems>
@@ -102,6 +96,11 @@ export const CartDrawer = ({
       </CartItems>
 
       <CheckoutSummary>
+
+        <SummaryFreeShipping>
+          <FormattedMessage id={'Checkout.FreeShipping'} />
+        </SummaryFreeShipping>
+
         <SummaryItems>
 
           {discount}
@@ -161,24 +160,35 @@ export const Cart = connect(mapStateToProps, { setCartVisibility, updateItemQuan
 const CustomDrawer = styled(Drawer)`
   display: flex;
   flex-direction: column;
+  padding: 0;
 `;
 
 const CartHeader = styled.header`
-  text-align: center;
-  padding-bottom: 8px;
+  text-align: left;
+  padding: 2rem;
 `;
 
 const CartTitle = styled(DoublePica)`
-  margin-bottom: 2px;
+  position: relative;
+
+  &::after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 3rem;
+    background: var(--color-black);
+    position: absolute;
+    bottom: -1rem;
+    left: 0;
+  }
 `;
 
 const CartSubtitle = styled(Minion)``;
 
 const CartItems = styled.div`
   margin-top: 0.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--color-ivory);
   margin-bottom: auto;
+  padding: 1rem 2rem;
 `;
 
 const CheckoutSummary = styled.div`
@@ -190,6 +200,8 @@ const CheckoutSummary = styled.div`
   font-size: 13px;
   font-weight: 400;
   line-height: 1.92;
+  padding: 1.5rem 2rem 2rem;
+  background: var(--color-grey);
 
   @media (min-width: 1350px) {
     position: relative;
@@ -200,6 +212,11 @@ const CheckoutSummary = styled.div`
     margin: 0px;
   }
 
+`;
+
+const SummaryFreeShipping = styled.div`
+  text-align: center;
+  margin-bottom: 1rem;
 `;
 
 const SummaryItems = styled.div`

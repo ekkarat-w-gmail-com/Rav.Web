@@ -4,7 +4,7 @@ import { graphql } from 'gatsby'
 import styled, { css } from 'styled-components';
 import Image from 'gatsby-image';
 import { get, getOr } from 'lodash/fp';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 
 // Actions
@@ -12,6 +12,7 @@ import { addProductToCart } from '../store/actions';
 
 // Utils
 import { createOrderLine } from '../utils/product';
+import * as translation from '../translations/keys';
 
 // Components
 import Layout from '../components/layout'
@@ -24,6 +25,7 @@ import { Canon, BodyCopy } from '../styling/typography';
 // Types
 type Props = {
   addProductToCart: (product: any) => void,
+  intl: intlShape,
   data: {
     product: any
   },
@@ -32,7 +34,8 @@ type Props = {
   }
 }
 
-const SingleProductTemplate = ({ data, addProductToCart }: Props) => {
+const SingleProductTemplate = ({ data, intl, addProductToCart }: Props) => {
+
   const { product } = data;
 
   const description = get('description.childContentfulRichText.html', product)
@@ -52,7 +55,7 @@ const SingleProductTemplate = ({ data, addProductToCart }: Props) => {
   }
 
   return (
-    <Layout locale={getOr('en', 'node_locale', product)}>
+    <Layout>
       <GridWrapper>
 
         <ImageColumn>
@@ -69,24 +72,36 @@ const SingleProductTemplate = ({ data, addProductToCart }: Props) => {
           <Excerpt as={'p'}>{get('shortDescription.shortDescription', product)}</Excerpt>
 
           <ProductAccordion>
-            <AccordionItem title={'Description'} id={'description'}>
-              <AccordionHtmlContent dangerouslySetInnerHTML={descriptionHTML} />
-            </AccordionItem>
-            <AccordionItem title={'Specification'} id={'specification'}>
-              <AccordionHtmlContent dangerouslySetInnerHTML={specificationsHTML} />
-            </AccordionItem>
-            <AccordionItem title={'Care instructions'} id={'careInstructions'}>
-              <AccordionHtmlContent dangerouslySetInnerHTML={careInstructionsHTML} />
-            </AccordionItem>
+            {
+              description && (
+                <AccordionItem title={intl.formatMessage({ id: translation.PRODUCT_ACCORDION_DESCRIPTION })} id={'description'}>
+                  <AccordionHtmlContent dangerouslySetInnerHTML={descriptionHTML} />
+                </AccordionItem>
+              )
+            }
+            {
+              specifications && (
+                <AccordionItem title={intl.formatMessage({ id: translation.PRODUCT_ACCORDION_SPECIFICATION })} id={'specification'}>
+                  <AccordionHtmlContent dangerouslySetInnerHTML={specificationsHTML} />
+                </AccordionItem>
+              )
+            }
+            {
+              careInstructions && (
+                <AccordionItem title={intl.formatMessage({ id: translation.PRODUCT_ACCORDION_CARE_INSTRUCTIONS })} id={'careInstructions'}>
+                  <AccordionHtmlContent dangerouslySetInnerHTML={careInstructionsHTML} />
+                </AccordionItem>
+              )
+            }
           </ProductAccordion>
 
           <CartButton disabled={get('stockQuantity', product) === 0} onClick={handleOnBuy}>
             <FormattedMessage
-              id="CartButton.ProductOutOfStock"
+              id={translation.BUY_BUTTON_OUT_OF_STOCK}
               defaultMessage={'{title} is out of stock'}
               values={{ title: get('name', product) }}
             />
-            <FormattedMessage id="CartButton.Buy" />
+            <FormattedMessage id={translation.BUY_BUTTON_SELECT} />
           </CartButton>
 
         </InfoColumn>
@@ -96,9 +111,9 @@ const SingleProductTemplate = ({ data, addProductToCart }: Props) => {
   )
 }
 
-const mapStateToProps = (store) => ({});
+const mapStateToProps = () => ({});
+export default injectIntl(connect(mapStateToProps, { addProductToCart })(SingleProductTemplate));
 
-export default connect(mapStateToProps, { addProductToCart })(SingleProductTemplate);
 
 const GridWrapper = styled.div`
   display: grid;

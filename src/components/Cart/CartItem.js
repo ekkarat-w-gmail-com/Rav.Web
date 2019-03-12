@@ -69,7 +69,7 @@ export const CartItem = injectIntl(_CartItem);
 
 const LineItemWrap = styled.div`
   display: flex;
-  margin-bottom: 14px;
+  margin-bottom: 1.5rem;
 `;
 
 const ImageWrap = styled.div`

@@ -22,13 +22,16 @@ export const Accordion = (props: Props) => {
     }
   }
 
-  const children = React.Children.map(props.children, (child) => (
-    React.cloneElement(child, {
-      key: child.props.id,
-      isActive: activeTab === child.props.id,
-      onClickTab: () => handleOnClick(child.props.id)
-    })
-  ));
+  const children = React.Children.map(props.children, (child) => {
+    // Child can be null
+    if ( child ) {
+      return React.cloneElement(child, {
+        key: child.props.id,
+        isActive: activeTab === child.props.id,
+        onClickTab: () => handleOnClick(child.props.id)
+      })
+    }
+  });
 
   return (
     <AccordionContainer className={props.className}>

@@ -1,5 +1,5 @@
 // @flow
-import { get, set, has, flow } from 'lodash/fp';
+import { get, set, flow } from 'lodash/fp';
 import type { OrderLine } from '../types/checkout';
 
 const setTaxAmount = (orderLine: OrderLine) => {

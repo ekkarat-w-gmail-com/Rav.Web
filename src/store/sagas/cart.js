@@ -1,5 +1,4 @@
 import { call, put, takeLatest, all } from 'redux-saga/effects';
-import { has } from 'lodash/fp';
 
 // Definitions
 import { CART_FETCH, CART_ADD_VARIANT, CART_REMOVE_ITEM, CART_UPDATE_QUANTITY } from '../actions/definitions';
