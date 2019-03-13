@@ -14,6 +14,7 @@ import { setCartVisibility, updateItemQuantity, removeItemFromCart } from '../..
 import { CartItem } from './CartItem'
 import { Drawer } from '../Drawer';
 import { DoublePica, Minion } from '../../styling/typography';
+import { StyledButton } from '../../styling/buttons';
 
 // Types
 import type { OrderLine } from '../../types/checkout';
@@ -199,7 +200,7 @@ const CheckoutSummary = styled.div`
   font-weight: 400;
   line-height: 1.92;
   padding: 1.5rem 2rem 2rem;
-  background: var(--color-grey);
+  background: var(--color-ivory);
 
   @media (min-width: 1350px) {
     position: relative;
@@ -232,32 +233,18 @@ const SummaryValue = styled.span`
 
 const TotalItem = styled.div`
   display: flex;
-  padding-top: 8px;
-  border-top: 1px solid var(--color-darkGrey);
   margin-top: 10px;
   margin-bottom: 10px;
   font-weight: 600;
   font-size: 1rem;
 `;
 
-const CheckoutButton = styled(Minion)`
+const CheckoutButton = styled(StyledButton)`
   display: block;
   background-color: var(--color-black);
   color: #fff;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 60px;
-  font-weight: 500;
-  text-transform: uppercase;
-  line-height: 1.3;
-  letter-spacing: 1.2px;
-  border: 1px solid rgb(78, 29, 81);
-  padding: 0px 20px;
-  transition: all 300ms ease 0s;
-  margin: 0px;
+  margin: 0;
 
   a {
     color: inherit;
@@ -269,7 +256,7 @@ const KeepShoppingButton = styled(Minion)`
   display: flex;
   justify-content: center;
   margin-top: 1rem;
-  color: var(--color-wine);
+  color: var(--color-black);
   text-decoration: underline;
   cursor: pointer;
 `;
