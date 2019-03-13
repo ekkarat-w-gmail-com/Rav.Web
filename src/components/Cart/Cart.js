@@ -183,8 +183,6 @@ const CartTitle = styled(DoublePica)`
   }
 `;
 
-const CartSubtitle = styled(Minion)``;
-
 const CartItems = styled.div`
   margin-top: 0.5rem;
   margin-bottom: auto;

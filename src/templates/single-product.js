@@ -17,6 +17,7 @@ import * as translation from '../translations/keys';
 // Components
 import Layout from '../components/layout'
 import { Price } from '../components/Price'
+import { StockStatus } from '../components/StockStatus';
 import { Accordion, AccordionItem, AccordionHtmlContent } from '../components/Accordion';
 
 // Styling
@@ -103,6 +104,7 @@ const SingleProductTemplate = ({ data, intl, addProductToCart }: Props) => {
             />
             <FormattedMessage id={translation.BUY_BUTTON_SELECT} />
           </CartButton>
+          <ProductStockStatus quantity={get('stockQuantity', product)} />
 
         </InfoColumn>
 
@@ -170,6 +172,10 @@ const Excerpt = styled(BodyCopy)`
   margin-bottom: 0;
 `;
 
+const ProductStockStatus = styled(StockStatus)`
+  margin-top: 1rem;
+`;
+
 const ProductAccordion = styled(Accordion)`
   margin-top: 2rem;
 `;
@@ -193,7 +199,7 @@ const CartButton = styled.button`
   height: 3rem;
   cursor: pointer;
   overflow: hidden;
-  margin: 40px 0 20px;
+  margin: 40px 0 0;
   border-radius: 3px;
   border: 0 none;
   &:focus {

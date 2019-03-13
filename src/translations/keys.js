@@ -20,3 +20,7 @@ export const CART_ITEM_REMOVE = "CartItem.Remove"
 export const PRODUCT_ACCORDION_DESCRIPTION = 'ProductAccordion.Description';
 export const PRODUCT_ACCORDION_SPECIFICATION = 'ProductAccordion.Specification';
 export const PRODUCT_ACCORDION_CARE_INSTRUCTIONS = 'ProductAccordion.CareInstructions';
+
+export const PRODUCT_STOCK_IN_STORE = 'ProductStock.InStore'
+export const PRODUCT_STOCK_FEW_LEFT = 'ProductStock.FewLeft'
+export const PRODUCT_STOCK_EMPTY = 'ProductStock.OutOfStock'

@@ -18,4 +18,7 @@ export default {
   [keys.PRODUCT_ACCORDION_DESCRIPTION]: 'Beskrivning',
   [keys.PRODUCT_ACCORDION_SPECIFICATION]: 'Specifikation',
   [keys.PRODUCT_ACCORDION_CARE_INSTRUCTIONS]: 'Skötselråd',
+  [keys.PRODUCT_STOCK_IN_STORE]: 'I lager',
+  [keys.PRODUCT_STOCK_FEW_LEFT]: 'Få kvar',
+  [keys.PRODUCT_STOCK_EMPTY]: 'Tillfälligt slut'
 }

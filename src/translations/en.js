@@ -18,4 +18,7 @@ export default {
   [keys.PRODUCT_ACCORDION_DESCRIPTION]: 'Description',
   [keys.PRODUCT_ACCORDION_SPECIFICATION]: 'Specification',
   [keys.PRODUCT_ACCORDION_CARE_INSTRUCTIONS]: 'Care Instructions',
+  [keys.PRODUCT_STOCK_IN_STORE]: 'In Stock',
+  [keys.PRODUCT_STOCK_FEW_LEFT]: 'Few left',
+  [keys.PRODUCT_STOCK_EMPTY]: 'Out of stock'
 }
