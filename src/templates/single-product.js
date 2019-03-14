@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { addProductToCart } from '../store/actions';
 
 // Utils
-import { createOrderLine, createCartItem } from '../utils/product';
+import { createCartItem } from '../utils/product';
 import * as translation from '../translations/keys';
 
 // Components

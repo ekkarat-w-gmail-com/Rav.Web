@@ -2,13 +2,13 @@
 export type CartItem = {
   reference: string,
   name: string,
-  quantity: string,
+  quantity: number,
   unitPrice: number,
   unitDiscountPrice: number,
   taxRate: number,
-  totalAmount: number,
-  totalDiscountAmount: number,
-  totalTaxAmount: number
+  totalAmount?: number,
+  totalDiscountAmount?: number,
+  totalTaxAmount?: number
 }
 
 export type Cart = {

@@ -2,16 +2,15 @@
 // @flow
 import React from 'react';
 import styled from 'styled-components';
-import { get, getOr } from 'lodash/fp';
-import { FormattedNumber, FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { get } from 'lodash/fp';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 
 // Components
 import { Price } from '../Price';
 import { UpArrow, DownArrow } from '../Icons/Arrows';
 import { LongPrimer, Brevier } from '../../styling/typography';
 
-// Utils
-import { getCurrencyCode } from '../../utils/currencies';
+import { CART_ITEM_REMOVE } from '../../translations/keys';
 
 // Types
 import type { CartItem as CartItemType } from '../../types/cart';
@@ -34,8 +33,6 @@ const _CartItem = ({ lineItem, intl, onRemove, onDecrement, onIncrement }: Props
   const id = get('reference', lineItem);
   const quantity = get('quantity', lineItem);
 
-  const currencyCode = getCurrencyCode(intl.locale);
-
   return (
     <LineItemWrap>
       <ImageWrap>
@@ -45,7 +42,7 @@ const _CartItem = ({ lineItem, intl, onRemove, onDecrement, onIncrement }: Props
         <ProductTitle>{get('name', lineItem)}</ProductTitle>
         <CartItemPrice regularPrice={get('unitPrice', lineItem)} salePrice={get('unitDiscountPrice', lineItem)}/>
         <RemoveButton onClick={() => onRemove( id )}>
-          <FormattedMessage id={'CartItem.Remove'} />
+          <FormattedMessage id={CART_ITEM_REMOVE} />
         </RemoveButton>
       </TextContainer>
       <ActionsContainer>
@@ -105,12 +102,12 @@ const CartItemPrice = styled(Price)`
 
   span:first-child {
     font-size: 12px;
-    margin-right: 4px;
+    margin-right: 6px;
   }
 
   span:last-child {
-    font-size: 12px;
-  }
+    font-size: 14px;
+  }  
 
 `;
 

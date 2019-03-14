@@ -23,11 +23,15 @@ const PriceComponent = ({ regularPrice, salePrice, className, intl }: Props) => 
       <PriceWrapper className={className}>
 
         <OldPrice>
-          <FormattedNumber style={'currency'} currency={currencyCode} value={regularPrice} />
+          <FormattedNumber style={'currency'} currency={currencyCode} value={regularPrice}>
+            {(value) => (<>{value}</>)}
+          </FormattedNumber>
         </OldPrice>
 
         <CurrentPrice isSale={true}>
-          <FormattedNumber style={'currency'} currency={currencyCode} value={salePrice} />
+          <FormattedNumber style={'currency'} currency={currencyCode} value={salePrice}>
+            {(value) => (<>{value}</>)}
+          </FormattedNumber>
         </CurrentPrice>
 
       </PriceWrapper>
@@ -37,7 +41,9 @@ const PriceComponent = ({ regularPrice, salePrice, className, intl }: Props) => 
   return (
     <PriceWrapper className={className}>
       <CurrentPrice>
-        <FormattedNumber style={'currency'} currency={currencyCode} value={regularPrice} />
+        <FormattedNumber style={'currency'} currency={currencyCode} value={regularPrice}>
+          {(value) => (<>{value}</>)}
+        </FormattedNumber>
       </CurrentPrice>
     </PriceWrapper>
   );
@@ -55,7 +61,7 @@ const PriceWrapper = styled.div`
 export const CurrentPrice = styled.span`
   font-size: 20px;
   line-height: 28px;
-  color: var(--color-dark);
+  color: ${props => props.isSale ? 'var(--color-red)' : 'var(--color-dark)'};
 `;
 
 export const OldPrice = styled.span`
