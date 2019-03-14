@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { addProductToCart } from '../store/actions';
 
 // Utils
-import { createOrderLine } from '../utils/product';
+import { createOrderLine, createCartItem } from '../utils/product';
 import * as translation from '../translations/keys';
 
 // Components
@@ -24,8 +24,9 @@ import { Accordion, AccordionItem, AccordionHtmlContent } from '../components/Ac
 import { Canon, BodyCopy } from '../styling/typography';
 
 // Types
+import type { CartItem } from '../types/cart';
 type Props = {
-  addProductToCart: (product: any) => void,
+  addProductToCart: (cartItem: CartItem) => void,
   intl: intlShape,
   data: {
     product: any
@@ -50,8 +51,8 @@ const SingleProductTemplate = ({ data, intl, addProductToCart }: Props) => {
 
   const handleOnBuy = (event: HTMLButtonElement) => {
     if ( !event.disabled ) {
-      const orderLine = createOrderLine(product)
-      addProductToCart(orderLine);
+      const cartItem = createCartItem(product)
+      addProductToCart(cartItem);
     }
   }
 

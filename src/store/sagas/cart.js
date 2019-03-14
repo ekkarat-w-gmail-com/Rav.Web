@@ -18,7 +18,7 @@ function* handleFetchOfCart(action) {
 
 function* handleAddToCart(action) {
   try {
-    const { data } = yield call(addToCart, action.payload.product);
+    const { data } = yield call(addToCart, action.payload.cartItem);
     yield put(receiveCart(data));
   } catch (error) {
     yield put(receiveCart(error, true))

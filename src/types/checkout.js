@@ -1,7 +1,9 @@
 // @flow
 
+export type ProductType = 'physical' | 'discount' | 'shipping_fee' | 'sales_tax' | 'digital' | 'gift_card' | 'store_credit' | 'surcharge';
+
 export type OrderLine = {
-  type: 'physical' | 'discount' | 'shipping_fee' | 'sales_tax' | 'digital' | 'gift_card' | 'store_credit' | 'surcharge',
+  type: ProductType,
   reference: string, // Article number, SKU or similar.
   name: string, // Descriptive item name.
   quantity: number, // Non-negative. The item quantity.

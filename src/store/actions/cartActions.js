@@ -1,5 +1,5 @@
 // @flow
-import type { OrderLine } from '../../types/checkout';
+import type { CartItem } from '../../types/cart';
 import { CART_SET_VISIBILITY, CART_ADD_VARIANT, CART_UPDATE_QUANTITY, CART_REMOVE_ITEM, CART_FETCH, CART_RECEIVE } from './definitions';
 
 export const getCart = () => ({
@@ -12,9 +12,9 @@ export const receiveCart = (cart: Object, error: boolean = false) => ({
   error
 });
 
-export const addProductToCart = (product: OrderLine) => ({
+export const addProductToCart = (cartItem: CartItem) => ({
   type: CART_ADD_VARIANT,
-  payload: { product }
+  payload: { cartItem }
 })
 
 export const updateItemQuantity = (id: string, quantity: number) => ({

@@ -2,10 +2,11 @@
 // @flow
 import React from 'react';
 import styled from 'styled-components';
-import { get } from 'lodash/fp';
+import { get, getOr } from 'lodash/fp';
 import { FormattedNumber, FormattedMessage, injectIntl, intlShape } from 'react-intl';
 
 // Components
+import { Price } from '../Price';
 import { UpArrow, DownArrow } from '../Icons/Arrows';
 import { LongPrimer, Brevier } from '../../styling/typography';
 
@@ -13,7 +14,7 @@ import { LongPrimer, Brevier } from '../../styling/typography';
 import { getCurrencyCode } from '../../utils/currencies';
 
 // Types
-import type { OrderLine } from '../../types/checkout';
+import type { CartItem as CartItemType } from '../../types/cart';
 
 type QuantityObject =  {
   id: string,
@@ -21,7 +22,7 @@ type QuantityObject =  {
 }
 
 type Props = {
-  lineItem: OrderLine,
+  lineItem: CartItemType,
   intl: intlShape,
   onDecrement: (QuantityObject) => void,
   onIncrement: (QuantityObject) => void,
@@ -38,13 +39,11 @@ const _CartItem = ({ lineItem, intl, onRemove, onDecrement, onIncrement }: Props
   return (
     <LineItemWrap>
       <ImageWrap>
-        <img src={get('image_url', lineItem)} alt={get('name', lineItem)}/>
+        <img src={get('imageUrl', lineItem)} alt={get('name', lineItem)}/>
       </ImageWrap>
       <TextContainer>
         <ProductTitle>{get('name', lineItem)}</ProductTitle>
-        <VariantPrice>
-          <FormattedNumber style={'currency'} currency={currencyCode} value={get('unit_price', lineItem)} />
-        </VariantPrice>
+        <CartItemPrice regularPrice={get('unitPrice', lineItem)} salePrice={get('unitDiscountPrice', lineItem)}/>
         <RemoveButton onClick={() => onRemove( id )}>
           <FormattedMessage id={'CartItem.Remove'} />
         </RemoveButton>
@@ -96,9 +95,23 @@ const ProductTitle = styled(LongPrimer)`
   font-weight: 600;
 `;
 
-const VariantPrice = styled(Brevier)`
+const CartItemPrice = styled(Price)`
   color: var(--color-black);
-  margin-top: 2px;
+  margin-top: 4px;
+
+  span {
+    line-height: 1;
+  }
+
+  span:first-child {
+    font-size: 12px;
+    margin-right: 4px;
+  }
+
+  span:last-child {
+    font-size: 12px;
+  }
+
 `;
 
 const RemoveButton = styled(Brevier)`
