@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { has, get } from 'lodash/fp';
+import { FormattedMessage } from 'react-intl';
 
 // Components
 import Layout from '../components/layout';
@@ -11,6 +12,9 @@ import { Minion, PicaIndex } from '../styling/typography';
 import { StyledButton } from '../styling/buttons';
 import { PostNord } from '../components/Icons/Brands/PostNord';
 import { KlarnaCheckout } from '../components/KlarnaCheckout';
+
+// i18n
+import * as i18n from '../translations/keys';
 
 // Type
 type Props = {
@@ -46,10 +50,14 @@ const CheckoutComponent = (props: Props) => {
         <Panel isActive={activePanel === 'first'}>
           <PanelInner onSubmit={handleOnShippingSubmit}>
             <PanelHeader>
-              <PanelTitle>{'Shipping & Billing'}</PanelTitle>
+              <FormattedMessage id={i18n.CHECKOUT_SHIPPING_AND_BILLING}>
+                {(txt) => (<PanelTitle>{txt}</PanelTitle>)}
+              </FormattedMessage>
             </PanelHeader>
             <Text label={'Email Address'} id={'emailAddress'} name={'emailAddress'} autocomplete={'email'} value={form.emailAddress} onChange={handleOnInputChange} />
-            <LegendTitle>{'Shipping Address'}</LegendTitle>
+            <FormattedMessage id={i18n.CHECKOUT_SHIPPING_ADDRESS}>
+              {(txt) => (<LegendTitle>{txt}</LegendTitle>)}
+            </FormattedMessage>
             <FieldGroup>
               <Text label={'First Name'} id={'firstName'} name={'firstName'} autocomplete={'first-name given-name'} value={form.firstName} onChange={handleOnInputChange} />
               <Text label={'Last Name'} id={'lastName'} name={'lastName'} autocomplete={'last-name family-name'} value={form.lastName} onChange={handleOnInputChange} />
@@ -60,15 +68,19 @@ const CheckoutComponent = (props: Props) => {
               <Text label={'City'} id={'city'} name={'city'} autocomplete={'shipping city'} value={form.city} onChange={handleOnInputChange} />
               <Text label={'Zip'} id={'zip'} name={'zip'} autocomplete={'shipping zip'} value={form.zip} onChange={handleOnInputChange} />
             </FieldGroup>
-            <ButtonWrap>
-              <StyledButton onClick={() => setActivePanel('second')}>{'Next'}</StyledButton>
-            </ButtonWrap>
+            {activePanel ==='first' && (
+              <ButtonWrap>
+                <StyledButton onClick={() => setActivePanel('second')}>{'Next'}</StyledButton>
+              </ButtonWrap>
+            )}
           </PanelInner>
         </Panel>
         <Panel isActive={activePanel === 'second'}>
         <PanelInner onSubmit={handleOnShippingSubmit}>
           <PanelHeader>
-            <PanelTitle>{'Delivery & Payment'}</PanelTitle>
+            <FormattedMessage id={i18n.CHECKOUT_DELIVERY_AND_PAYMENT}>
+              {(txt) => (<PanelTitle>{txt}</PanelTitle>)}
+            </FormattedMessage>
           </PanelHeader>
 
           <LegendTitle>{'Delivery Options'}</LegendTitle>
@@ -79,15 +91,19 @@ const CheckoutComponent = (props: Props) => {
           <StyledButton>{'Klarna'}</StyledButton>
           {has('html_snippet', props.checkout) && <KlarnaCheckout html={get('html_snippet', props.checkout)} />}
 
-          <ButtonWrap>
-            <StyledButton onClick={() => setActivePanel('third')}>{'Next'}</StyledButton>
-          </ButtonWrap>
+          {activePanel ==='second' && (
+            <ButtonWrap>
+              <StyledButton onClick={() => setActivePanel('third')}>{'Next'}</StyledButton>
+            </ButtonWrap>
+          )}
         </PanelInner>
         </Panel>
         <Panel isActive={activePanel === 'third'}>
         <PanelInner onSubmit={handleOnShippingSubmit}>
           <PanelHeader>
-            <PanelTitle>{'Review order'}</PanelTitle>
+            <FormattedMessage id={i18n.CHECKOUT_REVIEW_ORDER}>
+              {(txt) => (<PanelTitle>{txt}</PanelTitle>)}
+            </FormattedMessage>
           </PanelHeader>
 
         </PanelInner>
@@ -116,6 +132,8 @@ const Panel = styled.div`
   min-height: calc(100vh - 60px);
   background-color: ${props => props.isActive ? 'var(--color-ivory)' : 'var(--color-grey)'};
   opacity: ${props => props.isActive ? '1' : '0.3'};
+  pointer-events: ${props => props.isActive ? 'auto' : 'none'};
+  transition: all 300ms ease-in;
 `;
 
 const PanelInner = styled.form`
@@ -129,11 +147,25 @@ const PanelHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 `;
 
 const PanelTitle = styled(PicaIndex)`
   color: var(--color-black);
+  position: relative;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 3rem;
+    height: 1px;
+    position: absolute;
+    bottom: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-black);
+  }
+
 `;
 
 const FieldGroup = styled.div`

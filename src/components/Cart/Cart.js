@@ -16,6 +16,9 @@ import { Drawer } from '../Drawer';
 import { DoublePica, Minion } from '../../styling/typography';
 import { StyledButton } from '../../styling/buttons';
 
+// i18n
+import * as i18n from '../../translations/keys';
+
 // Types
 import type { OrderLine } from '../../types/checkout';
 type Props = {
@@ -77,7 +80,7 @@ export const CartDrawer = ({
 
   const discount = Number(totalDiscount) > 0 ? (
     <SummaryItem>
-      <FormattedMessage id={'Checkout.Discount'} />
+      <FormattedMessage id={i18n.CART_DISCOUNT} />
       <SummaryValue>{discountNumber}</SummaryValue>
     </SummaryItem>
   ) : null;
@@ -88,7 +91,7 @@ export const CartDrawer = ({
 
       <CartHeader>
         <CartTitle>
-          <FormattedMessage id={'Checkout.CartTitle'} />
+          <FormattedMessage id={i18n.CART_CART_TITLE} />
         </CartTitle>
       </CartHeader>
 
@@ -99,7 +102,7 @@ export const CartDrawer = ({
       <CheckoutSummary>
 
         <SummaryFreeShipping>
-          <FormattedMessage id={'Checkout.FreeShipping'} />
+          <FormattedMessage id={i18n.CART_FREE_SHIPPING} />
         </SummaryFreeShipping>
 
         <SummaryItems>
@@ -107,19 +110,19 @@ export const CartDrawer = ({
           {discount}
 
           <SummaryItem>
-            <FormattedMessage id={'Checkout.Subtotal'} />
+            <FormattedMessage id={i18n.CART_SUBTOTAL} />
             <SummaryValue>{subTotalPrice}</SummaryValue>
           </SummaryItem>
           <SummaryItem>
-            <FormattedMessage id={'Checkout.Tax'} />
+            <FormattedMessage id={i18n.CART_TAX} />
             <SummaryValue>{totalTaxPrice}</SummaryValue>
           </SummaryItem>
         </SummaryItems>
         <TotalItem>
-          <FormattedMessage id={'Checkout.Total'} />
+          <FormattedMessage id={i18n.CART_TOTAL} />
           <SummaryValue>{total}</SummaryValue>
         </TotalItem>
-        <FormattedMessage id={'Checkout.GoToCheckout'} defaultMessage={'Checkout'}>
+        <FormattedMessage id={i18n.CART_GO_TO_CHECKOUT} defaultMessage={'Checkout'}>
           {(checkoutString) => (
             <CheckoutButton>
             <Link to={'/checkout'} onClick={() => setCartVisibility(false)}>
@@ -129,7 +132,7 @@ export const CartDrawer = ({
           )}
         </FormattedMessage>
         <KeepShoppingButton onClick={() => setCartVisibility(false)}>
-          <FormattedMessage id={'Checkout.KeepShopping'} />
+          <FormattedMessage id={i18n.CART_KEEP_SHOPPING} />
         </KeepShoppingButton>
       </CheckoutSummary>
 
