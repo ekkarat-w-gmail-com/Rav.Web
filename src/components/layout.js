@@ -14,17 +14,19 @@ import '../styling/reset.css';
 import '../styling/global.css';
 
 // Types
+import type { Cart as CartType } from '../types/cart'
 type Props = {
   children: any,
+  cart: CartType,
   useCheckoutLayout?: boolean,
   getCart: () => void
 }
 
-const Layout = ({ children, locale, checkoutId, useCheckoutLayout, getCart }: Props) => {
+const Layout = ({ children, locale, useCheckoutLayout, getCart }: Props) => {
 
   useEffect(() => {
     getCart();
-  }, [ children ]);
+  }, [ window.location.href ]);
 
   return (
     <Fragment>
@@ -37,9 +39,11 @@ const Layout = ({ children, locale, checkoutId, useCheckoutLayout, getCart }: Pr
   )
 }
 
-Layout.defaultProps = {  
+Layout.defaultProps = {
   useCheckoutLayout: false
 }
 
-const mapStoreToProps = (store) => ({});
+const mapStoreToProps = (store) => ({
+  cart: store.cart
+});
 export default connect(mapStoreToProps, { getCart })(Layout);

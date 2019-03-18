@@ -25,5 +25,6 @@ export default {
   [keys.CHECKOUT_SHIPPING_AND_BILLING]: 'Information',
   [keys.CHECKOUT_DELIVERY_AND_PAYMENT]: 'Frakt & betalning',
   [keys.CHECKOUT_REVIEW_ORDER]: 'Granska order',
-  [keys.CHECKOUT_SHIPPING_ADDRESS]: 'Leveransadress'
+  [keys.CHECKOUT_SHIPPING_ADDRESS]: 'Leveransadress',
+  [keys.CHECKOUT_BACK_TO_SHOP]: 'Tillbaka till butiken'
 }

@@ -8,8 +8,8 @@ type Props = {
   name: string,
   value: string,
   label: string,
-  autocomplete: string,
-  autocorrect: boolean,
+  autocomplete?: string,
+  autocorrect?: boolean,
   onChange: (SyntheticEvent<HTMLInputElement>) => void
 }
 
@@ -21,7 +21,6 @@ export const Text = ({ id, name, value, label, autocomplete, autocorrect, onChan
 
   const handleOnFocus = () => setFocus(true);
   const handleOnBlur = () => setFocus(false);
-
 
   return (
     <Field>

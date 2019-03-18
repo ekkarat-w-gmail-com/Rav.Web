@@ -1,5 +1,13 @@
 // @flow
 import React from 'react';
+import styled from 'styled-components';
+import { FormattedMessage } from 'react-intl';
+import { Link } from 'gatsby';
+
+// i18n
+import { CHECKOUT_BACK_TO_SHOP } from '../../translations/keys';
+
+// Styles
 import { HeaderWrapper, HeaderLink } from './styles';
 
 type Props = {
@@ -8,6 +16,9 @@ type Props = {
 
 export const CheckoutHeader = ({ siteTitle }: Props) => (
   <HeaderWrapper slim={true}>
+    <BackToShopLink to={'/'}>
+      <FormattedMessage id={CHECKOUT_BACK_TO_SHOP} />
+    </BackToShopLink>
     <HeaderLink to="/">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 247.6 86.8" preserveAspectRatio="xMinYMid meet">
         <g className="letters" fill="#ad1d1f">
@@ -31,6 +42,12 @@ export const CheckoutHeader = ({ siteTitle }: Props) => (
     </HeaderLink>
   </HeaderWrapper>
 )
+
+const BackToShopLink = styled(Link)`
+  font-size: 14px;
+  text-decoration: none;
+  color: var(--color-wine);
+`
 
 CheckoutHeader.defaultProps = {
   siteTitle: ''

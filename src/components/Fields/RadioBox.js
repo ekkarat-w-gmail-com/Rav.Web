@@ -12,7 +12,7 @@ type Props = {
   checked: boolean,
   icon: Element<any>,
   description: string,
-  note: string,
+  note?: string,
   onChange: (SyntheticEvent<HTMLInputElement>) => void
 }
 

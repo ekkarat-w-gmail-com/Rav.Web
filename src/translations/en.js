@@ -25,5 +25,6 @@ export default {
   [keys.CHECKOUT_SHIPPING_AND_BILLING]: 'Shipping & billing',
   [keys.CHECKOUT_DELIVERY_AND_PAYMENT]: 'Delivery & payment',
   [keys.CHECKOUT_REVIEW_ORDER]: 'Review order',
-  [keys.CHECKOUT_SHIPPING_ADDRESS]: 'Delivery address'
+  [keys.CHECKOUT_SHIPPING_ADDRESS]: 'Delivery address',
+  [keys.CHECKOUT_BACK_TO_SHOP]: 'Back to the shop'
 }

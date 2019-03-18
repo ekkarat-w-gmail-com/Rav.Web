@@ -16,7 +16,7 @@ type Props = {
 export const Drawer = ({ isOpen, children, fromSide, className, onBackDropClick }: Props) => {
 
   useEffect(() => {
-    isOpen && document.body ? document.body.classList.add('locked') : document.body.classList.remove('locked');
+    isOpen ? document.body && document.body.classList.add('locked') : document.body && document.body.classList.remove('locked');
     return () => document.body.classList.remove('locked');
   })
 

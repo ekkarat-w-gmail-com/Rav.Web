@@ -21,6 +21,7 @@ import { StockStatus } from '../components/StockStatus';
 import { Accordion, AccordionItem, AccordionHtmlContent } from '../components/Accordion';
 
 // Styling
+import { GridWrap } from '../styling/grid';
 import { Canon, BodyCopy } from '../styling/typography';
 
 // Types
@@ -58,7 +59,7 @@ const SingleProductTemplate = ({ data, intl, addProductToCart }: Props) => {
 
   return (
     <Layout>
-      <GridWrapper>
+      <GridWrap>
 
         <ImageColumn>
           <Image fluid={product.featuredImage.fluid} />
@@ -109,7 +110,7 @@ const SingleProductTemplate = ({ data, intl, addProductToCart }: Props) => {
 
         </InfoColumn>
 
-      </GridWrapper>
+      </GridWrap>
     </Layout>
   )
 }
@@ -118,31 +119,11 @@ const mapStateToProps = () => ({});
 export default injectIntl(connect(mapStateToProps, { addProductToCart })(SingleProductTemplate));
 
 
-const GridWrapper = styled.div`
-  display: grid;
-  grid-template-columns:
-    [left] minmax(9%, 1fr)
-    [col-one] minmax(0px, 72px)
-    [col-two] minmax(0px, 72px)
-    [col-three] minmax(0px, 72px)
-    [col-four] minmax(0px, 72px)
-    [col-five] minmax(0px, 72px)
-    [col-six] minmax(0px, 72px)
-    [col-six-end col-seven] minmax(0px, 72px)
-    [col-seven-end col-eight] minmax(0px, 72px)
-    [col-nine] minmax(0px, 72px)
-    [col-ten] minmax(0px, 72px)
-    [col-eleven] minmax(0px, 72px)
-    [col-twelve] minmax(0px, 72px)
-    [col-twelve-end right] minmax(9%, 1fr);
-  grid-column-gap: 1.5vw;
-`
-
 const ImageColumn = styled.div`
   position: relative;
   display: block;
   grid-row: 1 / auto;
-  grid-column: left / col-six;
+  grid-column: left / col-six-start;
   img {
     width: 100%;
     height: auto;
@@ -152,7 +133,7 @@ const ImageColumn = styled.div`
 const InfoColumn = styled.div`
   display: flex;
   flex-direction: column;
-  grid-column-start: col-seven;
+  grid-column-start: col-seven-start;
   padding-left: 72px;
   grid-column-end: col-twelve-end;
   padding-top: 3rem;

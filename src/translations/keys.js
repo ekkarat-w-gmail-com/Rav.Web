@@ -30,3 +30,4 @@ export const CHECKOUT_DELIVERY_AND_PAYMENT = 'Checkout.DeliveryAndPayment';
 export const CHECKOUT_REVIEW_ORDER = 'Checkout.ReviewOrder';
 export const CHECKOUT_NEXT_PANEL = 'Checkout.NextPanel';
 export const CHECKOUT_SHIPPING_ADDRESS = 'Checkout.ShippingAddress';
+export const CHECKOUT_BACK_TO_SHOP = 'Checkout.KeepShopping';
