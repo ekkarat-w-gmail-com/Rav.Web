@@ -38,13 +38,12 @@ export const _StockStatus = ({ quantity, className }: Props) => {
 }
 
 const StockLabel = styled(PicaIndex)`
+  display: inline-block;
   font-style: italic;
   position: relative;
   color: var(--color-black);
   font-family: var(--font-serif);
-  background: var(--color-grey);
-  border-radius: var(--global-radius);
-  padding: 4px 0.5rem 4px 1.5rem;
+  padding-left: 12px;
 
   &::before {
     content: '';
@@ -54,7 +53,7 @@ const StockLabel = styled(PicaIndex)`
     border-radius: 50%;
     background: var(--color-green);
     position: absolute;
-    left: 12px;
+    left: 0;
     top: 50%;
     transform: translateY(-50%);
   }

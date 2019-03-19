@@ -22,7 +22,7 @@ import { Accordion, AccordionItem, AccordionHtmlContent } from '../components/Ac
 
 // Styling
 import { GridWrap } from '../styling/grid';
-import { Canon, BodyCopy } from '../styling/typography';
+import { Canon, BodyCopy, Trafalgar } from '../styling/typography';
 
 // Types
 import type { CartItem } from '../types/cart';
@@ -74,6 +74,17 @@ const SingleProductTemplate = ({ data, intl, addProductToCart }: Props) => {
 
           <Excerpt as={'p'}>{get('shortDescription.shortDescription', product)}</Excerpt>
 
+          <ProductStockStatus quantity={get('stockQuantity', product)} />
+
+          <CartButton disabled={get('stockQuantity', product) === 0} onClick={handleOnBuy}>
+            <FormattedMessage
+              id={translation.BUY_BUTTON_OUT_OF_STOCK}
+              defaultMessage={'{title} is out of stock'}
+              values={{ title: get('name', product) }}
+            />
+            <FormattedMessage id={translation.BUY_BUTTON_SELECT} />
+          </CartButton>
+
           <ProductAccordion>
             {
               description && (
@@ -98,16 +109,6 @@ const SingleProductTemplate = ({ data, intl, addProductToCart }: Props) => {
             }
           </ProductAccordion>
 
-          <CartButton disabled={get('stockQuantity', product) === 0} onClick={handleOnBuy}>
-            <FormattedMessage
-              id={translation.BUY_BUTTON_OUT_OF_STOCK}
-              defaultMessage={'{title} is out of stock'}
-              values={{ title: get('name', product) }}
-            />
-            <FormattedMessage id={translation.BUY_BUTTON_SELECT} />
-          </CartButton>
-          <ProductStockStatus quantity={get('stockQuantity', product)} />
-
         </InfoColumn>
 
       </GridWrap>
@@ -123,7 +124,9 @@ const ImageColumn = styled.div`
   position: relative;
   display: block;
   grid-row: 1 / auto;
-  grid-column: left / col-six-start;
+  grid-column: col-one / col-six;
+  margin-top: 2rem;
+
   img {
     width: 100%;
     height: auto;
@@ -133,29 +136,30 @@ const ImageColumn = styled.div`
 const InfoColumn = styled.div`
   display: flex;
   flex-direction: column;
-  grid-column-start: col-seven-start;
-  padding-left: 72px;
-  grid-column-end: col-twelve-end;
+  grid-column-start: col-eight;
+  grid-column-end: col-twelve;
+  margin-top: 2rem;
   padding-top: 3rem;
   padding-bottom: 3rem;
 `;
 
 const TitleAndPrice = styled.div`
   margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
-const Title = styled(Canon)`
-  margin-bottom: 1rem;
-  margin-right: 0;
+const Title = styled(Trafalgar)`
+  margin: 0;
 `;
 
 const Excerpt = styled(BodyCopy)`
   font-family: var(--font-serif);
-  margin-bottom: 0;
+  margin-bottom: 2rem;
 `;
 
 const ProductStockStatus = styled(StockStatus)`
-  margin-top: 1rem;
 `;
 
 const ProductAccordion = styled(Accordion)`
@@ -181,7 +185,7 @@ const CartButton = styled.button`
   height: 3rem;
   cursor: pointer;
   overflow: hidden;
-  margin: 40px 0 0;
+  margin: 1rem 0 0;
   border-radius: 3px;
   border: 0 none;
   &:focus {

@@ -59,13 +59,13 @@ const PriceWrapper = styled.div`
 `;
 
 export const CurrentPrice = styled.span`
-  font-size: 20px;
+  font-size: 14px;
   line-height: 28px;
   color: ${props => props.isSale ? 'var(--color-red)' : 'var(--color-dark)'};
 `;
 
 export const OldPrice = styled.span`
-  font-size: 14px;
+  font-size: 12px;
   line-height: 20px;
   font-style: italic;
   text-decoration: line-through;

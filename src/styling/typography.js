@@ -1,3 +1,4 @@
+// @flow
 import styled from 'styled-components';
 
 // Typographic table
@@ -22,7 +23,7 @@ export const Canon = styled.h1`
 `;
 
 export const Trafalgar = styled.h2`
-  font-size: 32px
+  font-size: 32px;
   line-height: 36px;
 `;
 
