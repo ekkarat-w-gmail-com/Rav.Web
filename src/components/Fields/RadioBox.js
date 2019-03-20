@@ -53,6 +53,7 @@ const FieldContainer = styled.label`
   align-items: center;
   border-radius: var(--global-radius);
   cursor: pointer;
+  border: 1px solid var(--color-darkGrey);
 `;
 
 const ContentIconWrap = styled.div`

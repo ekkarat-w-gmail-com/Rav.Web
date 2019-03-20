@@ -13,8 +13,11 @@ import { PostNord, Klarna } from '../components/Icons/Brands';
 import { KlarnaCheckout } from '../components/KlarnaCheckout';
 import { GridWrap } from '../styling/grid';
 
+// Actions
+import { createKlarnaCheckout } from '../store/actions';
+
 // Utils
-import { createKlarnaOrder } from '../utils/checkout';
+import { formatKlarnaOrder } from '../utils/checkout';
 
 // i18n
 import * as i18n from '../translations/keys';
@@ -23,7 +26,8 @@ import * as i18n from '../translations/keys';
 import type { Cart, CartItem } from '../types/cart';
 type Props = {
   checkout: { [key: string]: any },
-  cart: Cart
+  cart: Cart,
+  createKlarnaCheckout: (klarnaOrder: Object) => void
 }
 
 const CheckoutComponent = (props: Props) => {
@@ -52,9 +56,13 @@ const CheckoutComponent = (props: Props) => {
   const cartItems = get('cart.data.items', props);
 
   useEffect(() => {
-    const order = createKlarnaOrder(form, cartItems);
-    console.log('createKlarnaOrder result -->', order);
-  }, [ form ])
+    if ( form.paymentOption === 'klarna')  {
+      const orderAmount = getOr(0, 'cart.data.totalAmount', props);
+      const taxAmount = getOr(0, 'cart.data.totalTaxAmount', props);
+      const order = formatKlarnaOrder(form, cartItems, orderAmount, taxAmount);
+      props.createKlarnaCheckout(order);
+    }
+  }, [ form.paymentOption ])
 
   const totalDiscount = getOr(0, 'cart.data.totalDiscountAmount', props);
   const totalPrice = getOr(0, 'cart.data.totalAmount', props);
@@ -172,17 +180,18 @@ const mapStateToProps = ({ checkout, cart }) => ({
   cart: cart
 });
 
-export default connect(mapStateToProps, { })(CheckoutComponent)
+export default connect(mapStateToProps, { createKlarnaCheckout })(CheckoutComponent)
 
 const Panels = styled.div`
-  grid-column: left / col-seven-start;
+  grid-column: left / col-eight;
   background-color: var(--color-grey);
   padding-bottom: 12rem;
 `;
 
 const Panel = styled.div`
-  display: block;
+  display: flex;
   width: 100%;
+  justify-content: center;
 
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-darkGrey);
@@ -194,6 +203,8 @@ const PanelInner = styled.form`
   padding: 2rem 2.5rem;
   display: flex;
   flex-direction: column;
+  max-width: 50rem;
+  flex-grow: 1;
 `;
 
 const PanelHeader = styled.div`
@@ -222,15 +233,13 @@ const PanelTitle = styled(PicaIndex)`
 `;
 
 const OverviewColumn = styled.div`
-  grid-column-start: col-nine-start;
-  grid-column-end: col-twelve;
+  grid-column-start: col-ten;
+  grid-column-end: right;
 `;
 
 const OverviewColumnInner = styled.div`
   position: sticky;
   top: 60px;
-  background: var(--color-ivory);
-  padding: 2rem;
 `;
 
 const CartItems = styled.div`

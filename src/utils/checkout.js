@@ -1,25 +1,49 @@
 // @flow
+import { get, map } from 'lodash/fp';
 
+import { renameKeys } from './formatting';
+
+// Type
 import type { CartItem } from '../types/cart';
 
-export const createKlarnaOrder = (billingInfo: Object, cartItems: Array<CartItem>) => {
+export const formatKlarnaOrder = (billingInfo: Object, cartItems: Array<CartItem>, orderAmount: number, taxAmount: number) => {
 
   const billingAddress = {
-    "given_name": "Testperson-se",
-    "family_name": "Approved",
-    "email": "youremail@email.com",
-    "street_address": "Stårgatan 1",
-    "postal_code": "12345",
-    "city": "Ankeborg",
-    "phone": "+46765260000",
-    "country": "se"
+    given_name: get('firstName', billingInfo),
+    family_name: get('lastName', billingInfo),
+    email: get('emailAddress', billingInfo),
+    street_address: get('streetAddress', billingInfo),
+    postal_code: get('zip', billingInfo),
+    city: get('city', billingInfo),
+    phone: get('phone', billingInfo),
+    country: "se"
   }
+
+  const orderLineKeys = {
+    unitPrice: 'unit_price',
+    taxRate: 'tax_rate',
+    totalAmount: 'total_amount',
+    totalDiscountAmount: 'total_discount_amount',
+    totalTaxAmount: 'total_tax_amount',
+    imageUrl: 'image_url'
+  }
+
+  const updatedPrecicions = map((cartItem) => {
+    return {
+      ...cartItem,
+      unitPrice: cartItem.unitPrice * 100,
+      totalAmount: cartItem.totalAmount * 100,
+      totalTaxAmount: cartItem.totalTaxAmount * 100
+    }
+  }, cartItems);
+  
+  const renamedOrderLines = map((cartItem) => renameKeys(cartItem, orderLineKeys), updatedPrecicions);
 
   return {
     billing_address: billingAddress,
-    order_amount: 0,
-    order_tax_amount: 0,
-    order_lines: cartItems
+    order_amount: orderAmount * 100,
+    order_tax_amount: taxAmount * 100,
+    order_lines: renamedOrderLines
   }
 
 }

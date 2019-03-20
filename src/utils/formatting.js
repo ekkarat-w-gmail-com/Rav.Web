@@ -27,3 +27,11 @@ export const trimCharacters = (content: string = '', trimLength: number, more?: 
 
   return content.substring(0, trimLength).trim() + more;
 };
+
+export const renameKeys = (object: Object, newKeys: Object): Object => {
+  const keyValues = Object.keys(object).map(key => {
+    const newKey = newKeys[key] || key;
+    return { [newKey]: object[key] };
+  });
+  return Object.assign({}, ...keyValues);
+}

@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import styled from 'styled-components';
 
 type Props = {
   html: string
@@ -13,7 +14,10 @@ export class KlarnaCheckout extends Component<Props> {
     setTimeout(() => this.initKlarna(this.props.html), 0);
   }
 
-  shouldComponentUpdate() {
+  shouldComponentUpdate(nextProps: Props) {
+    if ( this.props.html !== nextProps.html ) {
+      return true;
+    }
     return false;
   }
 
@@ -41,10 +45,24 @@ export class KlarnaCheckout extends Component<Props> {
   }
 
   render() {
+
+    if ( !this.props.html ) {
+      return null;
+    }
+
     return (
-      <div ref={this.checkoutContainer}>
+      <Container ref={this.checkoutContainer}>
         <div id={'klarna-container'} />
-      </div>
+      </Container>
     );
   }
 }
+
+const Container = styled.div`
+  position: relative;
+  width: 100%;
+  margin-top: 1rem;
+  background: var(--color-white);
+  border-radius: var(--global-radius);
+  border: 1px solid var(--color-darkGrey);
+`;

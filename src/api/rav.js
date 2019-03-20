@@ -24,3 +24,13 @@ export const updateItemInCart = (id, quantity) =>
   instance.put(`/cart/${id}`, { quantity })
     .then((res) => res)
     .catch((err) => { throw err });
+
+export const createCheckout = (klarnaOrder) =>
+  instance.post(`/checkout`, klarnaOrder)
+    .then((res) => res)
+    .catch((err) => { throw err });
+
+export const getCheckoutById = (orderId) =>
+  instance.get(`/checkout/${orderId}`)
+    .then((res) => res)
+    .catch((err) => { throw err });
