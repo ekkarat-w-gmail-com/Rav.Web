@@ -1,7 +1,7 @@
 // @flow
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { get } from 'lodash/fp';
+import { get, has } from 'lodash/fp';
 
 // Actions
 import { getKlarnaCheckoutById } from '../store/actions';
@@ -13,6 +13,7 @@ import { KlarnaCheckout } from '../components/KlarnaCheckout';
 
 type Props = {
  location: Object,
+ checkout: Object,
  getKlarnaCheckoutById: (orderId: string) => void
 }
 
@@ -30,8 +31,8 @@ const ThankYou = (props: Props) => {
   return (
 
     <Layout>
-      <SEO title={'Thanks for your purchase!'} />      
-      <KlarnaCheckout html={get('checkout.html_snippet', props)} />
+      <SEO title={'Thanks for your purchase!'} />
+      {has('html_snippet', props.checkout) && <KlarnaCheckout html={get('html_snippet', props.checkout)} />}
     </Layout>
 
   );
