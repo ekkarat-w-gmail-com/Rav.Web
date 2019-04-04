@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { get, has } from 'lodash/fp';
 
 // Actions
-import { getKlarnaCheckoutById } from '../store/actions';
+import { getKlarnaCheckoutById, confirmKlarnaPurchase } from '../store/actions';
 
 // Components
 import Layout from '../components/layout'
@@ -14,19 +14,21 @@ import { KlarnaCheckout } from '../components/KlarnaCheckout';
 type Props = {
  location: Object,
  checkout: Object,
- getKlarnaCheckoutById: (orderId: string) => void
+ getKlarnaCheckoutById: (orderId: string) => void,
+ confirmKlarnaPurchase: (orderId: string) => void
 }
 
 const ThankYou = (props: Props) => {
 
   const urlParams = new URLSearchParams(props.location.search);
-  const myParam = urlParams.get('sid');
+  const orderID = urlParams.get('sid');
 
   useEffect(() => {
-    if ( myParam ) {
-      props.getKlarnaCheckoutById(myParam);
+    if ( orderID ) {
+      props.getKlarnaCheckoutById(orderID);
+      props.confirmKlarnaPurchase(orderID);
     }
-  }, [ myParam ])
+  }, [ orderID ])
 
   return (
 
@@ -42,5 +44,4 @@ const mapStateToProps = (store) => ({
   checkout: store.checkout
 })
 
-
-export default connect(mapStateToProps, { getKlarnaCheckoutById })(ThankYou)
+export default connect(mapStateToProps, { getKlarnaCheckoutById, confirmKlarnaPurchase })(ThankYou)

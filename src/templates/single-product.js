@@ -18,7 +18,7 @@ import * as translation from '../translations/keys';
 import Layout from '../components/layout'
 import { Price } from '../components/Price'
 import { StockStatus } from '../components/StockStatus';
-import { Accordion, AccordionItem, AccordionHtmlContent } from '../components/Accordion';
+import { ProductInformation } from '../components/Blocks';
 
 // Styling
 import { GridWrap } from '../styling/grid';
@@ -42,13 +42,8 @@ const SingleProductTemplate = ({ data, intl, addProductToCart }: Props) => {
   const { product } = data;
 
   const description = get('description.childContentfulRichText.html', product)
-  const descriptionHTML = { __html: description };
-
   const specifications = get('specifications.childContentfulRichText.html', product)
-  const specificationsHTML = { __html: specifications };
-
   const careInstructions = get('careInstructions.childContentfulRichText.html', product)
-  const careInstructionsHTML = { __html: careInstructions };
 
   const handleOnBuy = (event: HTMLButtonElement) => {
     if ( !event.disabled ) {
@@ -59,7 +54,8 @@ const SingleProductTemplate = ({ data, intl, addProductToCart }: Props) => {
 
   return (
     <Layout>
-      <GridWrap>
+
+      <CustomGridWrap>
 
         <ImageColumn>
           <Image fluid={product.featuredImage.fluid} />
@@ -85,33 +81,14 @@ const SingleProductTemplate = ({ data, intl, addProductToCart }: Props) => {
             <FormattedMessage id={translation.BUY_BUTTON_SELECT} />
           </CartButton>
 
-          <ProductAccordion>
-            {
-              description && (
-                <AccordionItem title={intl.formatMessage({ id: translation.PRODUCT_ACCORDION_DESCRIPTION })} id={'description'}>
-                  <AccordionHtmlContent dangerouslySetInnerHTML={descriptionHTML} />
-                </AccordionItem>
-              )
-            }
-            {
-              specifications && (
-                <AccordionItem title={intl.formatMessage({ id: translation.PRODUCT_ACCORDION_SPECIFICATION })} id={'specification'}>
-                  <AccordionHtmlContent dangerouslySetInnerHTML={specificationsHTML} />
-                </AccordionItem>
-              )
-            }
-            {
-              careInstructions && (
-                <AccordionItem title={intl.formatMessage({ id: translation.PRODUCT_ACCORDION_CARE_INSTRUCTIONS })} id={'careInstructions'}>
-                  <AccordionHtmlContent dangerouslySetInnerHTML={careInstructionsHTML} />
-                </AccordionItem>
-              )
-            }
-          </ProductAccordion>
-
         </InfoColumn>
 
+      </CustomGridWrap>
+
+      <GridWrap>
+        <StyledProductInfoBlock description={description} specifications={specifications} />
       </GridWrap>
+
     </Layout>
   )
 }
@@ -119,6 +96,12 @@ const SingleProductTemplate = ({ data, intl, addProductToCart }: Props) => {
 const mapStateToProps = () => ({});
 export default injectIntl(connect(mapStateToProps, { addProductToCart })(SingleProductTemplate));
 
+const CustomGridWrap = styled(GridWrap)`
+  background-image: url("https://www.fjallraven.se//media/i/seasonal_background_ss19_1-21646-4.jpg");
+  background-position: 50%;
+  background-size: cover;
+  margin-bottom: 4rem;
+`;
 
 const ImageColumn = styled.div`
   position: relative;
@@ -126,6 +109,7 @@ const ImageColumn = styled.div`
   grid-row: 1 / auto;
   grid-column: col-one / col-six;
   margin-top: 2rem;
+  margin-bottom: 2rem;
 
   img {
     width: 100%;
@@ -136,11 +120,12 @@ const ImageColumn = styled.div`
 const InfoColumn = styled.div`
   display: flex;
   flex-direction: column;
-  grid-column-start: col-eight;
+  grid-column-start: col-seven;
   grid-column-end: col-twelve;
   margin-top: 2rem;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  margin-bottom: 2rem;
+  padding: 3rem;
+  background: var(--color-white);
 `;
 
 const TitleAndPrice = styled.div`
@@ -160,10 +145,6 @@ const Excerpt = styled(BodyCopy)`
 `;
 
 const ProductStockStatus = styled(StockStatus)`
-`;
-
-const ProductAccordion = styled(Accordion)`
-  margin-top: 2rem;
 `;
 
 const disabledMixin = css`
@@ -215,6 +196,11 @@ const CartButton = styled.button`
       transform: translateY(-100%);
     }
   }
+`;
+
+const StyledProductInfoBlock = styled(ProductInformation)`
+  grid-column-start: col-one;
+  grid-column-end: col-twelve;
 `;
 
 export const query = graphql`

@@ -1,11 +1,11 @@
 import { call, put, takeLatest, all } from 'redux-saga/effects';
 
 // Definitions
-import { CHECKOUT_KLARNA_CREATE_ORDER, CHECKOUT_KLARNA_FETCH_ORDER, CHECKOUT_KLARNA_RECEIVE_ORDER } from '../actions/definitions';
+import { CHECKOUT_KLARNA_CREATE_ORDER, CHECKOUT_KLARNA_FETCH_ORDER, CHECKOUT_KLARNA_CONFIRM_ORDER } from '../actions/definitions';
 import { receiveKlarnaCheckout } from '../actions';
 
 // API
-import { createCheckout, getCheckoutById } from '../../api/rav';
+import { createCheckout, getCheckoutById, confirmCheckoutPurchase } from '../../api/rav';
 
 function* handleCreateKlarnaCheckout(action) {
   try {
@@ -25,9 +25,18 @@ function* handleFetchKlarnaCheckout(action) {
   }
 }
 
+function* handleConfirmCheckout(action) {
+  try {
+    yield call(confirmCheckoutPurchase, action.payload.orderId);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export function* checkoutSaga() {
   yield all([
     yield takeLatest(CHECKOUT_KLARNA_CREATE_ORDER, handleCreateKlarnaCheckout),
     yield takeLatest(CHECKOUT_KLARNA_FETCH_ORDER, handleFetchKlarnaCheckout),
+    yield takeLatest(CHECKOUT_KLARNA_CONFIRM_ORDER, handleConfirmCheckout)
   ]);
 };

@@ -34,3 +34,8 @@ export const getCheckoutById = (orderId) =>
   instance.get(`/checkout/${orderId}`)
     .then((res) => res)
     .catch((err) => { throw err });
+
+export const confirmCheckoutPurchase = (orderId) =>
+  instance.post(`/checkout/confirm/${orderId}`)
+    .then((res) => res)
+    .catch((err) => { throw err });
