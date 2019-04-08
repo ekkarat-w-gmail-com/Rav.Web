@@ -110,6 +110,8 @@ const ImageColumn = styled.div`
   grid-column: col-one / col-six;
   margin-top: 2rem;
   margin-bottom: 2rem;
+  border-radius: var(--global-radius);
+  overflow: hidden;
 
   img {
     width: 100%;
@@ -126,6 +128,7 @@ const InfoColumn = styled.div`
   margin-bottom: 2rem;
   padding: 3rem;
   background: var(--color-white);
+  border-radius: var(--global-radius);
 `;
 
 const TitleAndPrice = styled.div`
