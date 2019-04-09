@@ -128,7 +128,7 @@ const CheckoutComponent = (props: Props) => {
               <LegendTitle>{'Payment Options'}</LegendTitle>
               <RadioBox label={'Klarna'} description={'Betala med kontokort, direkt från banken eller dela upp betalning'} icon={<Klarna />} id={'klarna'} name={'paymentOption'} value={'klarna'} checked={form.paymentOption === 'klarna'} onChange={handleOnInputChange} />
 
-              {has('html_snippet', props.checkout) && <KlarnaCheckout html={get('html_snippet', props.checkout)} />}
+              {has('html_snippet', props.checkout) && <KlarnaCheckout key={get('order_id', props.checkout)} html={get('html_snippet', props.checkout)} />}
             </PanelInner>
           </Panel>
         </Panels>

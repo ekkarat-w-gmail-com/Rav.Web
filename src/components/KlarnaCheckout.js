@@ -14,13 +14,6 @@ export class KlarnaCheckout extends Component<Props> {
     setTimeout(() => this.initKlarna(this.props.html), 0);
   }
 
-  shouldComponentUpdate(nextProps: Props) {
-    if ( this.props.html !== nextProps.html ) {
-      return true;
-    }
-    return false;
-  }
-
   initKlarna(htmlSnippet: string) {
 
     if ( !htmlSnippet ) return;
