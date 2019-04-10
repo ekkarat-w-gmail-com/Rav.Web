@@ -22,17 +22,17 @@ const PriceComponent = ({ regularPrice, salePrice, className, intl }: Props) => 
     return (
       <PriceWrapper className={className}>
 
-        <OldPrice>
-          <FormattedNumber style={'currency'} currency={currencyCode} value={regularPrice}>
-            {(value) => (<>{value}</>)}
-          </FormattedNumber>
-        </OldPrice>
-
         <CurrentPrice isSale={true}>
           <FormattedNumber style={'currency'} currency={currencyCode} value={salePrice}>
             {(value) => (<>{value}</>)}
           </FormattedNumber>
         </CurrentPrice>
+
+        <OldPrice>
+          <FormattedNumber style={'currency'} currency={currencyCode} value={regularPrice}>
+            {(value) => (<>{value}</>)}
+          </FormattedNumber>
+        </OldPrice>
 
       </PriceWrapper>
     )
@@ -69,6 +69,6 @@ export const OldPrice = styled.span`
   line-height: 20px;
   font-style: italic;
   text-decoration: line-through;
-  margin-right: 8px;
+  margin-left: 8px;
   color: rgba(0, 0, 0, 0.54);
 `;

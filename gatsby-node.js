@@ -14,6 +14,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   const query = `
     {
+
       allContentfulProduct {
         edges {
           node {
@@ -23,6 +24,7 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+
       allContentfulProductCategory {
         edges {
           node {
@@ -32,6 +34,17 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+
+      allContentfulBrands {
+        edges {
+          node {
+            slug
+            id
+            node_locale
+          }
+        }
+      }
+
     }
   `;
 
@@ -40,7 +53,7 @@ exports.createPages = async ({ graphql, actions }) => {
     console.log('\x1b[33m%s\x1b[0m', '\n ==== Starting building pages ==== \n')
 
     map(({ node }) => {
-      const slug = `/product/${node.slug}`;
+      const slug = `/produkt/${node.slug}`;
       console.log('Creating single product page -->', slug);
       createPage({
         path: slug,
@@ -54,7 +67,7 @@ exports.createPages = async ({ graphql, actions }) => {
     }, result.data.allContentfulProduct.edges);
 
     map(({ node }) => {
-      const slug = `/category/${node.slug}`;
+      const slug = `/kategori/${node.slug}`;
       console.log('Creating taxonomy productCategory page -->', slug);
       createPage({
         path: slug,
@@ -66,6 +79,20 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       })
     }, result.data.allContentfulProductCategory.edges);
+
+    map(({ node }) => {
+      const slug = `/varumärke/${node.slug}`;
+      console.log('Creating brand page -->', slug);
+      createPage({
+        path: slug,
+        component: path.resolve(`./src/templates/brand.js`),
+        context: { // Data passed to context is available in page queries as GraphQL variables.
+          slug: node.slug,
+          id: node.id,
+          locale: node.node_locale
+        }
+      })
+    }, result.data.allContentfulBrand.edges);
 
     console.log('\x1b[33m%s\x1b[0m', '\n ==== Finished building pages ==== \n');
   });

@@ -23,7 +23,7 @@ export const ProductList = ({ products, columns, thumbnailSource, excerptSource 
     <ProductCard
       key={get('id', node)}
       title={get('name', node)}
-      to={`/product/${get('slug', node)}`}
+      to={`/produkt/${get('slug', node)}`}
       excerpt={get(excerptSource, node)}
       thumbnail={get(thumbnailSource, node)} />
   ), products);
