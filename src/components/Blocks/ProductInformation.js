@@ -42,9 +42,9 @@ export const ProductInformation = ({ description, specifications, className }: P
 const BlockWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
-  padding: 30px;
-  border: 2px solid #d6d6d6;
+  padding: 80px;
   border-radius: var(--global-radius);
+  background: var(--color-ivory);
 `;
 
 const ContentBlock = styled.div`

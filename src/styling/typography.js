@@ -43,8 +43,8 @@ export const GreatPrimer = styled.h4`
 `;
 
 export const BodyCopy = styled.p`
-  font-size: 16px;
-  line-height: 22px;
+  font-size: 18px;
+  line-height: 28px;
 `;
 
 export const PicaIndex = styled.h5`

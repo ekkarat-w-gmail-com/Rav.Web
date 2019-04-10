@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i|EB+Garamond:400,400i,500');
+@import url('https://fonts.googleapis.com/css?family=Heebo:400,400i,600,600i|EB+Garamond:400,400i,500');
 
 :root {
   --color-ivory: rgb(244, 244, 239);
@@ -12,12 +12,16 @@
   --color-green: rgb(107, 191, 89);
   --color-red: rgb(244, 67, 54);
   --font-serif: 'EB Garamond', 'serif';
-  --font-sans: 'Open Sans', 'sans-serif';
+  --font-sans: 'Heebo', 'sans-serif';
   --global-radius: 2px;
 }
 
 html {
   box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
 }
 
 html,

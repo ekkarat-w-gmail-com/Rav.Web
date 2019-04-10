@@ -15,6 +15,7 @@ export default {
   [keys.CART_GO_TO_CHECKOUT]: 'Till kassan',
   [keys.CART_KEEP_SHOPPING]: 'Fortsätt handla',
   [keys.CART_ITEM_REMOVE]: 'Ta bort',
+  [keys.PRODUCT_PRICE_TITLE]: 'Pris',
   [keys.PRODUCT_ACCORDION_DESCRIPTION]: 'Beskrivning',
   [keys.PRODUCT_ACCORDION_SPECIFICATION]: 'Specifikation',
   [keys.PRODUCT_ACCORDION_CARE_INSTRUCTIONS]: 'Skötselråd',

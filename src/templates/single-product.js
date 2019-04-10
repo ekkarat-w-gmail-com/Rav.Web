@@ -3,7 +3,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import styled, { css } from 'styled-components';
 import Image from 'gatsby-image';
-import { get, getOr } from 'lodash/fp';
+import { get, getOr, map } from 'lodash/fp';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 
@@ -16,13 +16,14 @@ import * as translation from '../translations/keys';
 
 // Components
 import Layout from '../components/layout'
-import { Price } from '../components/Price'
+import { Price, CurrentPrice, OldPrice } from '../components/Price'
 import { StockStatus } from '../components/StockStatus';
 import { ProductInformation } from '../components/Blocks';
+import { Badge } from '../components/Badge';
 
 // Styling
 import { GridWrap } from '../styling/grid';
-import { Canon, BodyCopy, Trafalgar } from '../styling/typography';
+import { Canon, BodyCopy, Trafalgar, GreatPrimer } from '../styling/typography';
 
 // Types
 import type { CartItem } from '../types/cart';
@@ -52,21 +53,40 @@ const SingleProductTemplate = ({ data, intl, addProductToCart }: Props) => {
     }
   }
 
+  const labels = map((label) => <BadgeLabel key={label} title={label} />, get('labels', product));
+
   return (
     <Layout>
 
       <CustomGridWrap>
 
         <ImageColumn>
+          {get('labels', product) && (
+            <ProductLabels>
+              {labels}
+            </ProductLabels>
+          )}
           <Image fluid={product.featuredImage.fluid} />
         </ImageColumn>
 
         <InfoColumn>
 
-          <TitleAndPrice>
-            <Title as={'h2'}>{product.name}</Title>
-            <Price regularPrice={get('regularPrice', product)} salePrice={getOr(null, 'salePrice', product)} />
-          </TitleAndPrice>
+          <ProductHeader>
+            <Titles>
+              <Subtitle as={'h3'}>{get('brand.name', product)}</Subtitle>
+              <Title as={'h2'}>{product.name}</Title>
+            </Titles>
+            {get('brand.logotype.fluid', product) && (
+              <BrandLogotype>
+                <Image fluid={get('brand.logotype.fluid', product)} />
+              </BrandLogotype>
+            )}
+          </ProductHeader>
+
+          <PriceWrap>
+            <FormattedMessage id={translation.PRODUCT_PRICE_TITLE} />:
+            <ProductPrice regularPrice={get('regularPrice', product)} salePrice={getOr(null, 'salePrice', product)} />
+          </PriceWrap>
 
           <Excerpt as={'p'}>{get('shortDescription.shortDescription', product)}</Excerpt>
 
@@ -111,13 +131,21 @@ const ImageColumn = styled.div`
   margin-top: 2rem;
   margin-bottom: 2rem;
   border-radius: var(--global-radius);
-  overflow: hidden;
 
   img {
     width: 100%;
     height: auto;
   }
 `;
+
+const ProductLabels = styled.div`
+  position: absolute;
+  left: 1rem;
+  z-index: 1;
+  transform: translateY(-50%);
+`;
+
+const BadgeLabel = styled(Badge)``;
 
 const InfoColumn = styled.div`
   display: flex;
@@ -129,21 +157,57 @@ const InfoColumn = styled.div`
   padding: 3rem;
   background: var(--color-white);
   border-radius: var(--global-radius);
+  position: relative;
 `;
 
-const TitleAndPrice = styled.div`
-  margin-bottom: 1.5rem;
+const ProductHeader = styled.header`
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 `;
+
+const BrandLogotype = styled.div`
+  width: 10rem;
+  height: auto;
+`;
+
+const Titles = styled.div``;
 
 const Title = styled(Trafalgar)`
   margin: 0;
+  font-weight: 700;
+`;
+
+const Subtitle = styled(GreatPrimer)`
+  margin-bottom: 8px;
+  font-style: italic;
+  font-family: var(--font-serif);
+`;
+
+const PriceWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  font-size: 16px;
+  line-height: 22px;
+`;
+
+const ProductPrice = styled(Price)`
+  margin-left: 4px;
+
+  ${CurrentPrice} {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
 `;
 
 const Excerpt = styled(BodyCopy)`
   font-family: var(--font-serif);
+  padding-top: 1rem;
+  margin-top: 1rem;
+  border-top: 1px solid var(--color-sand);
   margin-bottom: 2rem;
 `;
 
@@ -172,6 +236,7 @@ const CartButton = styled.button`
   margin: 1rem 0 0;
   border-radius: 3px;
   border: 0 none;
+
   &:focus {
     outline: 0;
   }
@@ -217,6 +282,20 @@ export const query = graphql`
       stockQuantity
       shortDescription {
         shortDescription
+      }
+      labels
+      brand {
+        name
+        slug
+        logotype {
+          id
+          file {
+            url
+          }
+          fluid(quality: 100, maxWidth: 1000) {
+            ...GatsbyContentfulFluid_withWebp
+          }
+        }
       }
       description {
         childContentfulRichText {
