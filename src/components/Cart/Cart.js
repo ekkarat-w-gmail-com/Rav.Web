@@ -1,7 +1,7 @@
 /* eslint react/style-prop-object: "off" */
 // @flow
 import React from 'react';
-import { Link } from 'gatsby';
+import { navigate } from 'gatsby';
 import { get, getOr, map } from 'lodash/fp';
 import { connect } from 'react-redux';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
@@ -53,6 +53,11 @@ export const CartDrawer = ({
 
   const handleOnRemove = (id) => {
     removeItemFromCart(id);
+  }
+
+  const onCheckoutClick = () => {
+    setCartVisibility(false);
+    navigate('/checkout');
   }
 
   const lineItems = map((lineItem) => {
@@ -124,11 +129,7 @@ export const CartDrawer = ({
         </TotalItem>
         <FormattedMessage id={i18n.CART_GO_TO_CHECKOUT} defaultMessage={'Checkout'}>
           {(checkoutString) => (
-            <CheckoutButton>
-            <Link to={'/checkout'} onClick={() => setCartVisibility(false)}>
-                {checkoutString}
-            </Link>
-            </CheckoutButton>
+            <CheckoutButton onClick={onCheckoutClick}>{checkoutString}</CheckoutButton>
           )}
         </FormattedMessage>
         <KeepShoppingButton onClick={() => setCartVisibility(false)}>
