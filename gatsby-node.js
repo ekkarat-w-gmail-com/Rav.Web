@@ -6,6 +6,7 @@
 const path = require('path');
 const map = require('lodash/fp/map');
 const get = require('lodash/fp/get');
+const getOr = require('lodash/fp/getOr');
 const has = require('lodash/fp/has');
 const size = require('lodash/fp/size');
 
@@ -52,6 +53,10 @@ exports.createPages = async ({ graphql, actions }) => {
 
     console.log('\x1b[33m%s\x1b[0m', '\n ==== Starting building pages ==== \n')
 
+    const products = getOr([], 'data.allContentfulProduct.edges', result);
+    const productsCategories = getOr([], 'data.allContentfulProductCategory.edges', result);
+    const brands = getOr([], 'data.allContentfulBrands.edges', result);
+
     map(({ node }) => {
       const slug = `/produkt/${node.slug}`;
       console.log('Creating single product page -->', slug);
@@ -64,7 +69,7 @@ exports.createPages = async ({ graphql, actions }) => {
           locale: node.node_locale
         }
       })
-    }, result.data.allContentfulProduct.edges);
+    }, products);
 
     map(({ node }) => {
       const slug = `/kategori/${node.slug}`;
@@ -78,7 +83,7 @@ exports.createPages = async ({ graphql, actions }) => {
           locale: node.node_locale
         }
       })
-    }, result.data.allContentfulProductCategory.edges);
+    }, productsCategories);
 
     map(({ node }) => {
       const slug = `/varumärke/${node.slug}`;
@@ -92,7 +97,7 @@ exports.createPages = async ({ graphql, actions }) => {
           locale: node.node_locale
         }
       })
-    }, result.data.allContentfulBrand.edges);
+    }, brands);
 
     console.log('\x1b[33m%s\x1b[0m', '\n ==== Finished building pages ==== \n');
   });

@@ -1,5 +1,5 @@
 // @flow
-import React from 'react'
+import React, { useState } from 'react'
 import { graphql } from 'gatsby'
 import styled, { css } from 'styled-components';
 import Image from 'gatsby-image';
@@ -7,8 +7,9 @@ import { get, getOr, map } from 'lodash/fp';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 
-// Actions
+// Store
 import { addProductToCart } from '../store/actions';
+import { getStockQuantity } from '../store/selectors/stock';
 
 // Utils
 import { createCartItem } from '../utils/product';
@@ -20,6 +21,7 @@ import { Price, CurrentPrice, OldPrice } from '../components/Price'
 import { StockStatus } from '../components/StockStatus';
 import { ProductInformation } from '../components/Blocks';
 import { Badge } from '../components/Badge';
+import { BuyButton } from '../components/BuyButton';
 
 // Styling
 import { GridWrap } from '../styling/grid';
@@ -28,17 +30,18 @@ import { Canon, BodyCopy, Trafalgar, GreatPrimer } from '../styling/typography';
 // Types
 import type { CartItem } from '../types/cart';
 type Props = {
-  addProductToCart: (cartItem: CartItem) => void,
-  intl: intlShape,
   data: {
     product: any
   },
+  stockAmount: number,
+  intl: intlShape,
   pageContext: {
     slug: string
-  }
+  },
+  addProductToCart: (cartItem: CartItem) => void,
 }
 
-const SingleProductTemplate = ({ data, intl, addProductToCart }: Props) => {
+const SingleProductTemplate = ({ data, stockAmount, intl, addProductToCart }: Props) => {
 
   const { product } = data;
 
@@ -46,9 +49,10 @@ const SingleProductTemplate = ({ data, intl, addProductToCart }: Props) => {
   const specifications = get('specifications.childContentfulRichText.html', product)
   const careInstructions = get('careInstructions.childContentfulRichText.html', product)
 
-  const handleOnBuy = (event: HTMLButtonElement) => {
-    if ( !event.disabled ) {
-      const cartItem = createCartItem(product)
+  const handleOnBuy = (event: SyntheticEvent<HTMLButtonElement>) => {
+    const newStockQuantity = stockAmount - 1;
+    if ( !event.currentTarget.disabled && newStockQuantity >= 0 ) {
+      const cartItem = createCartItem(product);
       addProductToCart(cartItem);
     }
   }
@@ -90,16 +94,9 @@ const SingleProductTemplate = ({ data, intl, addProductToCart }: Props) => {
 
           <Excerpt as={'p'}>{get('shortDescription.shortDescription', product)}</Excerpt>
 
-          <ProductStockStatus quantity={get('stockQuantity', product)} />
+          <ProductStockStatus quantity={stockAmount} />
 
-          <CartButton disabled={get('stockQuantity', product) === 0} onClick={handleOnBuy}>
-            <FormattedMessage
-              id={translation.BUY_BUTTON_OUT_OF_STOCK}
-              defaultMessage={'{title} is out of stock'}
-              values={{ title: get('name', product) }}
-            />
-            <FormattedMessage id={translation.BUY_BUTTON_SELECT} />
-          </CartButton>
+          <BuyButton outOfStock={stockAmount === 0} onClick={handleOnBuy} />
 
         </InfoColumn>
 
@@ -113,7 +110,9 @@ const SingleProductTemplate = ({ data, intl, addProductToCart }: Props) => {
   )
 }
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (store, props) => ({
+  stockAmount: getStockQuantity(store, props)
+});
 export default injectIntl(connect(mapStateToProps, { addProductToCart })(SingleProductTemplate));
 
 const CustomGridWrap = styled(GridWrap)`
@@ -221,47 +220,6 @@ const disabledMixin = css`
     }
     &:last-child {
       transform: translateY(0);
-    }
-  }
-`;
-
-const CartButton = styled.button`
-  position: relative;
-  background-color: #000;
-  color: #fff;
-  width: 100%;
-  height: 3rem;
-  cursor: pointer;
-  overflow: hidden;
-  margin: 1rem 0 0;
-  border-radius: 3px;
-  border: 0 none;
-
-  &:focus {
-    outline: 0;
-  }
-
-  &:disabled {
-    color: #000;
-    cursor: auto;
-    background-color: var(--color-ivory);
-  }
-
-  ${props => props.disabled ? disabledMixin : ''}
-
-  > span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-    font-size: 14px;
-    transition: all 0.25s ease-in-out;
-    &:first-child {
-      transform: translateY(-100%);
-    }
-    &:last-child {
-      transform: translateY(-100%);
     }
   }
 `;

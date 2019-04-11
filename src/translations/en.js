@@ -2,7 +2,7 @@ import * as keys from './keys';
 
 export default {
   [keys.BUY_BUTTON_CHOOSE_SIZE]: 'Select a size',
-  [keys.BUY_BUTTON_OUT_OF_STOCK]: '{title} is out of stock',
+  [keys.BUY_BUTTON_OUT_OF_STOCK]: 'Out of stock',
   [keys.BUY_BUTTON_SELECT]: 'Buy',
   [keys.PRODUCT_META_SKU]: 'SKU',
   [keys.CART_CART_TITLE]: 'Cart',

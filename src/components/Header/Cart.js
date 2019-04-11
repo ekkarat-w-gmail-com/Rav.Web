@@ -69,4 +69,10 @@ const CartCount = styled.span`
   position: absolute;
   bottom: -6px;
   right: -6px;
+
+  > span {
+    position: relative;
+    top: 1px;
+  }
+
 `;

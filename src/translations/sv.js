@@ -2,7 +2,7 @@ import * as keys from './keys';
 
 export default {
   [keys.BUY_BUTTON_CHOOSE_SIZE]: 'Välj en storlek',
-  [keys.BUY_BUTTON_OUT_OF_STOCK]: '{title} finns ej i lager',
+  [keys.BUY_BUTTON_OUT_OF_STOCK]: 'Slut i lager',
   [keys.BUY_BUTTON_SELECT]: 'Lägg i varukorg',
   [keys.PRODUCT_META_SKU]: 'Artikelnummer',
   [keys.CART_CART_TITLE]: 'Din varukorg',

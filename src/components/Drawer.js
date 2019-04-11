@@ -17,6 +17,7 @@ export const Drawer = ({ isOpen, children, fromSide, className, onBackDropClick 
 
   useEffect(() => {
     isOpen ? document.body && document.body.classList.add('locked') : document.body && document.body.classList.remove('locked');
+    // $FlowIgnore
     return () => document.body.classList.remove('locked');
   })
 
