@@ -1,5 +1,5 @@
 // @flow
-import React, { useState } from 'react'
+import React from 'react'
 import { graphql } from 'gatsby'
 import styled, { css } from 'styled-components';
 import Image from 'gatsby-image';
