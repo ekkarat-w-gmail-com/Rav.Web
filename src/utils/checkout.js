@@ -8,6 +8,7 @@ import type { CartItem } from '../types/cart';
 
 export const formatKlarnaOrder = (billingInfo: Object, cartItems: Array<CartItem>, orderAmount: number, taxAmount: number) => {
 
+  // Set billingAddress
   const billingAddress = {
     given_name: get('firstName', billingInfo),
     family_name: get('lastName', billingInfo),
@@ -19,24 +20,28 @@ export const formatKlarnaOrder = (billingInfo: Object, cartItems: Array<CartItem
     country: "se"
   }
 
-  const orderLineKeys = {
-    unitPrice: 'unit_price',
-    taxRate: 'tax_rate',
-    totalAmount: 'total_amount',
-    totalDiscountAmount: 'total_discount_amount',
-    totalTaxAmount: 'total_tax_amount',
-    imageUrl: 'image_url'
-  }
-
+  // Update precicions of amounts
   const updatedPrecicions = map((cartItem) => {
     return {
       ...cartItem,
       unitPrice: cartItem.unitPrice * 100,
+      unitDiscountPrice: cartItem.unitDiscountPrice * 100,
       totalAmount: cartItem.totalAmount * 100,
-      totalTaxAmount: cartItem.totalTaxAmount * 100
+      totalTaxAmount: cartItem.totalTaxAmount * 100,
+      totalDiscountAmount: cartItem.totalDiscountAmount * 100
     }
   }, cartItems);
-  
+
+  // Rename object keys
+  const orderLineKeys = {
+    unitPrice: 'unit_price',
+    totalDiscountAmount: 'total_discount_amount',
+    taxRate: 'tax_rate',
+    totalAmount: 'total_amount',
+    totalTaxAmount: 'total_tax_amount',
+    imageUrl: 'image_url'
+  }
+
   const renamedOrderLines = map((cartItem) => renameKeys(cartItem, orderLineKeys), updatedPrecicions);
 
   return {
