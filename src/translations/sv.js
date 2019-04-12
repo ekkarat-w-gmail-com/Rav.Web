@@ -10,7 +10,6 @@ export default {
   [keys.CART_DISCOUNT]: 'Rabatt',
   [keys.CART_TAX]: 'Moms',
   [keys.CART_SHIPPING]: 'Frakt',
-  [keys.CART_SUBTOTAL]: 'Subtotalt',
   [keys.CART_TOTAL]: 'Totalt',
   [keys.CART_GO_TO_CHECKOUT]: 'Till kassan',
   [keys.CART_KEEP_SHOPPING]: 'Fortsätt handla',

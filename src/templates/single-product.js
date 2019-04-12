@@ -188,16 +188,18 @@ const Subtitle = styled(GreatPrimer)`
 const PriceWrap = styled.div`
   display: flex;
   flex-direction: row;
-  font-size: 16px;
-  line-height: 22px;
+  font-size: 14px;
+  line-height: 20px;
+
 `;
 
 const ProductPrice = styled(Price)`
   margin-left: 4px;
 
-  ${CurrentPrice} {
-    font-size: 16px;
-    line-height: 22px;
+  ${CurrentPrice},
+  ${OldPrice} {
+    font-size: inherit;
+    line-height: inherit;
   }
 
 `;

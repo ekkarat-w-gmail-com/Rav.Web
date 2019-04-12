@@ -10,7 +10,6 @@ export default {
   [keys.CART_DISCOUNT]: 'Discount',
   [keys.CART_TAX]: 'Tax',
   [keys.CART_SHIPPING]: 'Shipping',
-  [keys.CART_SUBTOTAL]: 'Subtotal',
   [keys.CART_TOTAL]: 'Total',
   [keys.CART_GO_TO_CHECKOUT]: 'Checkout',
   [keys.CART_KEEP_SHOPPING]: 'Keep shopping',

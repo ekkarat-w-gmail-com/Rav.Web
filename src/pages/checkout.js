@@ -68,9 +68,6 @@ const CheckoutComponent = (props: Props) => {
   const totalPrice = getOr(0, 'cart.data.totalAmount', props);
   const totalTax = getOr(0, 'cart.data.totalTaxAmount', props);
 
-  const subTotalPrice = Number(0) > 0 ?
-    <FormattedNumber style={'currency'} currency={'SEK'} value={Number(0)} /> : '—';
-
   const totalTaxPrice = Number(totalTax) > 0 ?
     <FormattedNumber style={'currency'} currency={'SEK'} value={Number(totalTax)} /> : '—';
 
@@ -154,10 +151,6 @@ const CheckoutComponent = (props: Props) => {
             <CheckoutSummary>
               <SummaryItems>
                 {discount}
-                <SummaryItem>
-                  <FormattedMessage id={i18n.CART_SUBTOTAL} />
-                  <SummaryValue>{subTotalPrice}</SummaryValue>
-                </SummaryItem>
                 <SummaryItem>
                   <FormattedMessage id={i18n.CART_TAX} />
                   <SummaryValue>{totalTaxPrice}</SummaryValue>

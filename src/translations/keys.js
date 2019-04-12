@@ -8,7 +8,6 @@ export const BUY_BUTTON_SELECT = "BuyButton.Buy"
 // Cart
 export const CART_CART_TITLE = "Cart.CartTitle"
 export const CART_FREE_SHIPPING = "Cart.FreeShipping"
-export const CART_SUBTOTAL = "Cart.Subtotal"
 export const CART_DISCOUNT = "Cart.Discount"
 export const CART_TAX = "Cart.Tax"
 export const CART_SHIPPING = "Cart.Shipping"

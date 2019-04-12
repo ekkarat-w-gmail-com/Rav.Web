@@ -26,7 +26,6 @@ type Props = {
   items: Array<OrderLine>,
   checkout: Object,
   totalDiscount: string,
-  subTotal: string,
   totalTax: string,
   totalPrice: string,
   setCartVisibility: (bool: boolean) => void,
@@ -38,7 +37,6 @@ export const CartDrawer = ({
   isOpen,
   items,
   checkout,
-  subTotal,
   totalDiscount,
   totalTax,
   totalPrice,
@@ -72,9 +70,6 @@ export const CartDrawer = ({
     );
   }, items);
 
-  const subTotalPrice = Number(subTotal) > 0 ?
-    <FormattedNumber style={'currency'} currency={'SEK'} value={Number(subTotal)} /> : '—';
-
   const totalTaxPrice = Number(totalTax) > 0 ?
     <FormattedNumber style={'currency'} currency={'SEK'} value={Number(totalTax)} /> : '—';
 
@@ -106,18 +101,10 @@ export const CartDrawer = ({
 
       <CheckoutSummary>
 
-        <SummaryFreeShipping>
-          <FormattedMessage id={i18n.CART_FREE_SHIPPING} />
-        </SummaryFreeShipping>
-
         <SummaryItems>
 
           {discount}
 
-          <SummaryItem>
-            <FormattedMessage id={i18n.CART_SUBTOTAL} />
-            <SummaryValue>{subTotalPrice}</SummaryValue>
-          </SummaryItem>
           <SummaryItem>
             <FormattedMessage id={i18n.CART_TAX} />
             <SummaryValue>{totalTaxPrice}</SummaryValue>
@@ -147,7 +134,6 @@ CartDrawer.defaultProps = {
   items: [],
   checkoutUrl: '',
   totalDiscount: 0,
-  subTotal: 0,
   totalTax: 0,
   totalPrice: 0
 }
