@@ -6,7 +6,7 @@ import { get } from 'lodash/fp';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 
 // Components
-import { Price } from '../Price';
+import { Price, CurrentPrice, OldPrice } from '../Price';
 import { UpArrow, DownArrow } from '../Icons/Arrows';
 import { LongPrimer, Brevier } from '../../styling/typography';
 
@@ -100,14 +100,14 @@ const CartItemPrice = styled(Price)`
     line-height: 1;
   }
 
-  span:first-child {
+  ${CurrentPrice} {
     font-size: 12px;
-    margin-right: 6px;
+    margin-right: 4px;
   }
 
-  span:last-child {
-    font-size: 14px;
-  }  
+  ${OldPrice} {
+    font-size: 12px;
+  }
 
 `;
 

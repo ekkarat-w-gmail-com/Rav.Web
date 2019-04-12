@@ -2,10 +2,10 @@
 // @flow
 import React from 'react';
 import { navigate } from 'gatsby';
-import { get, getOr, map } from 'lodash/fp';
+import { get, getOr, map, size } from 'lodash/fp';
 import { connect } from 'react-redux';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 // Actions
 import { setCartVisibility, updateItemQuantity, removeItemFromCart } from '../../store/actions';
@@ -99,12 +99,9 @@ export const CartDrawer = ({
         {lineItems}
       </CartItems>
 
-      <CheckoutSummary>
-
+      <CheckoutSummary isVisible={size(items) > 0}>
         <SummaryItems>
-
           {discount}
-
           <SummaryItem>
             <FormattedMessage id={i18n.CART_TAX} />
             <SummaryValue>{totalTaxPrice}</SummaryValue>
@@ -191,6 +188,8 @@ const CheckoutSummary = styled.div`
   line-height: 1.92;
   padding: 1.5rem 2rem 2rem;
   background: var(--color-ivory);
+  transform: translateY(${props => props.isVisible ? '0%' : '100%'});
+  transition: transform 300ms ease-in;
 
   @media (min-width: 1350px) {
     position: relative;
