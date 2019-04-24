@@ -12,6 +12,7 @@ import { Minion, PicaIndex } from '../styling/typography';
 import { PostNord, Klarna } from '../components/Icons/Brands';
 import { KlarnaCheckout } from '../components/KlarnaCheckout';
 import { GridWrap } from '../styling/grid';
+import { CheckoutBilling } from '../components/Forms/CheckoutBilling';
 
 // Actions
 import { createKlarnaCheckout } from '../store/actions';
@@ -33,20 +34,19 @@ type Props = {
 const CheckoutComponent = (props: Props) => {
 
   const [ form, setValues ] = useState({
-    emailAddress: '',
-    firstName: '',
-    lastName: '',
-    streetAddress: '',
-    city: '',
-    zip: '',
-    phone: '',
     deliveryOption: 'postNord',
     paymentOption: '',
   });
 
+  const [ billingForm, setBillingForm ] = useState();
+
   const handleOnInputChange = (event: SyntheticEvent<HTMLInputElement>) => {
     const { name, value } = event.currentTarget;
     setValues({ ...form, [name]: value });
+  }
+
+  const handleOnBillingFormSubmit = (form: Object) => {
+    setBillingForm(form);
   }
 
   const handleOnShippingSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
@@ -59,7 +59,7 @@ const CheckoutComponent = (props: Props) => {
     if ( form.paymentOption === 'klarna')  {
       const orderAmount = getOr(0, 'cart.data.totalAmount', props);
       const taxAmount = getOr(0, 'cart.data.totalTaxAmount', props);
-      const order = formatKlarnaOrder(form, cartItems, orderAmount, taxAmount);
+      const order = formatKlarnaOrder(billingForm, cartItems, orderAmount, taxAmount);
       props.createKlarnaCheckout(order);
     }
   }, [ form.paymentOption ])
@@ -96,20 +96,7 @@ const CheckoutComponent = (props: Props) => {
                   {(txt) => (<PanelTitle>{txt}</PanelTitle>)}
                 </FormattedMessage>
               </PanelHeader>
-              <Text label={'Email Address'} id={'emailAddress'} name={'emailAddress'} autocomplete={'email'} value={form.emailAddress} onChange={handleOnInputChange} />
-              <FormattedMessage id={i18n.CHECKOUT_SHIPPING_ADDRESS}>
-                {(txt) => (<LegendTitle>{txt}</LegendTitle>)}
-              </FormattedMessage>
-              <FieldGroup>
-                <Text label={'First Name'} id={'firstName'} name={'firstName'} autocomplete={'first-name given-name'} value={form.firstName} onChange={handleOnInputChange} />
-                <Text label={'Last Name'} id={'lastName'} name={'lastName'} autocomplete={'last-name family-name'} value={form.lastName} onChange={handleOnInputChange} />
-              </FieldGroup>
-              <Text label={'Phone'} id={'phone'} name={'phone'} autocomplete={'shipping phone'} value={form.phone} onChange={handleOnInputChange} />
-              <Text label={'Street Address'} id={'streetAddress'} name={'streetAddress'} autocomplete={'shipping address-line1'} value={form.streetAddress} onChange={handleOnInputChange} />
-              <FieldGroup>
-                <Text label={'City'} id={'city'} name={'city'} autocomplete={'shipping city'} value={form.city} onChange={handleOnInputChange} />
-                <Text label={'Zip'} id={'zip'} name={'zip'} autocomplete={'shipping zip'} value={form.zip} onChange={handleOnInputChange} />
-              </FieldGroup>
+              <CheckoutBilling onChange={handleOnBillingFormSubmit} />
             </PanelInner>
           </Panel>
           <Panel>

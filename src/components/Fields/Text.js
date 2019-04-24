@@ -8,12 +8,13 @@ type Props = {
   name: string,
   value: string,
   label: string,
+  errorMessage?: string,
   autocomplete?: string,
   autocorrect?: boolean,
   onChange: (SyntheticEvent<HTMLInputElement>) => void
 }
 
-export const Text = ({ id, name, value, label, autocomplete, autocorrect, onChange }: Props) => {
+export const Text = ({ id, name, value, label, errorMessage, autocomplete, autocorrect, onChange }: Props) => {
 
   const useAutoCorrect = autocorrect ? 'on' : 'off';
 
@@ -21,6 +22,8 @@ export const Text = ({ id, name, value, label, autocomplete, autocorrect, onChan
 
   const handleOnFocus = () => setFocus(true);
   const handleOnBlur = () => setFocus(false);
+
+  const error = errorMessage && (<span>{errorMessage}</span>);
 
   return (
     <Field>
@@ -33,9 +36,11 @@ export const Text = ({ id, name, value, label, autocomplete, autocorrect, onChan
           autocomplete={autocomplete}
           autocorrect={useAutoCorrect}
           value={value}
+          hasError={errorMessage}
           onChange={onChange}
           onFocus={handleOnFocus}
           onBlur={handleOnBlur} />
+          {error}
       </label>
     </Field>
   )
