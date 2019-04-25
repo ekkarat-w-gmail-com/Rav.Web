@@ -1,7 +1,7 @@
 // @flow
 import React, { useState } from 'react';
 
-import { Field, FieldLabel, FieldInput } from './styles';
+import { Field, FieldLabel, FieldInput, FieldErrorMessage } from './styles';
 
 type Props = {
   id: string,
@@ -23,7 +23,7 @@ export const Text = ({ id, name, value, label, errorMessage, autocomplete, autoc
   const handleOnFocus = () => setFocus(true);
   const handleOnBlur = () => setFocus(false);
 
-  const error = errorMessage && (<span>{errorMessage}</span>);
+  const error = errorMessage && (<FieldErrorMessage>{errorMessage}</FieldErrorMessage>);
 
   return (
     <Field>

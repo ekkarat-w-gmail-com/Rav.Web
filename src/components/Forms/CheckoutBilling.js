@@ -63,16 +63,16 @@ export const CheckoutBilling = ({ onChange }: Props) => {
 
   return (
     <Fragment>
-      <Text label={'Email Address'} id={'emailAddress'} name={'emailAddress'} autocomplete={'email'} value={form.emailAddress} onChange={handleOnInputChange} />
+      <Text label={'Email Address'} id={'emailAddress'} name={'emailAddress'} autocomplete={'email'} value={form.emailAddress} errorMessage={get('emailAddress', errors)} onChange={handleOnInputChange} />
       <FormattedMessage id={i18n.CHECKOUT_SHIPPING_ADDRESS}>
         {(txt) => (<LegendTitle>{txt}</LegendTitle>)}
       </FormattedMessage>
       <FieldGroup>
-        <Text label={'First Name'} id={'firstName'} name={'firstName'} autocomplete={'first-name given-name'} value={form.firstName} onChange={handleOnInputChange} />
-        <Text label={'Last Name'} id={'lastName'} name={'lastName'} autocomplete={'last-name family-name'} value={form.lastName} onChange={handleOnInputChange} />
+        <Text label={'First Name'} id={'firstName'} name={'firstName'} autocomplete={'first-name given-name'} value={form.firstName} errorMessage={get('firstName', errors)} onChange={handleOnInputChange} />
+        <Text label={'Last Name'} id={'lastName'} name={'lastName'} autocomplete={'last-name family-name'} value={form.lastName} errorMessage={get('lastName', errors)} onChange={handleOnInputChange} />
       </FieldGroup>
-      <Text label={'Phone'} id={'phone'} name={'phone'} autocomplete={'shipping phone'} value={form.phone} onChange={handleOnInputChange} />
-      <Text label={'Street Address'} id={'streetAddress'} name={'streetAddress'} autocomplete={'shipping address-line1'} value={form.streetAddress} onChange={handleOnInputChange} />
+      <Text label={'Phone'} id={'phone'} name={'phone'} autocomplete={'shipping phone'} value={form.phone} errorMessage={get('phone', errors)} onChange={handleOnInputChange} />
+      <Text label={'Street Address'} id={'streetAddress'} name={'streetAddress'} autocomplete={'shipping address-line1'} value={form.streetAddress} errorMessage={get('streetAddress', errors)} onChange={handleOnInputChange} />
       <FieldGroup>
         <Text label={'City'} id={'city'} name={'city'} autocomplete={'shipping city'} value={form.city} errorMessage={get('city', errors)} onChange={handleOnInputChange} />
         <Text label={'Zip'} id={'zip'} name={'zip'} autocomplete={'shipping zip'} value={form.zip} errorMessage={get('zip', errors)} onChange={handleOnInputChange} />

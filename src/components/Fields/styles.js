@@ -38,7 +38,7 @@ export const FieldInput = styled.input`
   border-radius: 2px;
   border-width: 2px;
   border-style: solid;
-  border-color: transparent;
+  border-color: ${props => props.hasError ? 'var(--color-red)' : 'transparent'};
   border-image: initial;
   outline: 0px;
   transition: all 300ms ease 0s;
@@ -48,6 +48,16 @@ export const FieldInput = styled.input`
     border-color: var(--color-mustard);
   }
 
+`;
+
+export const FieldErrorMessage = styled.span`
+  font-size: 14px;
+  font-weight: 400;
+  font-family: var(--font-sans);
+  color: var(--color-red);
+  margin-top: 8px;
+  margin-left: 2px;
+  display: block;
 `;
 
 export const CustomRadioIconSelectedMixin = css`
