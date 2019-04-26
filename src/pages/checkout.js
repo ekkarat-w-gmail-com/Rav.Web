@@ -13,6 +13,7 @@ import { PostNord, Klarna } from '../components/Icons/Brands';
 import { KlarnaCheckout } from '../components/KlarnaCheckout';
 import { GridWrap } from '../styling/grid';
 import { CheckoutBilling } from '../components/Forms/CheckoutBilling';
+import { CartItem } from '../components/Cart/CartItem';
 
 // Actions
 import { createKlarnaCheckout } from '../store/actions';
@@ -24,7 +25,7 @@ import { formatKlarnaOrder } from '../utils/checkout';
 import * as i18n from '../translations/keys';
 
 // Type
-import type { Cart, CartItem } from '../types/cart';
+import type { Cart, CartItem as CartItemType } from '../types/cart';
 type Props = {
   checkout: { [key: string]: any },
   cart: Cart,
@@ -130,23 +131,29 @@ const CheckoutComponent = (props: Props) => {
 
 
             <CartItems>
-              {cartItems && map((item: CartItem) => (
-                <li key={item.reference}>{item.quantity} x {item.name}</li>
-              ), cartItems)}
+              {cartItems && map((lineItem: CartItemType) => {
+                return (
+                  <CartItem
+                    key={get('reference', lineItem)}
+                    nonInteractive={true}
+                    lineItem={lineItem}
+                  />
+                );
+              }, cartItems)}
             </CartItems>
 
             <CheckoutSummary>
               <SummaryItems>
                 {discount}
-                <SummaryItem>
-                  <FormattedMessage id={i18n.CART_TAX} />
-                  <SummaryValue>{totalTaxPrice}</SummaryValue>
-                </SummaryItem>
               </SummaryItems>
               <TotalItem>
                 <FormattedMessage id={i18n.CART_TOTAL} />
                 <SummaryValue>{total}</SummaryValue>
               </TotalItem>
+              <SummaryItem>
+                <FormattedMessage id={i18n.CART_TAX} />
+                <SummaryValue>{totalTaxPrice}</SummaryValue>
+              </SummaryItem>
             </CheckoutSummary>
 
           </OverviewColumnInner>
@@ -165,7 +172,7 @@ const mapStateToProps = ({ checkout, cart }) => ({
 export default connect(mapStateToProps, { createKlarnaCheckout })(CheckoutComponent)
 
 const Panels = styled.div`
-  grid-column: left / col-eight;
+  grid-column: left / col-nine;
   background-color: var(--color-grey);
   padding-bottom: 12rem;
 `;
@@ -216,16 +223,17 @@ const PanelTitle = styled(PicaIndex)`
 
 const OverviewColumn = styled.div`
   grid-column-start: col-ten;
-  grid-column-end: right;
+  grid-column-end: right-end;
 `;
 
 const OverviewColumnInner = styled.div`
   position: sticky;
   top: 60px;
+  padding: 0 3rem;
 `;
 
 const CartItems = styled.div`
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
 `;
 
 const CheckoutSummary = styled.div`
@@ -235,7 +243,7 @@ const CheckoutSummary = styled.div`
 `;
 
 const SummaryItems = styled.div`
-  margin-bottom: 2px;
+  margin-bottom: 0;
 `;
 
 const SummaryItem = styled.div`
@@ -249,10 +257,12 @@ const SummaryValue = styled.span`
 
 const TotalItem = styled.div`
   display: flex;
-  margin-top: 10px;
+  padding-top: 1rem;
+  margin-top: 1.5rem;
   margin-bottom: 10px;
   font-weight: 600;
   font-size: 1rem;
+  border-top: 1px solid var(--color-darkGrey);
 `;
 
 const FieldGroup = styled.div`

@@ -14,6 +14,7 @@ export default {
   [keys.CART_GO_TO_CHECKOUT]: 'Checkout',
   [keys.CART_KEEP_SHOPPING]: 'Keep shopping',
   [keys.CART_ITEM_REMOVE]: 'Remove',
+  [keys.CART_ITEM_QUANTITY]: `Quantity: {quantity}`,
   [keys.PRODUCT_PRICE_TITLE]: 'Price',
   [keys.PRODUCT_ACCORDION_DESCRIPTION]: 'Description',
   [keys.PRODUCT_ACCORDION_SPECIFICATION]: 'Specification',

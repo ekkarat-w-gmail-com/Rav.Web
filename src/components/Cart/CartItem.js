@@ -10,7 +10,7 @@ import { Price, CurrentPrice, OldPrice } from '../Price';
 import { UpArrow, DownArrow } from '../Icons/Arrows';
 import { LongPrimer, Brevier } from '../../styling/typography';
 
-import { CART_ITEM_REMOVE } from '../../translations/keys';
+import * as i18n from '../../translations/keys';
 
 // Types
 import type { CartItem as CartItemType } from '../../types/cart';
@@ -23,15 +23,42 @@ type QuantityObject =  {
 type Props = {
   lineItem: CartItemType,
   intl: intlShape,
-  onDecrement: (QuantityObject) => void,
-  onIncrement: (QuantityObject) => void,
-  onRemove: (id: string) => void
+  nonInteractive?: boolean,
+  onDecrement?: (QuantityObject) => void,
+  onIncrement?: (QuantityObject) => void,
+  onRemove?: (id: string) => void
 }
 
-const _CartItem = ({ lineItem, intl, onRemove, onDecrement, onIncrement }: Props) => {
+const _CartItem = ({ lineItem, intl, nonInteractive, onRemove, onDecrement, onIncrement }: Props) => {
 
   const id = get('reference', lineItem);
   const quantity = get('quantity', lineItem);
+
+  const removeButton = !nonInteractive ? (
+      <RemoveButton onClick={() => onRemove && onRemove( id )}>
+        <FormattedMessage id={i18n.CART_ITEM_REMOVE} />
+      </RemoveButton>
+    ) : null;
+
+  const actions = !nonInteractive ? (
+      <ActionsContainer>
+        <QuantityButton onClick={() => onIncrement && onIncrement({ id, quantity: quantity + 1 })}>
+          <UpArrow />
+        </QuantityButton>
+        <QuantityWrapper>
+          <QuantityText>{lineItem.quantity}</QuantityText>
+        </QuantityWrapper>
+        <QuantityButton onClick={() => onDecrement && onDecrement({ id, quantity: quantity - 1 })} disabled={lineItem.quantity === 1}>
+          <DownArrow />
+        </QuantityButton>
+      </ActionsContainer>
+    ) : null;
+
+  const displayQuantity = nonInteractive ? (
+      <FormattedMessage id={i18n.CART_ITEM_QUANTITY} values={{ quantity: lineItem.quantity }}>
+        {(quantity) => (<QuantityLabel>{quantity}</QuantityLabel>)}
+      </FormattedMessage>
+    ) : null;
 
   return (
     <LineItemWrap>
@@ -40,22 +67,11 @@ const _CartItem = ({ lineItem, intl, onRemove, onDecrement, onIncrement }: Props
       </ImageWrap>
       <TextContainer>
         <ProductTitle>{get('name', lineItem)}</ProductTitle>
-        <CartItemPrice regularPrice={get('unitPrice', lineItem)} salePrice={get('unitDiscountPrice', lineItem)}/>
-        <RemoveButton onClick={() => onRemove( id )}>
-          <FormattedMessage id={CART_ITEM_REMOVE} />
-        </RemoveButton>
+        <CartItemPrice regularPrice={get('unitPrice', lineItem) * lineItem.quantity} salePrice={get('unitDiscountPrice', lineItem) * lineItem.quantity}/>
+        {displayQuantity}
+        {removeButton}
       </TextContainer>
-      <ActionsContainer>
-        <QuantityButton onClick={() => onIncrement({ id, quantity: quantity + 1 })}>
-          <UpArrow />
-        </QuantityButton>
-        <QuantityWrapper>
-          <QuantityText>{lineItem.quantity}</QuantityText>
-        </QuantityWrapper>
-        <QuantityButton onClick={() => onDecrement({ id, quantity: quantity - 1 })} disabled={lineItem.quantity === 1}>
-          <DownArrow />
-        </QuantityButton>
-      </ActionsContainer>
+      {actions}
     </LineItemWrap>
   );
 
@@ -109,6 +125,12 @@ const CartItemPrice = styled(Price)`
     font-size: 12px;
   }
 
+`;
+
+const QuantityLabel = styled.span`
+  color: var(--color-black);
+  font-size: 12px;
+  margin-top: 6px;
 `;
 
 const RemoveButton = styled(Brevier)`

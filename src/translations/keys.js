@@ -15,6 +15,7 @@ export const CART_TOTAL = "Cart.Total"
 export const CART_GO_TO_CHECKOUT = "Cart.GoToCheckout"
 export const CART_KEEP_SHOPPING = "Cart.KeepShopping"
 export const CART_ITEM_REMOVE = "CartItem.Remove"
+export const CART_ITEM_QUANTITY = 'CartItem.Quantity';
 
 // Product
 export const PRODUCT_PRICE_TITLE = "Product.Price";

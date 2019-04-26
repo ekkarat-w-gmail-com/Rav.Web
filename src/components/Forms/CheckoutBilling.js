@@ -18,7 +18,7 @@ type Props = {
   onChange: (Object) => void
 }
 
-const washErrors = (errors: Array<ValidationError>) => {
+const transformYupErrors = (errors: Array<ValidationError>) => {
 
   const errs = reduce((sum, error: ValidationError) => {
     return set(error.path, error.message, sum);
@@ -55,7 +55,7 @@ export const CheckoutBilling = ({ onChange }: Props) => {
         onChange(newForm);
       })
       .catch((error) => {
-        const errors = washErrors(error.inner);
+        const errors = transformYupErrors(error.inner);
         setError(errors);
       });
 
