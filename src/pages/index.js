@@ -1,13 +1,23 @@
+// @flow
 import React from 'react'
 import { graphql } from 'gatsby'
 import styled from 'styled-components';
 import { map, getOr } from 'lodash/fp';
 
+// Components
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import { ProductCategoryCard } from '../components/Cards';
 
-const IndexPage = ({ data }) => {
+// Utils
+import * as routes from '../utils/routes';
+
+// Types
+type Props = {
+  data: Object
+}
+
+const IndexPage = ({ data }: Props) => {
 
   const { categories } = data;
 
@@ -15,7 +25,7 @@ const IndexPage = ({ data }) => {
     <ProductCategoryCard
       key={node.id}
       title={node.name}
-      to={`/category/${node.slug}`}
+      to={`/${routes.ROUTE_PRODUCT_CATEGORY}/${node.slug}`}
       backgroundImage={getOr(undefined, 'thumbnail.file.url', node)} />
   ), categories.edges);
 

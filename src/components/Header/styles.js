@@ -1,6 +1,11 @@
 import styled, { css } from 'styled-components';
 import { Link } from 'gatsby'
 
+const TOP_BAR_HEIGHT = 40;
+const HEADER_HEIGHT = 70;
+
+const HEADER_TOTAL_HEIGHT = TOP_BAR_HEIGHT + HEADER_HEIGHT;
+
 export const TopBarWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -9,7 +14,7 @@ export const TopBarWrapper = styled.div`
   font-size: 12px;
   font-style: italic;
   background: var(--color-ivory);
-  height: 2.5rem;
+  height: ${TOP_BAR_HEIGHT}px;
 
   p {
     margin: 0;
@@ -29,7 +34,7 @@ export const CheckoutHeaderMixin = css`
 export const HeaderWrapper = styled.header`
   background: #fff;
   width: 100%;
-  height: 100px;
+  height: ${HEADER_HEIGHT}px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -59,9 +64,10 @@ export const HeaderLink = styled(Link)`
 
 `;
 
-export const MenuGroup = styled.div`
+export const MenuGroup = styled.nav`
   display: flex;
   flex-direction: column;
+  height: 100%;
 
   &:not(:last-child) {
     margin-right: 4rem;
@@ -85,22 +91,30 @@ export const MenuWrapper = styled.div`
   justify-content: center;
   margin: 0px;
   padding: 0px;
+  height: 100%;
 `;
 
-export const MenuNavigation = styled.nav`
+export const MenuNavigation = styled.ul`
   display: flex;
   flex-direction: row;
-  transform: translateX(-1rem);
+  height: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 `;
 
 export const MenuLink = styled(Link)`
-  font-style: normal;
-  font-size: 13px;
-  display: block;
+  font-style: 400;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
   padding: 0 1rem;
   text-decoration: none;
   color: var(--color-black);
   transition: color 300ms ease-in;
+  position: relative;
 
   &::after {
     display: block;
@@ -108,8 +122,10 @@ export const MenuLink = styled(Link)`
     width: 0;
     height: 1px;
     background: var(--color-black);
-    margin-top: 4px;
     transition: width 300ms ease-in;
+    position: absolute;
+    bottom: 0;
+    pointer-events: none;
   }
 
   &.active::after,
@@ -118,4 +134,31 @@ export const MenuLink = styled(Link)`
     width: 100%;
   }
 
+`;
+
+export const MegaMenuWrapper = styled.div`
+  width: 100%;
+  min-height: 400px;
+  background: #fff;
+  position: absolute;
+  top: auto;
+  left: 0;
+  right: 0;
+  transform: translateY(-100%);
+  visibility: hidden;
+  z-index: 50;
+`;
+
+export const MenuItem = styled.li`
+  height: 100%;
+
+  &:hover > ${MegaMenuWrapper} {
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+`;
+
+export const MegaMenuColumn = styled.div`
+  grid-column: col-one / span 4;
 `;

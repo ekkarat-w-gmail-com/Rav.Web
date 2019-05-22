@@ -1,54 +1,82 @@
 // @flow
 import React from 'react';
-import { map } from 'lodash/fp';
+import { get, map } from 'lodash/fp';
 import { graphql, StaticQuery } from 'gatsby';
 
+// Components
+import { MegaMenu } from './MegaMenu';
+
 // Styles
-import { MenuWrapper, MenuGroup, MenuGroupTitle, MenuNavigation, MenuLink } from './styles';
+import { MenuWrapper, MenuGroup, MenuGroupTitle, MenuNavigation, MenuItem, MenuLink } from './styles';
+
+// Utils
+import { getRouteByType } from '../../utils/routes';
 
 // Types
 type Props = {
-  categories: any
+  menuItems: Array<Object>
 }
 
-export const MenuComponent = ({ categories }: Props) => {
-  const categoryLinks = map(({node}) => (
-    <MenuLink key={node.slug} activeClassName={'active'} to={`/kategori/${node.slug}`}>{node.name}</MenuLink>
-  ), categories);
+export const MenuComponent = ({ menuItems }: Props) => {
+
+  const links = map(({node}) => {
+    const type = get('page.internal.type', node);
+    const routePrefix = getRouteByType(type);
+    return (
+      <MenuItem key={node.id}>
+        <MenuLink
+          activeClassName={'active'}
+          to={`${routePrefix}/${get('page.slug', node)}`}>
+          {node.title}
+        </MenuLink>
+        <MegaMenu links={get('subpage', node)}/>
+      </MenuItem>
+    );
+  }, menuItems);
+
   return (
     <MenuWrapper>
       <MenuGroup>
-        <MenuGroupTitle>Look at our</MenuGroupTitle>
-        <MenuNavigation>{categoryLinks}</MenuNavigation>
+        <MenuNavigation>{links}</MenuNavigation>
       </MenuGroup>
-      <MenuGroup>
-        <MenuGroupTitle>Read about</MenuGroupTitle>
-        <MenuNavigation>
-          <MenuLink to={'/about'} activeClassName={'active'}>The Company</MenuLink>
-          <MenuLink to={'/about'} activeClassName={'active'}>Our policy</MenuLink>
-          <MenuLink to={'/about'} activeClassName={'active'}>Our Blog</MenuLink>
-        </MenuNavigation>
-      </MenuGroup>
-
     </MenuWrapper>
   );
+
 };
 
 const Menu = (props: any) => (
   <StaticQuery
     query={graphql`
       query {
-        categories: allContentfulProductCategory {
+
+        menuItems: allContentfulMenuItem {
           edges {
             node {
-              name
-              slug
+              id
+              title
+              order
+              page {
+                id
+                slug
+                internal {
+                  type
+                }
+              }
+              subpage {
+                id
+                name
+                slug
+                internal {
+                  type
+                }
+              }
             }
           }
         }
+
       }
     `}
-    render={({categories}) => <MenuComponent categories={categories.edges} {...props} />}
+    render={({menuItems}) => <MenuComponent menuItems={menuItems.edges} {...props} />}
   />
 )
 
