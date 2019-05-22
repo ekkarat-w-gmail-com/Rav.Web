@@ -63,7 +63,7 @@ const _CartItem = ({ lineItem, intl, nonInteractive, onRemove, onDecrement, onIn
   return (
     <LineItemWrap>
       <ImageWrap>
-        <img src={get('imageUrl', lineItem)} alt={get('name', lineItem)}/>
+        <img src={`${get('imageUrl', lineItem)}?w=128&h=128&fit=thumb`} alt={get('name', lineItem)}/>
       </ImageWrap>
       <TextContainer>
         <ProductTitle>{get('name', lineItem)}</ProductTitle>
@@ -81,7 +81,9 @@ export const CartItem = injectIntl(_CartItem);
 
 const LineItemWrap = styled.div`
   display: flex;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-sand);
 `;
 
 const ImageWrap = styled.div`
@@ -134,7 +136,7 @@ const QuantityLabel = styled.span`
 `;
 
 const RemoveButton = styled(Brevier)`
-  color: var(--color-wine);
+  color: var(--color-black);
   margin-top: auto;
   cursor: pointer;
 `;
