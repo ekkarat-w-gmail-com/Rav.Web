@@ -4,7 +4,7 @@ type ContentfulTypes = 'ContentfulProductCategory' | 'ContentfulProduct';
 
 // Constants
 export const ROUTE_PRODUCT_CATEGORY = '/kategori'
-export const ROUTE_PRODUCT = '/product'
+export const ROUTE_PRODUCT = '/produkt'
 
 // Routes by contentful types
 export const routesByContentfulType = {

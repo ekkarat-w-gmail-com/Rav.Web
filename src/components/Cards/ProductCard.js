@@ -9,11 +9,12 @@ type Props = {
   title: string,
   excerpt: string,
   thumbnail: string,
-  to: string
+  to: string,
+  className?: string
 }
 
-export const ProductCard = ({ title, excerpt, thumbnail, to }: Props) => (
-  <ProductCardWrapper to={to}>
+export const ProductCard = ({ title, excerpt, thumbnail, to, className }: Props) => (
+  <ProductCardWrapper to={to} className={className}>
     <ImageWrapper>
       <img src={thumbnail} alt={title} />
     </ImageWrapper>

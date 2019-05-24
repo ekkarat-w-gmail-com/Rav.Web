@@ -49,7 +49,7 @@ const Menu = (props: any) => (
     query={graphql`
       query {
 
-        menuItems: allContentfulMenuItem {
+        menuItems: allContentfulMainMenuMenuItem {
           edges {
             node {
               id

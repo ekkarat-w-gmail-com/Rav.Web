@@ -139,7 +139,7 @@ export const MenuLink = styled(Link)`
 export const MegaMenuWrapper = styled.div`
   width: 100%;
   min-height: 400px;
-  background: #fff;
+  background: var(--color-ivory);
   position: absolute;
   top: auto;
   left: 0;
@@ -147,6 +147,7 @@ export const MegaMenuWrapper = styled.div`
   transform: translateY(-100%);
   visibility: hidden;
   z-index: 50;
+  padding-top: 2rem;
 `;
 
 export const MenuItem = styled.li`

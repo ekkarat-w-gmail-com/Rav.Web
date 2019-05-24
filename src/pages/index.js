@@ -7,7 +7,7 @@ import { map, getOr } from 'lodash/fp';
 // Components
 import Layout from '../components/layout'
 import SEO from '../components/seo'
-import { ProductCategoryCard } from '../components/Cards';
+import { BlockContainer } from '../components/Blocks';
 
 // Utils
 import * as routes from '../utils/routes';
@@ -19,25 +19,12 @@ type Props = {
 
 const IndexPage = ({ data }: Props) => {
 
-  const { categories } = data;
-
-  const categoryCards = map(({ node }) => (
-    <ProductCategoryCard
-      key={node.id}
-      title={node.name}
-      to={`/${routes.ROUTE_PRODUCT_CATEGORY}/${node.slug}`}
-      backgroundImage={getOr(undefined, 'thumbnail.file.url', node)} />
-  ), categories.edges);
+  const { landingPage } = data;
 
   return (
     <Layout>
       <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-      <Video>
-        <video className="video" loop muted autoPlay playsInline>
-          <source src="https://www.fjallraven.se/assets/download/81/press_room_classic_t04-12881.mp4" type="video/mp4" />
-        </video>
-      </Video>
-      <CategoriesList>{categoryCards}</CategoriesList>
+      <BlockContainer blocks={landingPage.blocks} />
     </Layout>
   )
 }
@@ -52,84 +39,56 @@ const CategoriesList = styled.div`
   margin-top: 4rem;
 `;
 
-const Video = styled.div`
-  .video {
-    width: 100%;
-    height: auto;
-  }
-`;
-
 
 export const query = graphql`
 {
+  landingPage: contentfulLandingPage (slug: { eq: "start-page" }) {
+    blocks {
+      id
+      type
+      title
+      label
 
-  categories: allContentfulProductCategory {
-    edges {
-      node {
-        id
-        name
-        slug
-        thumbnail {
-          file {
-            url
+      content {
+        childContentfulRichText {
+          html
+        }
+      }
+
+      media {
+        file {
+          url
+          contentType
+        }
+      }
+
+      references {
+        ... on ContentfulProduct {
+          id
+          name
+          slug
+          shortDescription {
+            shortDescription
+          }
+          featuredImage {
+            fixed(width: 704, height: 704, quality: 100, resizingBehavior: THUMB) {
+              src
+            }
+          }
+          internal {
+            type
+          }
+        }
+        ... on ContentfulProductCategory {
+          id
+          name
+          slug
+          internal {
+            type
           }
         }
       }
-    }
-  }
 
-  products: allContentfulProduct {
-    edges {
-      node {
-        id
-        name
-        slug
-        sku
-        regularPrice
-        salePrice
-        stockQuantity
-        weight
-        width
-        height
-        dimensionLength
-        description {
-          childContentfulRichText {
-            html
-          }
-        }
-        categories {
-          id
-        }
-        featuredImage {
-          id
-          file {
-            url
-            fileName
-            contentType
-            details {
-              size
-              image {
-                width
-                height
-              }
-            }
-          }
-        }
-        images {
-          file {
-            url
-            fileName
-            contentType
-            details {
-              size
-              image {
-                width
-                height
-              }
-            }
-          }
-        }
-      }
     }
   }
 }
