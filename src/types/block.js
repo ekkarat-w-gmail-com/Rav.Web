@@ -1,6 +1,6 @@
 // @flow
 
-export type TypeOfBlock = 'Hero' | 'ContentBox-ImageLeft' | 'ContentBox-ImageRight' | 'References - Products';
+export type TypeOfBlock = 'Hero' | 'ContentBox-ImageLeft' | 'ContentBox-ImageRight' | 'References - Products' | 'References - Pages';
 
 export type BlockReferenceProduct =  {
   id: string,
@@ -23,6 +23,18 @@ export type BlockReferenceCategory = {
   id: string,
   slug: string,
   name: string,
+  internal: {
+    type: 'ContentfulProductCategory'
+  }
+}
+
+export type BlockReferencePage = {
+  id: string,
+  title: string,
+  slug: string,
+  excerpt: {
+    excerpt: string
+  },
   internal: {
     type: 'ContentfulProductCategory'
   }

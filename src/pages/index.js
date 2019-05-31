@@ -63,6 +63,8 @@ export const query = graphql`
       }
 
       references {
+        __typename
+
         ... on ContentfulProduct {
           id
           name
@@ -79,9 +81,22 @@ export const query = graphql`
             type
           }
         }
+
         ... on ContentfulProductCategory {
           id
           name
+          slug
+          internal {
+            type
+          }
+        }
+
+        ... on ContentfulPage {
+          id
+          title
+          excerpt {
+            excerpt
+          }
           slug
           internal {
             type

@@ -46,6 +46,16 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       }
 
+      allContentfulPage {
+        edges {
+          node {
+            slug
+            id
+            node_locale
+          }
+        }
+      }
+
     }
   `;
 
@@ -56,6 +66,7 @@ exports.createPages = async ({ graphql, actions }) => {
     const products = getOr([], 'data.allContentfulProduct.edges', result);
     const productsCategories = getOr([], 'data.allContentfulProductCategory.edges', result);
     const brands = getOr([], 'data.allContentfulBrands.edges', result);
+    const pages = getOr([], 'data.allContentfulPage.edges', result);
 
     map(({ node }) => {
       const slug = `/produkt/${node.slug}`;
@@ -98,6 +109,20 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       })
     }, brands);
+
+    map(({ node }) => {
+      const slug = `/${node.slug}`;
+      console.log('Creating regular page -->', slug);
+      createPage({
+        path: slug,
+        component: path.resolve(`./src/templates/page.js`),
+        context: { // Data passed to context is available in page queries as GraphQL variables.
+          slug: node.slug,
+          id: node.id,
+          locale: node.node_locale
+        }
+      })
+    }, pages);
 
     console.log('\x1b[33m%s\x1b[0m', '\n ==== Finished building pages ==== \n');
   });
