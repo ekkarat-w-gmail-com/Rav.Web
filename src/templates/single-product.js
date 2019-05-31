@@ -258,19 +258,13 @@ export const query = graphql`
         }
       }
       description {
-        childContentfulRichText {
-          html
-        }
+        json
       }
       specifications {
-        childContentfulRichText {
-          html
-        }
+        json
       }
       careInstructions {
-        childContentfulRichText {
-          html
-        }
+        json
       }
       categories {
         id

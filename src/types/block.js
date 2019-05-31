@@ -35,27 +35,33 @@ export type BlockReferencePage = {
   excerpt: {
     excerpt: string
   },
+  featuredMedia: {
+    fixed: {
+      src: string
+    }
+  },
   internal: {
-    type: 'ContentfulProductCategory'
+    type: 'ContentfulPage'
   }
 }
 
+export type BlockReference = BlockReferenceProduct | BlockReferenceCategory | BlockReferencePage;
+
 export type Block = {
-  id: string,
+  id?: string,
   type: TypeOfBlock,
   title: string,
   label?: string,
-  content: {
+  content?: {
     childContentfulRichText: {
       html: string
     }
   },
   media: {
-    id: string,
     file: {
       url: string,
       contentType: string
     }
   },
-  references: Array<BlockReferenceProduct | BlockReferenceCategory>
+  references?: Array<BlockReference>
 }

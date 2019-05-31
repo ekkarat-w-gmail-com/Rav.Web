@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import styled from 'styled-components';
-import { get, map } from 'lodash/fp';
+import { get, map, has, isEmpty } from 'lodash/fp';
 import { Link } from 'gatsby';
 
 // Components
@@ -23,7 +23,9 @@ const createMarkup = (html: string) => ({ __html: html });
 
 export const HeroBlock = ({ block }: Props) => {
 
-  const video = isVideo(block.media.file.contentType) ? (
+  const fileContentType = block.media.file.contentType;
+
+  const video = isVideo(fileContentType) ? (
     <VideoContainer>
       <video className="video" loop muted autoPlay playsInline>
         <source src={block.media.file.url} type={block.media.file.contentType} />
@@ -31,22 +33,30 @@ export const HeroBlock = ({ block }: Props) => {
     </VideoContainer>
     ) : null;
 
-  const htmlContent = createMarkup(block.content.childContentfulRichText.html);
+  const image = !isVideo(fileContentType) && isImage(fileContentType) ? (
+    <ImageContainer>
+      <img src={block.media.file.url} alt={''} />
+    </ImageContainer>
+  ) : null;
+
+  const htmlContent = block.content && createMarkup(block.content.childContentfulRichText.html);
 
   const references = map((reference: BlockReference) => {
     const slugPrefix = getRouteByType(reference.internal.type);
     const slug = `${slugPrefix}/${reference.slug}`;
-    return <HeroButton key={reference.slug} to={slug}>{reference.name}</HeroButton>
-  }, block.references)
+    const title = has('name', reference) ? get('name', reference) : get('title', reference);
+    return <HeroButton key={reference.slug} to={slug}>{title}</HeroButton>
+  }, block.references);
 
   return (
     <Hero>
       <Content>
         {block.title && <HeroTitle>{block.title}</HeroTitle>}
         {htmlContent && <HeroBody dangerouslySetInnerHTML={htmlContent} />}
-        <HeroActions>{references}</HeroActions>
+        {!isEmpty(references) ? <HeroActions>{references}</HeroActions> : null}
       </Content>
       {video}
+      {image}
     </Hero>
   );
 }
@@ -108,5 +118,9 @@ const HeroButton = styled(Link)`
 `;
 
 const VideoContainer = styled.div`
+  ${fixedAspectRatio('16:6')}
+`;
+
+const ImageContainer = styled.div`
   ${fixedAspectRatio('16:6')}
 `;

@@ -8,7 +8,7 @@ type ContentfulTypes = 'ContentfulProductCategory' | 'ContentfulProduct' | 'Cont
 export const ROUTE_PRODUCT_CATEGORY = '/kategori';
 export const ROUTE_PRODUCT = '/produkt';
 export const ROUTE_BRAND = '/varumärke';
-export const ROUTE_PAGE = '/';
+export const ROUTE_PAGE = '';
 
 // Routes by contentful types
 export const routesByContentfulType = {

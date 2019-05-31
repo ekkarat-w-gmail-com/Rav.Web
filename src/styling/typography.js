@@ -66,3 +66,5 @@ export const Minion = styled.span`
   font-size: 12px;
   line-height: 16px;
 `;
+
+export const BodyContent = styled.div``;

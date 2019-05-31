@@ -7,7 +7,7 @@ import { Link } from 'gatsby';
 // Components
 import { Trafalgar, PicaIndex } from '../../styling/typography';
 import { GridWrap } from '../../styling/grid';
-import { ProductCard } from '../Cards/ProductCard';
+import { PageCard } from '../Cards';
 
 // Utils
 import { fixedAspectRatio } from '../../styling/mixins';
@@ -25,29 +25,47 @@ const createMarkup = (html: string) => ({ __html: html });
 
 export const PagesBlock = ({ block }: Props) => {
 
+  const references = map((page) => {
+    const slugPrefix = getRouteByType(page.internal.type);
+    const slug = `${slugPrefix}/${page.slug}`;
+
+    return (
+      <PageCard
+        key={slug}
+        imageUrl={get('featuredMedia.fixed.src', page)}
+        title={page.title}
+        label={page.label}
+        content={page.excerpt.excerpt}
+        url={slug} />
+    )
+  }, block.references);
+
   return (
     <Container>
       <Content>
         {block.label && <Label as={'h3'}>{block.label}</Label>}
         {block.title && <Title>{block.title}</Title>}
       </Content>
+      <PageCards>
+        {references}
+      </PageCards>
     </Container>
   );
 }
 
 const Container = styled(GridWrap)`
   position: relative;
-  padding-top: 80px;
-  padding-bottom: 80px;
+  margin-top: 80px;
+  margin-bottom: 80px;
   align-items: center;
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: auto 1fr;
 `;
 
 const Content = styled.div`
   color: var(--color-black);
-  grid-column: col-four / span 6;
+  grid-column: col-one / span 6;
   grid-row: 1;
-  text-align: center;
+  text-align: left;
 `;
 
 const Label = styled(PicaIndex)`
@@ -57,37 +75,26 @@ const Label = styled(PicaIndex)`
 `;
 
 const Title = styled(Trafalgar)`
-  margin-bottom: 1rem;
-`;
+  margin-bottom: 4rem;
 
-const Body = styled.div`
-  margin-top: 1rem;
-
-  p {
-    font-family: var(--font-serif);
-    font-weight: 400;
-    font-style: normal;
-    font-size: 15px;
-    line-height: 24px;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
+  &::after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 120px;
+    background-color: black;
+    margin: 18px 0px 10px;
   }
 
 `;
 
-const ProductCards = styled.div`
+const PageCards = styled.div`
   display: grid;
-  grid-column: col-six / right;
-  grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: 1rem;
+  grid-column: col-one / col-twelve;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 2rem;
 `;
 
-const ProductReference = styled(ProductCard)`
-  background: transparent;
-  margin-bottom: 0;
-  p {
-    margin-bottom: 0;
-  }
+const PageReference = styled(PageCard)`
+
 `;

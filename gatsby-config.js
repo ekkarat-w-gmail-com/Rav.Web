@@ -1,4 +1,3 @@
-const { BLOCKS, MARKS, INLINES } = require('@contentful/rich-text-types')
 const get = require('lodash/fp/get');
 
 let activeEnv = process.env.ACTIVE_ENV || process.env.NODE_ENV || 'development'
@@ -46,17 +45,6 @@ module.exports = {
       options: {
         spaceId: `${process.env.CONTENTFUL_SPACE_ID}`,
         accessToken: `${process.env.CONTENTFUL_ACCESS_TOKEN}`,
-      }
-    },
-    {
-      resolve: `@contentful/gatsby-transformer-contentful-richtext`,
-      options: {
-        renderOptions: {          
-          renderMark: {
-            [MARKS.BOLD]: text => `<strong>${text}</strong>`,
-            [MARKS.ITALIC]: text => `<em>${text}<em>`,
-          },
-        }
       }
     }
   ],

@@ -50,9 +50,7 @@ export const query = graphql`
       label
 
       content {
-        childContentfulRichText {
-          html
-        }
+        json
       }
 
       media {
@@ -94,8 +92,14 @@ export const query = graphql`
         ... on ContentfulPage {
           id
           title
+          label
           excerpt {
             excerpt
+          }
+          featuredMedia {
+            fixed(width: 1024, height: 682, quality: 100, resizingBehavior: THUMB) {
+              src
+            }
           }
           slug
           internal {

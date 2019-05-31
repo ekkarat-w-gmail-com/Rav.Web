@@ -35,3 +35,9 @@ export const renameKeys = (object: Object, newKeys: Object): Object => {
   });
   return Object.assign({}, ...keyValues);
 }
+
+export const createMarkup = (html: string) => ({ __html: html });
+
+export const createRichMarkup = (json: string) => {
+  
+}
