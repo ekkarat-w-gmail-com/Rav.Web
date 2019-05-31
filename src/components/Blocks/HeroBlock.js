@@ -15,13 +15,14 @@ import { getRouteByType } from '../../utils/routes';
 // Types
 import type { Block, BlockReference } from '../../types/block';
 type Props = {
-  block: Block
+  block: Block,
+  className?: string
 }
 
 const createMarkup = (html: string) => ({ __html: html });
 
 
-export const HeroBlock = ({ block }: Props) => {
+export const HeroBlock = ({ block, className }: Props) => {
 
   const fileContentType = block.media.file.contentType;
 
@@ -49,7 +50,7 @@ export const HeroBlock = ({ block }: Props) => {
   }, block.references);
 
   return (
-    <Hero>
+    <Hero className={className}>
       <Content>
         {block.title && <HeroTitle>{block.title}</HeroTitle>}
         {htmlContent && <HeroBody dangerouslySetInnerHTML={htmlContent} />}

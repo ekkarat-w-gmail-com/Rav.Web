@@ -3,8 +3,7 @@ import React from 'react'
 import { get } from 'lodash/fp';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { graphql } from 'gatsby';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-
+import styled from 'styled-components';
 
 // Utils
 import { createMarkupFromDocument } from '../utils/content';
@@ -45,16 +44,40 @@ const PageTemplate = ({ data, intl }: Props) => {
 
   return (
     <Layout>
-      <HeroBlock block={heroBlock} />
-      <BodyContent>
-        {content}
-      </BodyContent>
+      <GridWrap>
+        <StyledHeroBlock block={heroBlock} />
+        <StyledBodyContent>
+          {content}
+        </StyledBodyContent>
+      </GridWrap>
     </Layout>
   )
 }
 
 
 export default injectIntl(PageTemplate);
+
+const StyledHeroBlock = styled(HeroBlock)`
+  grid-column: left / right-end;
+  margin-bottom: 6rem;
+`;
+
+const StyledBodyContent = styled(BodyContent)`
+  grid-column: col-two / col-eleven;
+
+  > p:first-child {
+    display: block;
+    font-size: 28px;
+    line-height: 36px;
+    text-align: center;
+  }
+
+  > *:not(img) {
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+`;
 
 export const query = graphql`
   query regularPage($slug: String!) {
