@@ -21,8 +21,6 @@ type Props = {
   block: Block
 }
 
-const createMarkup = (html: string) => ({ __html: html });
-
 export const PagesBlock = ({ block }: Props) => {
 
   const references = map((page) => {

@@ -53,9 +53,7 @@ export type Block = {
   title: string,
   label?: string,
   content?: {
-    childContentfulRichText: {
-      html: string
-    }
+    json: Array<Object> | Object
   },
   media: {
     file: {

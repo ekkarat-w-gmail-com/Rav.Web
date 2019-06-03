@@ -13,6 +13,7 @@ import { ProductCard } from '../Cards/ProductCard';
 import { fixedAspectRatio } from '../../styling/mixins';
 import { isImage, isVideo } from '../../utils/media';
 import { getRouteByType } from '../../utils/routes';
+import { createMarkupFromDocument } from '../../utils/content';
 
 // Types
 import type { Block, BlockReferenceProduct } from '../../types/block';
@@ -20,11 +21,9 @@ type Props = {
   block: Block
 }
 
-const createMarkup = (html: string) => ({ __html: html });
-
 export const ProductsBlock = ({ block }: Props) => {
 
-  const htmlContent = createMarkup(block.content.childContentfulRichText.html);
+  const htmlContent = block.content && createMarkupFromDocument(block.content.json);
 
   const cards = map((product: BlockReferenceProduct) => {
     const slugPrefix = getRouteByType(product.internal.type);
@@ -44,7 +43,7 @@ export const ProductsBlock = ({ block }: Props) => {
       <Content>
         {block.label && <Label as={'h3'}>{block.label}</Label>}
         {block.title && <Title>{block.title}</Title>}
-        {htmlContent && <Body dangerouslySetInnerHTML={htmlContent} />}
+        {htmlContent && <Body>{htmlContent}</Body>}
       </Content>
       <ProductCards>
         {cards}

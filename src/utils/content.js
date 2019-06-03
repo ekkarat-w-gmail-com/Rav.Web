@@ -6,13 +6,16 @@ import { BLOCKS } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 // Styles
-import { BodyCopy, Paragon, Trafalgar, DoublePica } from '../styling/typography';
+import { BodyCopy, Paragon, Trafalgar, DoublePica, GreatPrimer } from '../styling/typography';
 
 // Custom Styles
 const CustomH1 = styled(Trafalgar)``;
-const CustomH2 = styled(Paragon)``;
-const CustomH3 = styled(DoublePica)`
-  margin-top: 2rem;
+const CustomH2 = styled(Paragon)`
+  margin-top: 3rem;
+  margin-bottom: 0.5rem;
+`;
+const CustomH3 = styled(GreatPrimer)`
+  margin-top: 1.5rem;
   margin-bottom: 0.5rem;
 `;
 
@@ -64,7 +67,7 @@ const DEFAULT_OPTIONS = {
   }
 };
 
-export const createMarkupFromDocument = (json: string, options: Object) => {
+export const createMarkupFromDocument = (json: Array<Object> | Object, options: Object) => {
   const config = merge(DEFAULT_OPTIONS, options);
   return documentToReactComponents(json, config);
 };

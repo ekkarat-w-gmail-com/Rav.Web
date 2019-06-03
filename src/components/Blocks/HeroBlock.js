@@ -11,6 +11,7 @@ import { Canon } from '../../styling/typography';
 import { fixedAspectRatio } from '../../styling/mixins';
 import { isImage, isVideo } from '../../utils/media';
 import { getRouteByType } from '../../utils/routes';
+import { createMarkupFromDocument } from '../../utils/content';
 
 // Types
 import type { Block, BlockReference } from '../../types/block';
@@ -18,9 +19,6 @@ type Props = {
   block: Block,
   className?: string
 }
-
-const createMarkup = (html: string) => ({ __html: html });
-
 
 export const HeroBlock = ({ block, className }: Props) => {
 
@@ -40,7 +38,7 @@ export const HeroBlock = ({ block, className }: Props) => {
     </ImageContainer>
   ) : null;
 
-  const htmlContent = block.content && createMarkup(block.content.childContentfulRichText.html);
+  const htmlContent = block.content && createMarkupFromDocument(block.content.json);
 
   const references = map((reference: BlockReference) => {
     const slugPrefix = getRouteByType(reference.internal.type);
@@ -53,7 +51,7 @@ export const HeroBlock = ({ block, className }: Props) => {
     <Hero className={className}>
       <Content>
         {block.title && <HeroTitle>{block.title}</HeroTitle>}
-        {htmlContent && <HeroBody dangerouslySetInnerHTML={htmlContent} />}
+        {htmlContent && <HeroBody>{htmlContent}</HeroBody>}
         {!isEmpty(references) ? <HeroActions>{references}</HeroActions> : null}
       </Content>
       {video}
